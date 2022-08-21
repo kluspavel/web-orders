@@ -1,0 +1,5 @@
+services:
+	- App\Router\RouterFactory::createRouter
+	- Authenticator
+	- App\Model\Service\UserService
+	
