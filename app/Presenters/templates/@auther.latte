@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Favicon icon-->
+  <link rel="shortcut icon" type="image/x-icon" href="{$basePath}/images/favicon/favicon.ico">
+
+  <!-- Libs CSS -->
+  <link href="{$basePath}/libs/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="{$basePath}/libs/dropzone/dist/dropzone.css"  rel="stylesheet">
+  <link href="{$basePath}/libs/@mdi/font/css/materialdesignicons.min.css" rel="stylesheet" />
+  <link href="{$basePath}/libs/prismjs/themes/prism-okaidia.css" rel="stylesheet">
+
+  <!-- Theme CSS -->
+  <link rel="stylesheet" href="{$basePath}/css/theme.min.css">
+  <title>Zakázky | Orders - Bootstrap 5 Template</title>
+</head>
+
+<body class="bg-light">
+  <!-- container -->
+  <div class="container d-flex flex-column">
+    <div class="row align-items-center justify-content-center g-0 min-vh-100">
+      <div class="col-12 col-md-8 col-lg-6 col-xxl-4 py-8 py-xl-0">
+        <!-- Card -->
+        <div class="card smooth-shadow-md">
+          <!-- Card body -->
+          <div class="card-body p-6">
+            <div class="mb-4 text-center">
+              <a href="../index.html"><img src="{$basePath}/images/brand/logo/conti-orders.svg" width="250" class="mb-2" alt=""></a>
+              <p class="mb-2">Přihlášení do zakázkového systému.</p>
+            </div>
+            <!-- Form -->
+            <form>
+              <!-- Username -->
+              <div class="mb-3">
+                <label for="uid" class="form-label">Uživatelské ID</label>
+                <input type="test" id="uid" class="form-control" name="uid" placeholder="Vyplntě uživatelksé ID" value="{getenv('USERNAME')}" required="">
+              </div>
+              <!-- Password -->
+              <div class="mb-3">
+                <label for="password" class="form-label">Heslo</label>
+                <input type="password" id="password" class="form-control" name="password" placeholder="Vyplntě heslo" required="">
+              </div>
+              <!-- Checkbox -->
+              <div class="d-lg-flex justify-content-between align-items-center
+                  mb-4">
+                <div class="form-check custom-checkbox">
+                  <input type="checkbox" class="form-check-input" id="rememberme">
+                  <label class="form-check-label" for="rememberme">Pamatova si to</label>
+                </div>
+
+              </div>
+              <div>
+                <!-- Button -->
+                <div class="d-grid">
+                  <button type="submit" class="btn btn-primary">Přihlásit se</button>
+                </div>
+
+                <div class="d-md-flex justify-content-between mt-4">
+                  <div class="mb-2 mb-md-0">
+                    <a href="sign-up.html" class="fs-5">Vytvořit účet</a>
+                  </div>
+                  <div>
+                    <a href="forget-password.html" class="text-inherit
+                        fs-5">Zapoměli ste heslo?</a>
+                  </div>
+
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Scripts -->
+  <!-- Libs JS -->
+<script src="{$basePath}/libs/jquery/dist/jquery.min.js"></script>
+<script src="{$basePath}/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{$basePath}/libs/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<script src="{$basePath}/libs/feather-icons/dist/feather.min.js"></script>
+<script src="{$basePath}/libs/prismjs/prism.js"></script>
+<script src="{$basePath}/libs/apexcharts/dist/apexcharts.min.js"></script>
+<script src="{$basePath}/libs/dropzone/dist/min/dropzone.min.js"></script>
+<script src="{$basePath}/libs/prismjs/plugins/toolbar/prism-toolbar.min.js"></script>
+<script src="{$basePath}/libs/prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
+
+<!-- Theme JS -->
+<script src="{$basePath}/js/theme.min.js"></script>
+</body>
+
+</html>

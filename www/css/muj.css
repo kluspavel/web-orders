@@ -1,0 +1,25 @@
+.montse { font-family: 'Montserrat', sans-serif; }
+.roboto { font-family: 'Roboto Slab', serif; }
+.play { font-family: 'Play', sans-serif; }
+.ubuntu { font-family: 'Ubuntu Condensed', sans-serif; }
+.jura { font-family: 'Jura', sans-serif; }
+.ruslan { font-family: 'Ruslan Display', cursive; }
+.underdog { font-family: 'Underdog', cursive; }
+.amatic { font-family: 'Amatic SC', cursive; }
+
+.bg-sidebar { background: #3d68ff; }
+.cta-btn { color: #3d68ff; }
+.upgrade-btn { background: #1947ee; }
+.upgrade-btn:hover { background: #ee5700; }
+.active-nav-link { background: #ee5700; color: white; opacity: 1;}
+.nav-item:hover { background: #c28812; }
+.account-link:hover { background: #3d68ff; }
+
+.bg-orders
+{
+    background-image: url("../img/bg/inquuiry.png");
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover; /* Resize the background image to cover the entire container */
+}
+
