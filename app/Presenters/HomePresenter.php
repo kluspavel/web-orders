@@ -2,8 +2,10 @@
 
 namespace App\Presenters;
 
+use Nette\Security\AuthenticationException;
 use App\Model\Entity\User;
 use App\Model\Service\UserService;
+use Nette\Application\UI\Form;
 
 final class HomePresenter extends BasePresenter
 {
@@ -12,6 +14,17 @@ final class HomePresenter extends BasePresenter
     public function __construct(UserService $us)
     {
         $this->us = $us;
+    }
+
+    public function startup()
+    {
+        parent::startup();
+
+        if ($this->getUser()->isLoggedIn() === false && $this->getAction() !== 'signIn') 
+        {
+            $this->flashMessage('Tato sekce není přístupná bez přihlášení!');
+            $this->redirect('signIn');
+        } 
     }
 
     public function actionDefault()
@@ -39,5 +52,32 @@ final class HomePresenter extends BasePresenter
     public function actionSignOut()
     {
         $this->getUser()->logout(true);
+    }
+
+    protected function createComponentSignInForm(): Form
+    {
+        $form = new Form();
+        $form->addText('username', 'Uživatelské ID');
+        $form->addPassword('password', 'Vaše heslo');
+        $form->addSubmit('send', 'Přihlásit se');
+        $form->onSuccess[] = [$this, 'signInFormSuccess'];
+        return $form;
+    }
+
+    public function signInFormSuccess(Form $form)
+    {
+        $values = $form->getValues();
+
+        try 
+        {
+            $this->getUser()->login($values->username, $values->password);
+        } 
+        catch (AuthenticationException $e) 
+        {
+            $this->flashMessage($e->getMessage(), 'danger');
+            $this->redirect('signIn');
+        }
+
+        $this->redirect('orders');
     }
 }

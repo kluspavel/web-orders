@@ -28,7 +28,8 @@ class UserService
 	public function findUserByUserName(string $username): ?User
 	{
 		//$user = $this->em->getRepository(User::class)->findOneBy(['username' => $username]);
-		$user = $this->em->getRepository(User::class)->findOneByUserName($username);
+		//$user = $this->em->getRepository(User::class)->findOneBy(['username' => $username]);
+		$user = $this->em->getRepository(User::class)->findOneByUsername($username);
 		return $user;
 	}
 

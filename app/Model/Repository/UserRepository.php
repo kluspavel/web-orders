@@ -16,7 +16,7 @@ class UserRepository extends Repository
 		return $this->findOneBy(['email' => $email]);
 	}
 
-	public function findOneByUserName(string $username): ?User
+	public function findOneByUsername(string $username): ?User
 	{
 		return $this->findOneBy(['username' => $username]);
 	}

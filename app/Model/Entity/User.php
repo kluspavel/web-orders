@@ -85,12 +85,12 @@ class User extends Entity
     //--------------------------------------------------------------------------------------------------------
     // GET SET username
     //--------------------------------------------------------------------------------------------------------
-    public function getUsername(): string
+    public function getUserName(): string
     {
         return $this->username;
     }
     //--------------------------------------------------------------------------------------------------------
-    public function setUsername(string $username): void
+    public function setUserName(string $username): void
     {
         $this->username = $username;
     }
