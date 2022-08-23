@@ -1,62 +1,121 @@
 <!doctype html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.tailwindcss.com" rel="stylesheet">
-
-	<title>{ifset title}{include title|stripHtml} | {/ifset}Nette Web</title>
-   
-	<link rel="stylesheet" href="{$basePath}/css/min.css">
-	<link rel="stylesheet" href="{$basePath}/css/muj.css">
-	<link rel="stylesheet" href="{$basePath}/css/tmc.css">
-
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css2?family=Ubuntu+Condensed&display=swap" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css2?family=Jura:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css2?family=Ruslan+Display&display=swap" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css2?family=Underdog&display=swap" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{$basePath}/css/output.css">
 </head>
-<body class="h-screen overflow-hidden flex items-center justify-center" style="background: #edf2f7;">
-    <!-- This is an example component -->
-<div class="max-w-2xl mx-auto">
-	<div class="bg-gray-800 shadow-md border border-gray-200 rounded-lg max-w-sm p-4 sm:p-6 lg:p-8 dark:bg-gray-800 dark:border-gray-700">
-		<form class="space-y-6" action="#">
-			<h3 class="text-xl font-medium text-yellow-300 text-center dark:text-white w-60">CONTI ORDERS</h3>
-			<div>
-				<label for="uid" class="text-sm font-medium text-yellow-500 block mb-2 dark:text-gray-300">Uřivatelské ID</label>
-				<input type="text" name="uid" id="uid" class="font-medium bg-gray-500 border border-gray-600 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white uppercase" placeholder="Zadejte uživatelské ID" value="{getenv('USERNAME')}" required="">
-            </div>
-				<div>
-					<label for="password" class="text-sm font-medium text-yellow-500 block mb-2 dark:text-gray-300">Vaše heslo</label>
-					<input type="password" name="password" id="password" placeholder="VLOŽTE HESLO" class="font-medium bg-gray-500 border border-gray-500 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required="">
+
+<body>
+    <div class="min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-gray-700 text-white">
+
+        <!-- HEADER -->
+        <div class="fixed w-full flex items-center justify-between h-14 text-orange-400 font-bold z-10 bg-gray-800">
+            <div class="flex item-center justify-start">
+                <div class="flex items-center justify-start md:justify-left pl-3 w-14 md:w-64 h-14 border-none">
+                    <img class="w-7 h-7 md:w-10 md:h-10 mr-2 rounded-full overflow-hidden" src="https://therminic2018.eu/wp-content/uploads/2018/07/dummy-avatar.jpg" />
+                    <span class="text-xl hidden md:block">CONTI ORDERS</span>
                 </div>
-					<div class="flex items-start">
-						<div class="flex items-start">
-							<div class="flex items-center h-5">
-								<input id="remember" aria-describedby="remember" type="checkbox" class="bg-gray-50 border border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800">
-                            </div>
-								<div class="text-sm ml-3">
-									<label for="remember" class="font-medium text-gray-300 dark:text-gray-300">Pamatuj si to</label>
-								</div>
-							</div>
-							<a href="#" class="text-sm text-blue-300 hover:underline ml-auto dark:text-blue-500">Zapomenuté heslo?</a>
-						</div>
-						<button type="submit" class="w-full text-white bg-yellow-600 hover:bg-yellow-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Přihlásit se</button>
-						<div class="text-sm font-medium text-gray-300 dark:text-gray-100">
-							Nejste registrován? <a href="#" class="text-blue-300 hover:underline dark:text-blue-500">Vytvořit účet</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</form>
-	</div>
-</div>
+                <div class="flex items-center justify-left pl-3 h-14 border-none">
+                    
+                </div>
+            </div>
+            <div class="flex justify-between items-center h-14 bg-gray-800  header-right">
+                <ul class="flex items-center">
+                    <li>
+                        <div class="block w-px h-6 mx-3 bg-gray-400 dark:bg-gray-700"></div>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center mr-4 hover:text-blue-100">
+                        <span class="inline-flex mr-2">
+                        <img class="w-5 h-5" fill="none" src ="{$basePath}/img/icons/login.png" alt="login"/>
+                        </span>
+                        Login
+                    </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- ./HEADER -->
+
+        <!-- SIDEBAR -->
+        <div class="fixed flex flex-col top-14 left-0 w-14 hover:w-64 md:w-64 bg-gray-900 h-full text-white transition-all duration-300 border-none z-10 sidebar">
+            <div class="overflow-y-auto overflow-x-hidden flex flex-col justify-between flex-grow">
+                <ul class="flex flex-col py-4 space-y-1">
+                    <li class="px-5 hidden md:block">
+                        <div class="flex flex-row items-center h-8">
+                            <div class="text-sm font-light tracking-wide text-gray-400 uppercase">Hlavní</div>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6">
+                            <img class="inline-flex justify-center items-center ml-4 w-5 h-5" src ="{$basePath}/img/icons/dashboard.png" alt="login"/>
+                            <span class="ml-2 text-sm tracking-wide truncate">Přehledy</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6">
+                            <img class="inline-flex justify-center items-center ml-4 w-5 h-5" fill="none" src ="{$basePath}/img/icons/inquirys.png" alt="login"/>
+                            <span class="ml-2 text-sm tracking-wide truncate">Poptávky</span>
+                            <span class="hidden md:block px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-blue-500 bg-indigo-50 rounded-full">0</span>
+                        </a>
+                    </li>
+                    <li>
+                            <a href="#" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6">
+                            <img class="inline-flex justify-center items-center ml-4 w-5 h-5" fill="none" src ="{$basePath}/img/icons/orders.png" alt="login"/>
+                            <span class="ml-2 text-sm tracking-wide truncate">Zakázky</span>
+                            <span class="hidden md:block px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-blue-500 bg-indigo-50 rounded-full">0</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6">
+                            <img class="inline-flex justify-center items-center ml-4 w-5 h-5" fill="none" src ="{$basePath}/img/icons/orders.png" alt="login"/>
+                            <span class="ml-2 text-sm tracking-wide truncate">Požadavky</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6">
+                            <img class="inline-flex justify-center items-center ml-4 w-5 h-5" fill="none" src ="{$basePath}/img/icons/orders.png" alt="login"/>
+                            <span class="ml-2 text-sm tracking-wide truncate">Denní plány</span>
+                        </a>
+                    </li>
+                    <li class="px-5 hidden md:block">
+                        <div class="flex flex-row items-center mt-2 h-8">
+                            <div class="text-sm font-light tracking-wide text-gray-400 uppercase">Nastavení</div>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6">
+                            <img class="inline-flex justify-center items-center ml-4 w-5 h-5" src="{$basePath}/img/icons/anonymous.png"/>
+                            <span class="ml-2 text-sm tracking-wide truncate">Můj profil</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6">
+                            <img class="nline-flex justify-center items-center ml-4 w-5 h-5 fill="none" src ="{$basePath}/img/icons/users.png"/>
+                            <span class="ml-2 text-sm tracking-wide truncate">Uživatelé</span>
+                            <span class="hidden md:block px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-red-500 bg-red-50 rounded-full">0</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6">
+                            <img class="inline-flex justify-center items-center ml-4 w-5 h-5" fill="none" src ="{$basePath}/img/icons/settings.png"/>
+                            <span class="ml-2 text-sm tracking-wide truncate">Nastavení</span>
+                        </a>
+                    </li>
+                </ul>
+            <p class="mb-14 px-5 py-3 hidden md:block text-center text-xs">Copyright @2022</p>
+            </div>
+        </div>
+        <!-- ./SIDEBAR -->
+
+        <!-- CONTENT -->
+        <div class="h-full ml-14 mt-14 mb-10 md:ml-64">
+    
+          {include content}
+
+        </div>
+        <!-- ./CONTENT -->
+
+    </div>
 </body>
-</html>

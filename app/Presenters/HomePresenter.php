@@ -33,11 +33,11 @@ final class HomePresenter extends BasePresenter
 
     public function actionSignIn()
     {
-        $this->setLayout('signin');
+        $this->setLayout('orders');
     }
 
     public function actionSignOut()
     {
-        
+        $this->getUser()->logout(true);
     }
 }
