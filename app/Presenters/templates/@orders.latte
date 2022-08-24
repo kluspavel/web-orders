@@ -4,17 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{$basePath}/css/output.css">
+    <link rel="stylesheet" href="{$basePath}/css/style.css">
 </head>
 
-<body>
+<body class="readex">
     <div class="min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-gray-700 text-white">
 
         <!-- HEADER -->
         <div class="fixed w-full flex items-center justify-between h-14 text-orange-400 font-bold z-10 bg-gray-800">
             <div class="flex item-center justify-start">
                 <div class="flex items-center justify-start md:justify-left pl-3 w-14 md:w-64 h-14 border-none">
-                    <img class="w-7 h-7 md:w-10 md:h-10 mr-2 rounded-full overflow-hidden" src="https://therminic2018.eu/wp-content/uploads/2018/07/dummy-avatar.jpg" />
-                    <span class="text-xl hidden md:block">CONTI ORDERS</span>
+                    <img class="w-7 h-7 md:w-10 md:h-10 mr-3 rounded-full overflow-hidden" src="https://therminic2018.eu/wp-content/uploads/2018/07/dummy-avatar.jpg" />
+                    <div class="flex flex-col text-gray-300">
+                        <span class="text-md hidden md:block">CONTI ORDERS</span>
+                        <span class="text-sm hidden md:block">Zakázkový systém</span>
+                    </div>
                 </div>
                 <div class="flex items-center justify-left pl-3 h-14 border-none">
                     
@@ -27,7 +31,7 @@
                     </li>
                     {if !$user->isLoggedIn()}
                     <li>
-                        <a n:href="Home:SignIn" class="flex items-center mr-4 hover:text-blue-100">
+                        <a n:href="Auth:SignIn" class="flex items-center mr-4 hover:text-blue-100">
                             <span class="inline-flex mr-2">
                                 <img class="w-5 h-5" fill="none" src ="{$basePath}/img/icons/login.png"/>
                             </span>
@@ -36,7 +40,7 @@
                     </li>
                     {else}
                     <li>
-                        <a n:href="Home:SignOut" class="flex items-center mr-4 hover:text-blue-100">
+                        <a n:href="Auth:SignOut" class="flex items-center mr-4 hover:text-blue-100">
                             <span class="inline-flex mr-2">
                                 <img class="w-5 h-5" fill="none" src ="{$basePath}/img/icons/login.png"/>
                             </span>
@@ -58,14 +62,13 @@
                             <div class="text-sm font-light tracking-wide text-gray-400 uppercase">Hlavní</div>
                         </div>
                     </li>
-                    {if !$user->isLoggedIn()}
                     <li>
-                        <a href="#" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6">
+                        <a n:href="Home:overview" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6">
                             <img class="inline-flex justify-center items-center ml-4 w-5 h-5" src ="{$basePath}/img/icons/dashboard.png"/>
                             <span class="ml-2 text-sm tracking-wide truncate">Přehledy</span>
                         </a>
                     </li>
-                    {else}
+                    {if $user->isLoggedIn()}
                     <li>
                         <a href="#" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6">
                             <img class="inline-flex justify-center items-center ml-4 w-5 h-5" fill="none" src ="{$basePath}/img/icons/inquirys.png"/>
@@ -125,6 +128,16 @@
 
         <!-- CONTENT -->
         <div class="h-full ml-14 mt-14 mb-10 md:ml-64">
+
+        {if $flashes}
+			   <div class="flex flex-col w-full montse">
+				   <div class="p-2 bg-red-200">
+					   {foreach $flashes as $flash}
+						   {$flash->message}
+					   {/foreach}
+				   </div>
+			   </div>
+		   {/if}
     
         {include content}
 

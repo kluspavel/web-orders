@@ -28,13 +28,74 @@ class UserService
 	public function findUserByUserName(string $username): ?User
 	{
 		//$user = $this->em->getRepository(User::class)->findOneBy(['username' => $username]);
-		$user = $this->em->getRepository(User::class)->findOneByUserName($username);
+		$user = $this->em->getRepository(User::class)->findOneByUsername($username);
 		return $user;
 	}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	//----------------------------------------------------------------------------------------------------------------
+	public function getUserCount(): int
+	{
+		$userOnlineCount = $this->getOnlineUserCount();
+		$userOfflineCount = $this->getOfflineUserCount();
+		$userCount = $userOnlineCount + $userOfflineCount;
+		return $userCount;
+	}
+	//----------------------------------------------------------------------------------------------------------------
+	public function getOnlineUserCount(): int
+	{
+		$userCount = $this->em->getRepository(User::class)->count(array('online' => '1'));
+
+		return $userCount;
+	}
+	//----------------------------------------------------------------------------------------------------------------
+	public function getOfflineUserCount(): int
+	{
+		$userCount = $this->em->getRepository(User::class)->count(array('online' => '0'));
+
+		return $userCount;
+	}
+	//----------------------------------------------------------------------------------------------------------------
+	public function getUserCountText(int $count): string
+	{
+		$text = '0';
+
+		if ($count === 1) 
+        {
+            $text = 'uživatel';
+        }
+        else if ($count >= 2 && $count <= 4) 
+        {
+            $text = 'uživatelé';
+        }
+        else 
+        {
+            $text = 'uživatelů';
+        }
+
+		return $text;
+	}
+	//----------------------------------------------------------------------------------------------------------------
 	public function fluschUser($user): void
 	{
 		$this->em->persist($user);
 		$this->em->flush();
 	}
+	//----------------------------------------------------------------------------------------------------------------
 }

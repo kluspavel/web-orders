@@ -19,9 +19,10 @@ class User extends Entity
     //--------------------------------------------------------------------------------------------------------
 	public const STATE_FRESH = 1;
 	public const STATE_ACTIVATED = 2;
-	public const STATE_BLOCKED = 3;
+	public const STATE_AUTOLOGIN = 3;
+	public const STATE_BLOCKED = 4;
     //--------------------------------------------------------------------------------------------------------
-	public const STATES = [self::STATE_FRESH, self::STATE_BLOCKED, self::STATE_ACTIVATED];
+	public const STATES = [self::STATE_FRESH, self::STATE_BLOCKED, self::STATE_ACTIVATED, self::STATE_AUTOLOGIN];
     //--------------------------------------------------------------------------------------------------------
 	use TraitId;
 	//--------------------------------------------------------------------------------------------------------
@@ -38,25 +39,25 @@ class User extends Entity
 	private $role;
     //--------------------------------------------------------------------------------------------------------
     #[ORM\Column(type: 'string', length: 20)]
-    public string $rights;
+    private string $rights;
     //--------------------------------------------------------------------------------------------------------
     #[ORM\Column(type: 'string', length: 32)]
-    public string $types;
+    private string $types;
     //--------------------------------------------------------------------------------------------------------
     #[ORM\Column(type: 'integer', length: 10, nullable: false)]
 	private $state;
     //--------------------------------------------------------------------------------------------------------
     #[ORM\Column(type: 'string', length: 32, nullable: true)]
-    public ?string $firstname;
+    private ?string $firstname;
     //--------------------------------------------------------------------------------------------------------
 	#[ORM\Column(type: 'string', length: 32, nullable: true)]
-    public ?string $lastname;
+    private ?string $lastname;
     //--------------------------------------------------------------------------------------------------------
 	#[ORM\Column(type: 'string', length: 32, unique: true, nullable: true)]
-    public ?string $nickname;
+    private ?string $nickname;
     //--------------------------------------------------------------------------------------------------------
     #[ORM\Column(type: 'boolean')]
-    public bool $online = false;
+    private bool $online = false;
     //--------------------------------------------------------------------------------------------------------
     #[ORM\Column(type: 'datetime', nullable: true)]
 	private $lastLoggedAt;
@@ -85,12 +86,12 @@ class User extends Entity
     //--------------------------------------------------------------------------------------------------------
     // GET SET username
     //--------------------------------------------------------------------------------------------------------
-    public function getUsername(): string
+    public function getUserName(): string
     {
         return $this->username;
     }
     //--------------------------------------------------------------------------------------------------------
-    public function setUsername(string $username): void
+    public function setUserName(string $username): void
     {
         $this->username = $username;
     }
@@ -106,6 +107,30 @@ class User extends Entity
 	{
 		$this->password = $password !== '' ? (new Passwords)->hash($password) : '---empty-password---';
 	}
+	//--------------------------------------------------------------------------------------------------------
+    // GET SET role
+    //--------------------------------------------------------------------------------------------------------
+    public function getRole(): string
+    {
+        return $this->role;
+    }
+    //--------------------------------------------------------------------------------------------------------
+    public function setRole(string $role): void
+    {
+        $this->role = $role;
+    }
+	//--------------------------------------------------------------------------------------------------------
+    // GET SET state
+    //--------------------------------------------------------------------------------------------------------
+    public function getState(): int
+    {
+        return $this->state;
+    }
+    //--------------------------------------------------------------------------------------------------------
+    public function setState(string $state): void
+    {
+        $this->state = $state;
+    }
 
 
     /*
