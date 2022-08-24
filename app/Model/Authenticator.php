@@ -12,7 +12,6 @@ class Authenticator implements \Nette\Security\Authenticator
 	{
 		// 1. podívej se do databáze, existuje záznam pro $username? Pokud ne, vyhoď výjimku.
 		$user = $this->userService->findUserByUserName($username);
-		
 
 		if ($user === null)
 			throw new \Nette\Security\AuthenticationException('User not found.');
