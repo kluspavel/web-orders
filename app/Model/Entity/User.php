@@ -127,10 +127,62 @@ class User extends Entity
         return $this->state;
     }
     //--------------------------------------------------------------------------------------------------------
-    public function setState(string $state): void
+    public function setState(int $state): void
     {
-        $this->state = $state;
+        if (in_array($state, self::STATES)) 
+		{
+			$this->state = $state;
+		}
     }
+
+
+
+
+
+
+
+
+	public function changeLoggedAt(): void
+	{
+		$this->lastLoggedAt = new DateTime();
+	}
+
+	public function getLastLoggedAt(): ?DateTime
+	{
+		return $this->lastLoggedAt;
+	}
+
+	public function isActivated(): bool
+	{
+		return $this->state === self::STATE_ACTIVATED || $this->state === self::STATE_AUTOLOGIN;
+	}
+
+	public function activate(): void
+	{
+		$this->state = self::STATE_ACTIVATED;
+	}
+
+	public function reName(string $firstname, string $lastname): void
+	{
+		$this->firstname = $firstname;
+		$this->lastname = $lastname;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     /*
