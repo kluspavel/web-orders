@@ -49,10 +49,13 @@ final class AuthPresenter extends BasePresenter
             $username = getenv('USERNAME');
             $user = $this->us->findUserByUserName($username);
 
-            if ($user->getState() == $user::STATE_AUTOLOGIN) 
+            if ($user !== null) 
             {
-                $this->getUser()->login($user->getUserName(), $user->getPassword(), true);
-                $this->redirect('Home:overview');
+                if ($user->getState() == $user::STATE_AUTOLOGIN) 
+                {
+                    $this->getUser()->login($user->getUserName(), $user->getPassword(), true);
+                    $this->redirect('Home:overview');
+                }
             }
         }
 
