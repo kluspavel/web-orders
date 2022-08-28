@@ -5,6 +5,7 @@ namespace App\Model\Entity;
 use App\Model\Entity\Attributes\TraitCreatedAt;
 use App\Model\Entity\Attributes\TraitId;
 use App\Model\Entity\Attributes\TraitUpdatedAt;
+use DateTime as GlobalDateTime;
 use Nette\Security\Passwords;
 use Nette\Utils\DateTime;
 use Doctrine\ORM\Mapping as ORM;
@@ -61,6 +62,21 @@ class User extends Entity
     //--------------------------------------------------------------------------------------------------------
     #[ORM\Column(type: 'datetime', nullable: true)]
 	private $lastLoggedAt;
+	//--------------------------------------------------------------------------------------------------------
+    #[ORM\Column(type: 'string', length: 32, nullable: true)]
+    private string $telephone;
+	//--------------------------------------------------------------------------------------------------------
+    #[ORM\Column(type: 'string', length: 32, nullable: true)]
+    private string $mobileOne;
+	//--------------------------------------------------------------------------------------------------------
+    #[ORM\Column(type: 'string', length: 32, nullable: true)]
+    private string $mobileTwo;
+	//--------------------------------------------------------------------------------------------------------
+    #[ORM\Column(type: 'string', length: 256, nullable: true)]
+    private string $workPosition;
+	//--------------------------------------------------------------------------------------------------------
+    #[ORM\Column(type: 'text', length: 2000, nullable: true)]
+    private string $note;
     //--------------------------------------------------------------------------------------------------------
     use TraitCreatedAt;
 	use TraitUpdatedAt;
@@ -147,7 +163,7 @@ class User extends Entity
 		$this->lastLoggedAt = new DateTime();
 	}
 
-	public function getLastLoggedAt(): ?DateTime
+	public function getLastLoggedAt(): GlobalDateTime
 	{
 		return $this->lastLoggedAt;
 	}
@@ -171,8 +187,36 @@ class User extends Entity
 
 
 
-
-
+//--------------------------------------------------------------------------------------------------------
+	public function getFullname(): string
+	{
+		return $this->firstname . ' ' . $this->lastname;
+	}
+	//--------------------------------------------------------------------------------------------------------
+	public function getEmail(): string
+	{
+		return $this->email;
+	}
+	//--------------------------------------------------------------------------------------------------------
+	public function getTelephone(): string
+	{
+		return $this->telephone;
+	}
+	//--------------------------------------------------------------------------------------------------------
+	public function getMobileOne(): string
+	{
+		return $this->mobileOne;
+	}
+	//--------------------------------------------------------------------------------------------------------
+	public function getMobileTwo(): string
+	{
+		return $this->mobileTwo;
+	}
+	//--------------------------------------------------------------------------------------------------------
+	public function getNick(): string
+	{
+		return $this->nickname;
+	}
 
 
 
@@ -191,11 +235,7 @@ class User extends Entity
 	{
 		$this->lastLoggedAt = new DateTime();
 	}
-    //--------------------------------------------------------------------------------------------------------
-	public function getEmail(): string
-	{
-		return $this->email;
-	}
+    
     
     //--------------------------------------------------------------------------------------------------------
 	public function changeUsername(string $username): void

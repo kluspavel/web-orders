@@ -15,7 +15,7 @@
             <div class="flex item-center justify-start">
                 <div class="flex items-center justify-start md:justify-left pl-3 w-14 md:w-64 h-14 border-none">
                     <img class="w-8 h-8 md:w-10 md:h-10 mr-3 rounded-full overflow-hidden" src="https://img.icons8.com/plasticine/344/gear.png" />
-                    <div class="flex flex-col text-gray-300">
+                    <div class="flex flex-col text-orange-300">
                         <span class="text-md hidden md:block">ORDERS</span>
                         <span class="text-sm hidden md:block">Zakázkový systém</span>
                     </div>
@@ -33,7 +33,7 @@
                     <li>
                         <a n:href="Auth:SignIn" class="flex items-center mr-4 hover:text-blue-100">
                             <span class="inline-flex mr-2">
-                                <img class="w-5 h-5" fill="none" src ="{$basePath}/img/icons/login.png"/>
+                                <img class="w-10 h-10" fill="none" src ="https://img.icons8.com/plasticine/344/login-rounded-right.png"/>
                             </span>
                             Přihlášení
                         </a>
@@ -42,7 +42,7 @@
                     <li>
                         <a n:href="Auth:SignOut" class="flex items-center mr-4 hover:text-blue-100">
                             <span class="inline-flex mr-2">
-                                <img class="w-5 h-5" fill="none" src ="{$basePath}/img/icons/login.png"/>
+                                <img class="w-10 h-10" fill="none" src ="https://img.icons8.com/plasticine/344/logout-rounded.png"/>
                             </span>
                             Odhlásit se
                         </a>
@@ -63,7 +63,7 @@
                         </div>
                     </li>
                     <li>
-                        <a href="#" class="relative flex flex-row items-center h-12 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6">
+                        <a n:href="Home:overview" class="relative flex flex-row items-center h-12 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6">
                             <img class="w-10 rounded-full border-gray-600 bg-gray-600 border-4 ml-2" src ="https://img.icons8.com/plasticine/344/home-page.png" alt="login"/>
                             <span class="ml-2 text-sm tracking-wide truncate">Přehledy</span>
                         </a>
@@ -71,21 +71,21 @@
                     {if $user->isLoggedIn()}
                     <li>
                         <a href="#" class="relative flex flex-row items-center h-12 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6">
-                            <img class="w-10 rounded-full border-gray-600 bg-gray-600 border-4 ml-2" fill="none" src ="https://img.icons8.com/plasticine/344/book-and-pencil.png" alt="login"/>
+                            <img class="w-10 rounded-full border-gray-600 bg-gray-600 border-4 ml-2" fill="none" src ="https://img.icons8.com/plasticine/344/terms-and-conditions.png" alt="login"/>
                             <span class="ml-2 text-sm tracking-wide truncate">Poptávky</span>
                             <span class="hidden md:block px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-blue-500 bg-indigo-50 rounded-full">0</span>
                         </a>
                     </li>
                     <li>
                         <a href="#" class="relative flex flex-row items-center h-12 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6">
-                            <img class="w-10 rounded-full border-gray-600 bg-gray-600 border-4 ml-2" fill="none" src ="https://img.icons8.com/plasticine/344/book-reading.png" alt="login"/>
+                            <img class="w-10 rounded-full border-gray-600 bg-gray-600 border-4 ml-2" fill="none" src ="https://img.icons8.com/plasticine/344/books.png" alt="login"/>
                             <span class="ml-2 text-sm tracking-wide truncate">Zakázky</span>
                             <span class="hidden md:block px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-blue-500 bg-indigo-50 rounded-full">0</span>
                         </a>
                     </li>
                     <li>
                         <a href="#" class="relative flex flex-row items-center h-12 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6">
-                            <img class="w-10 rounded-full border-gray-600 bg-gray-600 border-4 ml-2" fill="none" src ="https://img.icons8.com/plasticine/344/property-time.png" alt="login"/>
+                            <img class="w-10 rounded-full border-gray-600 bg-gray-600 border-4 ml-2" fill="none" src ="https://img.icons8.com/plasticine/344/transaction-list.png" alt="login"/>
                             <span class="ml-2 text-sm tracking-wide truncate">Požadavky</span>
                         </a>
                     </li>
@@ -101,7 +101,7 @@
                         </div>
                     </li>
                     <li>
-                        <a href="#" class="relative flex flex-row items-center h-12 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6">
+                        <a n:href="User:profile $user->getId()" class="relative flex flex-row items-center h-12 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6">
                             <img class="w-10 rounded-full border-gray-600 bg-gray-600 border-4 ml-2" src="https://img.icons8.com/plasticine/344/contract-job.png"/>
                             <span class="ml-2 text-sm tracking-wide truncate">Můj profil</span>
                         </a>
