@@ -8,7 +8,9 @@ use App\Model\Entity\Attributes\TraitUpdatedAt;
 use DateTime as GlobalDateTime;
 use Nette\Security\Passwords;
 use Nette\Utils\DateTime;
+use Nette\Security\IIdentity;
 use Doctrine\ORM\Mapping as ORM;
+use Nette\Security\SimpleIdentity;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'users')]
@@ -63,20 +65,23 @@ class User extends Entity
     #[ORM\Column(type: 'datetime', nullable: true)]
 	private $lastLoggedAt;
 	//--------------------------------------------------------------------------------------------------------
-    #[ORM\Column(type: 'string', length: 32, nullable: true)]
-    private string $telephone;
+    #[ORM\Column(type: 'string', length: 32, nullable: false)]
+    private ?string $telephone;
 	//--------------------------------------------------------------------------------------------------------
-    #[ORM\Column(type: 'string', length: 32, nullable: true)]
-    private string $mobileOne;
+    #[ORM\Column(type: 'string', length: 32, nullable: false)]
+    private ?string $mobileOne;
 	//--------------------------------------------------------------------------------------------------------
-    #[ORM\Column(type: 'string', length: 32, nullable: true)]
-    private string $mobileTwo;
+    #[ORM\Column(type: 'string', length: 32, nullable: false)]
+    private ?string $mobileTwo;
 	//--------------------------------------------------------------------------------------------------------
-    #[ORM\Column(type: 'string', length: 256, nullable: true)]
-    private string $workPosition;
+    #[ORM\Column(type: 'string', length: 256, nullable: false)]
+    private ?string $workPosition;
 	//--------------------------------------------------------------------------------------------------------
-    #[ORM\Column(type: 'text', length: 2000, nullable: true)]
-    private string $note;
+    #[ORM\Column(type: 'text', length: 2000, nullable: false)]
+    private ?string $note;
+	//--------------------------------------------------------------------------------------------------------
+    #[ORM\Column(type: 'string', length: 256, nullable: false)]
+    private ?string $avatar;
     //--------------------------------------------------------------------------------------------------------
     use TraitCreatedAt;
 	use TraitUpdatedAt;
@@ -111,6 +116,11 @@ class User extends Entity
     {
         $this->username = $username;
     }
+	//--------------------------------------------------------------------------------------------------------
+	public function changeUsername(string $username): void
+	{
+		$this->setUserName($username);
+	}
     //--------------------------------------------------------------------------------------------------------
     // GET SET password
     //--------------------------------------------------------------------------------------------------------
@@ -122,6 +132,23 @@ class User extends Entity
 	public function setPassword(string $password): void
 	{
 		$this->password = $password !== '' ? (new Passwords)->hash($password) : '---empty-password---';
+	}
+	//--------------------------------------------------------------------------------------------------------
+	public function changePassword(string $password): void
+	{
+		$this->password = $password;
+	}
+	//--------------------------------------------------------------------------------------------------------
+    // GET SET email
+    //--------------------------------------------------------------------------------------------------------
+	public function getEmail(): string
+	{
+		return $this->email;
+	}
+	//--------------------------------------------------------------------------------------------------------
+	public function setEmail(string $email): void
+	{
+		$this->email = $email;
 	}
 	//--------------------------------------------------------------------------------------------------------
     // GET SET role
@@ -150,183 +177,134 @@ class User extends Entity
 			$this->state = $state;
 		}
     }
-
-
-
-
-
-
-
-
-	public function changeLoggedAt(): void
-	{
-		$this->lastLoggedAt = new DateTime();
-	}
-
-	public function getLastLoggedAt(): GlobalDateTime
-	{
-		return $this->lastLoggedAt;
-	}
-
+	//--------------------------------------------------------------------------------------------------------
 	public function isActivated(): bool
 	{
 		return $this->state === self::STATE_ACTIVATED || $this->state === self::STATE_AUTOLOGIN;
 	}
-
-	public function activate(): void
+	//--------------------------------------------------------------------------------------------------------
+	public function doActivate(): void
 	{
 		$this->state = self::STATE_ACTIVATED;
 	}
-
+	//--------------------------------------------------------------------------------------------------------
+	public function doBlock(): void
+	{
+		$this->state = self::STATE_BLOCKED;
+	}
+	//--------------------------------------------------------------------------------------------------------
+    // GET SET logged at
+    //--------------------------------------------------------------------------------------------------------
+	public function getLastLoggedAt(): GlobalDateTime
+	{
+		return $this->lastLoggedAt;
+	}
+	//--------------------------------------------------------------------------------------------------------
+	public function setLoggedAt(DateTime $loggedAt): void
+	{
+		$this->lastLoggedAt = $loggedAt;
+	}
+	//--------------------------------------------------------------------------------------------------------
+	public function changeLoggedAt(): void
+	{
+		//$this->lastLoggedAt = new DateTime();
+		$this->setLoggedAt(new DateTime());
+	}
+	//--------------------------------------------------------------------------------------------------------
+    // GET SET firsname & lastname
+    //--------------------------------------------------------------------------------------------------------
+	public function getFirstname(): string
+	{
+		return $this->firstname;
+	}
+	//--------------------------------------------------------------------------------------------------------
+	public function setFirstname(string $firstname): void
+	{
+		$this->firstname = $firstname;
+	}
+	//--------------------------------------------------------------------------------------------------------
+	public function getLastname(): string
+	{
+		return $this->lastname;
+	}
+	//--------------------------------------------------------------------------------------------------------
+	public function setLastname(string $lastname): void
+	{
+		$this->lastname = $lastname;
+	}
+	//--------------------------------------------------------------------------------------------------------
+	public function getFullname(): string
+	{
+		return $this->firstname . ' ' . $this->lastname;
+	}
+	//--------------------------------------------------------------------------------------------------------
 	public function reName(string $firstname, string $lastname): void
 	{
 		$this->firstname = $firstname;
 		$this->lastname = $lastname;
 	}
-
-
-
-
-//--------------------------------------------------------------------------------------------------------
-	public function getFullname(): string
+	//--------------------------------------------------------------------------------------------------------
+    // GET SET nick
+    //--------------------------------------------------------------------------------------------------------
+	public function getNick(): string
 	{
-		return $this->firstname . ' ' . $this->lastname;
+		return $this->nickname;
 	}
 	//--------------------------------------------------------------------------------------------------------
-	public function getEmail(): string
+	public function setNick(string $nickname): void
 	{
-		return $this->email;
+		$this->nickname = $nickname;
 	}
 	//--------------------------------------------------------------------------------------------------------
+    // GET SET telephone
+    //--------------------------------------------------------------------------------------------------------
 	public function getTelephone(): string
 	{
 		return $this->telephone;
 	}
 	//--------------------------------------------------------------------------------------------------------
+	public function setTelephone(string $telephone): void
+	{
+		$this->telephone = $telephone;
+	}
+	//--------------------------------------------------------------------------------------------------------
+    // GET SET mobile one
+    //--------------------------------------------------------------------------------------------------------
 	public function getMobileOne(): string
 	{
 		return $this->mobileOne;
 	}
 	//--------------------------------------------------------------------------------------------------------
+	public function setMobileOne(string $mobileOne): void
+	{
+		$this->mobileOne = $mobileOne;
+	}
+	//--------------------------------------------------------------------------------------------------------
+    // GET SET mobile two
+    //--------------------------------------------------------------------------------------------------------
 	public function getMobileTwo(): string
 	{
 		return $this->mobileTwo;
 	}
 	//--------------------------------------------------------------------------------------------------------
-	public function getNick(): string
+	public function setMobileTwo(string $mobileTwo): void
 	{
-		return $this->nickname;
+		$this->mobileTwo = $mobileTwo;
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-    /*
-    //--------------------------------------------------------------------------------------------------------
-	public function changeLoggedAt(): void
-	{
-		$this->lastLoggedAt = new DateTime();
-	}
-    
-    
-    //--------------------------------------------------------------------------------------------------------
-	public function changeUsername(string $username): void
-	{
-		$this->username = $username;
-	}
-    //--------------------------------------------------------------------------------------------------------
-	public function getLastLoggedAt(): ?DateTime
-	{
-		return $this->lastLoggedAt;
-	}
-    //--------------------------------------------------------------------------------------------------------
-	public function getRole(): string
-	{
-		return $this->role;
-	}
-    //--------------------------------------------------------------------------------------------------------
-	public function setRole(string $role): void
-	{
-		$this->role = $role;
-	}
-    //--------------------------------------------------------------------------------------------------------
-	public function getPasswordHash(): string
-	{
-		return $this->password;
-	}
-    //--------------------------------------------------------------------------------------------------------
-	public function changePasswordHash(string $password): void
-	{
-		$this->password = $password;
-	}
-    //--------------------------------------------------------------------------------------------------------
-	public function block(): void
-	{
-		$this->state = self::STATE_BLOCKED;
-	}
-    //--------------------------------------------------------------------------------------------------------
-	public function activate(): void
-	{
-		$this->state = self::STATE_ACTIVATED;
-	}
-    //--------------------------------------------------------------------------------------------------------
-	public function isActivated(): bool
-	{
-		return $this->state === self::STATE_ACTIVATED;
-	}
-    //--------------------------------------------------------------------------------------------------------
-	public function getFirstName(): string
-	{
-		return $this->firstname;
-	}
-    //--------------------------------------------------------------------------------------------------------
-	public function getLastName(): string
-	{
-		return $this->lastname;
-	}
-    //--------------------------------------------------------------------------------------------------------
-	public function getFullname(): string
-	{
-		return $this->firstname . ' ' . $this->lastname;
-	}
-    //--------------------------------------------------------------------------------------------------------
-	public function rename(string $firstname, string $lastname): void
-	{
-		$this->firstname = $firstname;
-		$this->lastname = $lastname;
-	}
-    //--------------------------------------------------------------------------------------------------------
-	public function getState(): int
-	{
-		return $this->state;
-	}
-    //--------------------------------------------------------------------------------------------------------
-	public function setState(int $state): void
-	{
-		if (!in_array($state, self::STATES)) 
-        {
-			//throw new InvalidArgumentException(sprintf('Unsupported state %s', $state));
-		}
-
-		$this->state = $state;
-	}
+	//--------------------------------------------------------------------------------------------------------
+    // GET SET avater
     //--------------------------------------------------------------------------------------------------------
 	public function getGravatar(): string
 	{
 		return 'https://www.gravatar.com/avatar/' . md5($this->email);
 	}
+	//--------------------------------------------------------------------------------------------------------
+    // SET identity
     //--------------------------------------------------------------------------------------------------------
-	public function toIdentity(): Identity
+	public function toIdentity(): IIdentity
 	{
-		return new Identity($this->getId(), [$this->role], [
+		return new SimpleIdentity($this->getId(), [$this->role], [
+			'username' => $this->username,
 			'email' => $this->email,
 			'firstname' => $this->firstname,
 			'lastname' => $this->lastname,
@@ -334,6 +312,4 @@ class User extends Entity
 			'gravatar' => $this->getGravatar(),
 		]);
 	}
-    //--------------------------------------------------------------------------------------------------------
-    */
 }

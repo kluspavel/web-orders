@@ -39,13 +39,14 @@ class Authenticator implements \Nette\Security\Authenticator
 		$user->changeLoggedAt();
 		$this->userService->fluschUser($user);
 			
-		// 5. pokud vše dopadlo dobře, vytvoř a vrať SimpleIdentity
+		// 6. pokud vše dopadlo dobře, vytvoř a vrať SimpleIdentity
 		return $this->createIdentity($user);
 	}
 
 	protected function createIdentity(User $user): IIdentity
 	{
 		//$this->em->flush();
-		return new \Nette\Security\SimpleIdentity($user->getId(), $user->getRole(), ['username' => $user->getUserName()]);
+		//return new \Nette\Security\SimpleIdentity($user->getId(), $user->getRole(), ['username' => $user->getUserName()]);
+		return $user->toIdentity();
 	}
 }
