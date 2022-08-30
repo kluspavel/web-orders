@@ -54,8 +54,50 @@ final class UserPresenter extends BasePresenter
         //die;
     }
 
-    public function actionEdit()
+    public function actionEdit(int $id = null)
     {
         $this->setLayout('orders');
+
+        $user = $this->us->findUserById($id);
+        $this->template->profile = $user;
+    }
+
+
+
+    //--------------------------------------------------------------------------------------------------------
+    protected function createComponentUserEditForm(): Form
+    {
+        $form = new Form();
+        $form->addText('username', 'UID');
+        $form->addText('nick', 'Nick');
+        $form->addText('firstname', 'Jméno');
+        $form->addText('lastname', 'Příjmení');
+        $form->addText('position', 'Pracovní zařazení');
+        $form->addEmail('email', 'Email');
+        $form->addText('telephone', 'Telefon');
+        $form->addText('mobileone', 'Mobil');
+        $form->addText('mobiletwo', 'Mobil 2');
+        $form->addText('note', 'Poznámka');
+        //$form->addPassword('password', 'Vaše heslo');
+        $form->addSubmit('send', 'Uložit');
+        $form->onSuccess[] = [$this, 'userEditFormSuccess'];
+        return $form;
+    }
+    //--------------------------------------------------------------------------------------------------------
+    public function userEditFormSuccess(Form $form)
+    {
+        $values = $form->getValues();
+
+        try 
+        {
+            $this->getUser()->login($values->username, $values->password);
+        } 
+        catch (AuthenticationException $e) 
+        {
+            $this->flashMessage($e->getMessage(), 'danger');
+            $this->redirect('signIn');
+        }
+
+        $this->redirect('Home:overview');
     }
 }

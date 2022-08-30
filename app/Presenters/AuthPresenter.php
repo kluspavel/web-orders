@@ -9,13 +9,14 @@ use Nette\Security\AuthenticationException;
 
 final class AuthPresenter extends BasePresenter
 {
+    //--------------------------------------------------------------------------------------------------------
     public UserService $us;
-
+    //--------------------------------------------------------------------------------------------------------
     public function __construct(UserService $us)
     {
         $this->us = $us;
     }
-
+    //--------------------------------------------------------------------------------------------------------
     public function startup()
     {
         parent::startup();
@@ -32,12 +33,12 @@ final class AuthPresenter extends BasePresenter
             $this->redirect('signIn');
         } 
     }
-
+    //--------------------------------------------------------------------------------------------------------
     /*public function actionOrders()
     {
         $this->setLayout('orders');
     }*/
-
+    //--------------------------------------------------------------------------------------------------------
     public function actionSignIn()
     {
         if ($this->getUser()->isLoggedIn() === true) 
@@ -61,13 +62,13 @@ final class AuthPresenter extends BasePresenter
 
         $this->setLayout('orders');
     }
-
+    //--------------------------------------------------------------------------------------------------------
     public function actionSignOut()
     {
         $this->setLayout('orders');
         $this->getUser()->logout(true);
     }
-
+    //--------------------------------------------------------------------------------------------------------
     protected function createComponentSignInForm(): Form
     {
         $form = new Form();
@@ -77,7 +78,7 @@ final class AuthPresenter extends BasePresenter
         $form->onSuccess[] = [$this, 'signInFormSuccess'];
         return $form;
     }
-
+    //--------------------------------------------------------------------------------------------------------
     public function signInFormSuccess(Form $form)
     {
         $values = $form->getValues();
@@ -94,4 +95,5 @@ final class AuthPresenter extends BasePresenter
 
         $this->redirect('Home:overview');
     }
+    //--------------------------------------------------------------------------------------------------------
 }
