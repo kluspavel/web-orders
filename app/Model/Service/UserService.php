@@ -32,7 +32,28 @@ class UserService
 		return $user;
 	}
 
+	public function editUser(object $values)
+	{
+		$user = $this->findUserById($values->id);
 
+		if ($user === null) 
+		{
+			$user = new User();
+		}
+
+		$user->setUserName($values->username);
+		$user->setNick($values->nickname);
+		$user->setEmail($values->email);
+		$user->setFirstname($values->firstname);
+		$user->setLastname($values->lastname);
+		$user->setWorkPosition($values->position);
+		$user->setTelephone($values->telephone);
+		$user->setMobileOne($values->mobileone);
+		$user->setMobileTwo($values->mobiletwo);
+		$user->setNote($values->note);
+
+		$this->fluschUser($user);
+	}
 
 
 

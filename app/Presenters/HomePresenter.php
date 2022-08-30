@@ -9,13 +9,14 @@ use Nette\Security\AuthenticationException;
 
 final class HomePresenter extends BasePresenter
 {
+    //--------------------------------------------------------------------------------------------------------
     public UserService $us;
-
+    //--------------------------------------------------------------------------------------------------------
     public function __construct(UserService $us)
     {
         $this->us = $us;
     }
-
+    //--------------------------------------------------------------------------------------------------------
     public function startup()
     {
         parent::startup();
@@ -33,7 +34,7 @@ final class HomePresenter extends BasePresenter
             }
         } 
     }
-
+    //--------------------------------------------------------------------------------------------------------
     public function actionCreateUser()
     {
         //$user = new User('Pavel', 'Klus', 'pavel.klus@continental-corporation.com', 'UIDM2061', 'Jisap.1979');
@@ -45,7 +46,7 @@ final class HomePresenter extends BasePresenter
         dump($user);
         die;
     }
-
+    //--------------------------------------------------------------------------------------------------------
     public function actionOverview()
     {
         $this->setLayout('orders');
@@ -62,9 +63,10 @@ final class HomePresenter extends BasePresenter
         //dump($userOnlineCount);
         //die;
     }
-
+    //--------------------------------------------------------------------------------------------------------
     public function actionOrders()
     {
         $this->setLayout('orders');
     }
+    //--------------------------------------------------------------------------------------------------------
 }

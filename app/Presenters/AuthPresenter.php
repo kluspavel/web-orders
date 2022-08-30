@@ -66,7 +66,14 @@ final class AuthPresenter extends BasePresenter
     public function actionSignOut()
     {
         $this->setLayout('orders');
-        $this->getUser()->logout(true);
+
+        if ($this->getUser()->isLoggedIn()) 
+        {
+            $user = $this->us->findUserById($this->getUser()->getId());
+            $user->setOnline(false);
+            $this->us->fluschUser($user);
+            $this->getUser()->logout(true);
+        }
     }
     //--------------------------------------------------------------------------------------------------------
     protected function createComponentSignInForm(): Form

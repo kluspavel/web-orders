@@ -88,7 +88,18 @@ class User extends Entity
     //--------------------------------------------------------------------------------------------------------
     // CONSTRUCT
     //--------------------------------------------------------------------------------------------------------
-	public function __construct(string $firstname, string $lastname, string $email, string $username, string $password)
+	public function __construct()
+	{
+		$this->role = self::ROLE_USER;
+		$this->state = self::STATE_FRESH;
+		$this->types = 'none';
+
+        $this->rights = '00000000000000000001';
+		$this->createdAt = new \DateTimeImmutable('now');
+		$this->updatedAt = new \DateTimeImmutable('now');
+	}
+	//--------------------------------------------------------------------------------------------------------
+	public function injectData(string $firstname, string $lastname, string $email, string $username, string $password)
 	{
 		$this->firstname = $firstname;
 		$this->lastname = $lastname;
@@ -326,6 +337,23 @@ class User extends Entity
 	public function setWorkPosition(string $workPosition): void
 	{
 		$this->workPosition = $workPosition;
+	}
+	//--------------------------------------------------------------------------------------------------------
+    // GET SET note
+    //--------------------------------------------------------------------------------------------------------
+	public function getOnline(): bool
+	{
+		return $this->online;
+	}
+	//--------------------------------------------------------------------------------------------------------
+	public function setOnline(bool $online): void
+	{
+		$this->online = $online;
+	}
+	//--------------------------------------------------------------------------------------------------------
+	public function isOnline(): bool
+	{
+		return $this->online === $this->getOnline();
 	}
 	//--------------------------------------------------------------------------------------------------------
     // GET SET avater

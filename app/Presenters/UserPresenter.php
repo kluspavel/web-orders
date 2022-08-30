@@ -9,13 +9,14 @@ use Nette\Security\AuthenticationException;
 
 final class UserPresenter extends BasePresenter
 {
+    //--------------------------------------------------------------------------------------------------------
     public UserService $us;
-
+    //--------------------------------------------------------------------------------------------------------
     public function __construct(UserService $us)
     {
         $this->us = $us;
     }
-
+    //--------------------------------------------------------------------------------------------------------
     public function startup()
     {
         parent::startup();
@@ -33,7 +34,7 @@ final class UserPresenter extends BasePresenter
             }
         } 
     }
-
+    //--------------------------------------------------------------------------------------------------------
     public function actionProfile(int $id = null)
     {
         $this->setLayout('orders');
@@ -53,7 +54,7 @@ final class UserPresenter extends BasePresenter
         //dump($user);
         //die;
     }
-
+    //--------------------------------------------------------------------------------------------------------
     public function actionEdit(int $id = null)
     {
         $this->setLayout('orders');
@@ -61,14 +62,12 @@ final class UserPresenter extends BasePresenter
         $user = $this->us->findUserById($id);
         $this->template->profile = $user;
     }
-
-
-
     //--------------------------------------------------------------------------------------------------------
     protected function createComponentUserEditForm(): Form
     {
         $form = new Form();
-        $form->addText('username', 'UID');
+        $form->addHidden('id');
+        $form->addText('username', 'UID')->setDisabled();
         $form->addText('nick', 'Nick');
         $form->addText('firstname', 'Jméno');
         $form->addText('lastname', 'Příjmení');
@@ -87,6 +86,7 @@ final class UserPresenter extends BasePresenter
     public function userEditFormSuccess(Form $form)
     {
         $values = $form->getValues();
+        $this->us->editUser(($values));
 
         try 
         {

@@ -6,9 +6,17 @@
     <div class="w-full flex flex-col md:flex-row">
         <section class="w-full md:w-60 p-2 bg-gray-600 rounded-md shadow-gray-800 shadow-md border-b-4 border-gray-900 flex-none h-fit">
             <div class="flex items-center justify-between">
-                <div class="h-4 w-4 rounded-full border-2 border-gray-200 bg-red-400" title="User is offline"></div>  
+                {if $profile->isOnline()}
+                <div class="h-4 w-4 rounded-full border-2 border-gray-200 bg-green-400" title="User is online"></div> 
+                {else}
+                <div class="h-4 w-4 rounded-full border-2 border-gray-200 bg-red-400" title="User is offline"></div> 
+                {/if}
                 <h6 class="text-xs">{$profile->getUsername()}</h6>
+                {if $profile->isActivated()}
                 <div class="h-4 w-4 rounded-full border-2 border-gray-200 bg-blue-400" title="User is activated"></div>
+                {else}
+                <div class="h-4 w-4 rounded-full border-2 border-gray-200 bg-blue-400" title="User is locked"></div>
+                {/if}
             </div>
             <div class="flex items-center justify-center mt-4">
                 <img class="w-36 h-36 rounded-full object-cover shadow-lg border-8 border-gray-500" src="https://api.lorem.space/image/face?w=150&h=150" alt="User" />
