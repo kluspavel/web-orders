@@ -59,16 +59,29 @@ final class UserPresenter extends BasePresenter
     {
         $this->setLayout('orders');
 
-        $user = $this->us->findUserById($id);
-        $this->template->profile = $user;
+        $userek = $this->us->findUserById($id);
+
+        //dump($userek);
+        //dump(array($userek));
+        //die;
+
+
+        $this['userEditForm']->setDefaults($userek);
+        $this->template->profile = $userek;
+
+        //$this->getComponent('userEditForm')->set->setDefaults($user->toArray());
+
+
+
+        
     }
     //--------------------------------------------------------------------------------------------------------
     protected function createComponentUserEditForm(): Form
     {
         $form = new Form();
         $form->addHidden('id');
-        $form->addText('username', 'UID')->setDisabled();
-        $form->addText('nick', 'Nick');
+        $form->addText('username', 'UID')->setRequired();
+        $form->addText('nickname', 'Nick');
         $form->addText('firstname', 'Jméno');
         $form->addText('lastname', 'Příjmení');
         $form->addText('position', 'Pracovní zařazení');
@@ -76,7 +89,7 @@ final class UserPresenter extends BasePresenter
         $form->addText('telephone', 'Telefon');
         $form->addText('mobileone', 'Mobil');
         $form->addText('mobiletwo', 'Mobil 2');
-        $form->addText('note', 'Poznámka');
+        $form->addTextArea('note', 'Poznámka')->setHtmlAttribute('rows', 4);
         //$form->addPassword('password', 'Vaše heslo');
         $form->addSubmit('send', 'Uložit');
         $form->onSuccess[] = [$this, 'userEditFormSuccess'];
@@ -86,17 +99,9 @@ final class UserPresenter extends BasePresenter
     public function userEditFormSuccess(Form $form)
     {
         $values = $form->getValues();
-        $this->us->editUser(($values));
+        $this->us->editUser($values);
 
-        try 
-        {
-            $this->getUser()->login($values->username, $values->password);
-        } 
-        catch (AuthenticationException $e) 
-        {
-            $this->flashMessage($e->getMessage(), 'danger');
-            $this->redirect('signIn');
-        }
+        $this->flashMessage('Uživatel byl uložen.', 'danger');
 
         $this->redirect('Home:overview');
     }

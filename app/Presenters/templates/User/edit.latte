@@ -32,6 +32,7 @@
                 <a href="user-edit.html" class="uppercase py-1 px-2 text-blue-400 rounded text-xs underline">změnit avatar</a>
             </div>
         </section>
+        
         <section class="w-full p-2 md:ml-4 mt-2 md:mt-0 bg-gray-600 rounded-md shadow-gray-800 shadow-md border-b-4 border-gray-900">
             {form userEditForm}
             <ul class="flex flex-col">
@@ -41,43 +42,33 @@
                 <li class="flex flex-wrap">
                     <div class="w-full lg:w-6/12 px-4">
                         <div class="relative w-full mb-3">
-                            <!--<label class="block uppercase text-gray-400 text-xs font-bold mb-1" htmlfor="grid-password">UID</label>
-                            <input type="text" class="border-0 px-3 py-3 text-orange-300 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" value="{$profile->getUsername()}" readonly>-->
-
+                            {input id, value => $profile->getId()}
                             {label username, class => "block uppercase text-gray-400 text-xs font-bold mb-1"}
                             {input username, class => "border-0 px-3 py-3 text-orange-300 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150", placeholder => "Zadejte UID", value => $profile->getUsername()}
-                            </div>
                         </div>
+                    </div>
                         <div class="w-full lg:w-6/12 px-4">
                         <div class="relative w-full mb-3">
-                            <label class="block uppercase text-gray-400 text-xs font-bold mb-1" htmlfor="grid-password">
-                            Nick
-                            </label>
-                            <input type="text" class="border-0 px-3 py-3 text-gray-100 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" value="{$profile->getNick()}">
+                            {label nickname, class => "block uppercase text-gray-400 text-xs font-bold mb-1"}
+                            {input nickname, class => "border-0 px-3 py-3 text-gray-100 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"}
                         </div>
                     </div>
                     <div class="w-full lg:w-6/12 px-4">
                         <div class="relative w-full mb-3">
-                            <label class="block uppercase text-gray-400 text-xs font-bold mb-1" htmlfor="grid-password">
-                            Jméno
-                            </label>
-                            <input type="text" class="border-0 px-3 py-3 text-gray-100 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" value="{$profile->getFirstname()}">
+                            {label firstname, class => "block uppercase text-gray-400 text-xs font-bold mb-1"}
+                            {input firstname, class => "border-0 px-3 py-3 text-gray-100 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150", placeholder => "Zadejte JMÉNO", value => $profile->getFirstname()}
                         </div>
                     </div>
                     <div class="w-full lg:w-6/12 px-4">
                         <div class="relative w-full mb-3">
-                            <label class="block uppercase text-gray-400 text-xs font-bold mb-1" htmlfor="grid-password">
-                            Příjmení
-                            </label>
-                            <input type="text" class="border-0 px-3 py-3 text-gray-100 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" value="{$profile->getLastname()}">
+                            {label lastname, class => "block uppercase text-gray-400 text-xs font-bold mb-1"}
+                            {input lastname, class => "border-0 px-3 py-3 text-gray-100 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150", placeholder => "Zadejte PŘÍJMENÍ", value => $profile->getLastname()}
                         </div>
                     </div>
                     <div class="w-full lg:w-12/12 px-4">
                         <div class="relative w-full mb-3">
-                            <label class="block uppercase text-gray-400 text-xs font-bold mb-1" htmlfor="grid-password">
-                            Pracovní zařazení
-                            </label>
-                            <input type="text" class="border-0 px-3 py-3 text-gray-100 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" value="{$profile->getWorkPosition()}">
+                            {label position, class => "block uppercase text-gray-400 text-xs font-bold mb-1"}
+                            {input position, class => "border-0 px-3 py-3 text-gray-100 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150", placeholder => "Zadejte PRACOVNÍ ZAŘAZENÍ", value => $profile->getWorkPosition()}
                         </div>
                     </div>
                 </li>
@@ -87,36 +78,28 @@
                 <li>
                     <div class="w-full lg:w-12/12 px-4">
                         <div class="relative w-full mb-3">
-                            <label class="block uppercase text-gray-400 text-xs font-bold mb-1" htmlfor="grid-password">
-                            Emailová Adresa
-                            </label>
-                            <input type="email" class="border-0 px-3 py-3 text-gray-100 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" value="{$profile->getEmail()}">
+                            {label email, class => "block uppercase text-gray-400 text-xs font-bold mb-1"}
+                            {input email, class => "border-0 px-3 py-3 text-gray-100 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150", placeholder => "Zadejte EMAIL", value => $profile->getEmail()}
                         </div>
                     </div>
                 </li>
                 <li class="flex flex-wrap">
                     <div class="w-full lg:w-4/12 px-4">
                         <div class="relative w-full mb-3">
-                            <label class="block uppercase text-gray-400 text-xs font-bold mb-1" htmlfor="grid-password">
-                            Telefon
-                            </label>
-                            <input type="email" class="border-0 px-3 py-3 text-gray-100 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" value="{$profile->getTelephone()}">
+                            {label telephone, class => "block uppercase text-gray-400 text-xs font-bold mb-1"}
+                            {input telephone, class => "border-0 px-3 py-3 text-gray-100 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150", placeholder => "Zadejte TELEFON", value => $profile->getTelephone()}
                         </div>
                     </div>
                     <div class="w-full lg:w-4/12 px-4">
                         <div class="relative w-full mb-3">
-                            <label class="block uppercase text-gray-400 text-xs font-bold mb-1" htmlfor="grid-password">
-                            Mobil
-                            </label>
-                            <input type="text" class="border-0 px-3 py-3 text-gray-100 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" value="{$profile->getMobileOne()}">
+                            {label mobileone, class => "block uppercase text-gray-400 text-xs font-bold mb-1"}
+                            {input mobileone, class => "border-0 px-3 py-3 text-gray-100 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150", value => $profile->getMobileOne()}
                         </div>
                     </div>
                     <div class="w-full lg:w-4/12 px-4">
                         <div class="relative w-full mb-3">
-                            <label class="block uppercase text-gray-400 text-xs font-bold mb-1" htmlfor="grid-password">
-                            Mobil 2
-                            </label>
-                            <input type="text" class="border-0 px-3 py-3 text-gray-100 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" value="{$profile->getMobileTwo()}">
+                            {label mobiletwo, class => "block uppercase text-gray-400 text-xs font-bold mb-1"}
+                            {input mobiletwo, class => "border-0 px-3 py-3 text-gray-100 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150", value => $profile->getMobileTwo()}
                         </div>
                     </div>
                 </li>
@@ -126,10 +109,8 @@
                 <li>
                     <div class="w-full lg:w-12/12 px-4">
                         <div class="relative w-full mb-3">
-                            <label class="block uppercase text-gray-400 text-xs font-bold mb-2" htmlfor="grid-password">
-                            Poznámka
-                            </label>
-                            <textarea type="text" class="border-0 px-3 py-3 text-gray-100 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" rows="4">{$profile->getNote()}</textarea>
+                            {label note, class => "block uppercase text-gray-400 text-xs font-bold mb-1"}
+                            {input note, class => "border-0 px-3 py-3 text-gray-100 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"}
                         </div>
                     </div>
                 </li>
@@ -138,11 +119,12 @@
                 </li>
                 <li class="flex items-center justify-end mr-4 mb-3">
                     <button type="submit" class="px-4 py-1 rounded bg-green-700 shadow-md mr-2">ZMĚNA HESLA</button>
-                    <button type="submit" class="px-4 py-1 rounded bg-green-700 shadow-md">ULOŽIT</button>
+                    {input send, class => "px-4 py-1 rounded bg-green-700 hover:bg-green-800 shadow-md cursor-pointer"}
                 </li>
             </ul>
             {/form}
         </section>
+        
     </div>
 </main>
 

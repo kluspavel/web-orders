@@ -29,7 +29,7 @@
 
             </div>
             <div class="flex items-center justify-center mt-4">
-                <a href="user-edit.html" class="uppercase py-1 px-2 text-blue-400 hover:text-blue-300 rounded text-xs hover:underline">upravit profil</a>
+                <a n:href="User:edit $profile->getId()" class="uppercase py-1 px-2 text-blue-400 hover:text-blue-300 rounded text-xs hover:underline">upravit profil</a>
             </div>
         </section>
         <section class="w-full p-2 md:ml-4 mt-2 md:mt-0 bg-gray-600 rounded-md shadow-gray-800 shadow-md border-b-4 border-gray-900">
@@ -91,7 +91,7 @@
                     <h6 class="text-sm text-gray-900 border-y-2 border-gray-700 mt-2 mb-4">SPRÁVA</h6>
                 </li>
                 <li class="flex items-center justify-end mr-4 mb-3">
-                    <a n:href="User:edit $profile->getId()" class="px-4 py-1 rounded bg-blue-700 hover:bg-blue-800 border border-blue-800 shadow-md">UPRAVIT</a>
+                    <a n:href="User:edit $profile->getId()" class="px-4 py-1 rounded bg-blue-700 hover:bg-blue-800 border border-blue-800 shadow-md text-md">UPRAVIT</a>
                 </li>
             </ul>
         </section>

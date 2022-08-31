@@ -3,6 +3,7 @@
 namespace App\Model\Service;
 
 use App\Model\Entity\User;
+use Nette\Utils\Validators;
 use Nettrine\ORM\EntityManagerDecorator;
 
 class UserService
@@ -34,7 +35,9 @@ class UserService
 
 	public function editUser(object $values)
 	{
-		$user = $this->findUserById($values->id);
+		$id = intval($values->id);
+
+		$user = $this->findUserById($id);
 
 		if ($user === null) 
 		{
@@ -51,6 +54,9 @@ class UserService
 		$user->setMobileOne($values->mobileone);
 		$user->setMobileTwo($values->mobiletwo);
 		$user->setNote($values->note);
+
+		//dump($user);
+		//die;
 
 		$this->fluschUser($user);
 	}
