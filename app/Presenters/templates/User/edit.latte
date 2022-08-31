@@ -50,7 +50,7 @@
                         <div class="w-full lg:w-6/12 px-4">
                         <div class="relative w-full mb-3">
                             {label nickname, class => "block uppercase text-gray-400 text-xs font-bold mb-1"}
-                            {input nickname, class => "border-0 px-3 py-3 text-gray-100 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"}
+                            {input nickname, class => "border-0 px-3 py-3 text-gray-100 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" , value => $profile->getNick()}
                         </div>
                     </div>
                     <div class="w-full lg:w-6/12 px-4">
@@ -111,6 +111,7 @@
                         <div class="relative w-full mb-3">
                             {label note, class => "block uppercase text-gray-400 text-xs font-bold mb-1"}
                             {input note, class => "border-0 px-3 py-3 text-gray-100 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"}
+                            <textarea n:name="note" class="border-0 px-3 py-3 text-gray-100 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">{$profile->getNote()}</textarea>
                         </div>
                     </div>
                 </li>
