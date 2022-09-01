@@ -59,23 +59,25 @@ final class UserPresenter extends BasePresenter
     {
         $this->setLayout('orders');
 
-        $userek = $this->us->findUserById($id);
+        $user = $this->us->findUserById($id);
 
-        dump($userek);
-        dump(array($userek));
-        die;
+        //dump($userek);
+        //dump(array($userek));
+        //die;
 
 
         //$this['userEditForm']->setDefaults(['nick' => 'Palisko']);
-        $this->template->profile = $userek;
+        $this->template->profile = $user;
 
-        //$this->getComponent('userEditForm')->set->setDefaults($user->toArray());
+        //$this->getComponent('userEditForm')->setDefaults($user->toArray());
 
-
+        $row = ['username' => $user->getUserName(), 'nickname' => $user->getNick()];
+        $this['userEditForm']->setDefaults([$row]);
+        //$this->getComponent('userEditForm')->setDefaults();
 
         
     }
-    //---------------------------------------------------------------------------------------------[-----------
+    //-------------------------------------------------------------------------------------------------------
     protected function createComponentUserEditForm(): Form
     {
         $form = new Form();
