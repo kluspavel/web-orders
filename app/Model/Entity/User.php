@@ -11,6 +11,8 @@ use Nette\Utils\DateTime;
 use Nette\Security\IIdentity;
 use Doctrine\ORM\Mapping as ORM;
 use Nette\Security\SimpleIdentity;
+use Nette\Utils\ArrayList;
+use Nette\Utils\Arrays;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'users')]
@@ -82,6 +84,8 @@ class User extends Entity
 	//--------------------------------------------------------------------------------------------------------
     #[ORM\Column(type: 'string', length: 256, nullable: false)]
     private ?string $avatar;
+	//--------------------------------------------------------------------------------------------------------
+	private ArrayList $messages;
     //--------------------------------------------------------------------------------------------------------
     use TraitCreatedAt;
 	use TraitUpdatedAt;
@@ -361,6 +365,18 @@ class User extends Entity
 	public function getGravatar(): string
 	{
 		return 'https://www.gravatar.com/avatar/' . md5($this->email);
+	}
+	//--------------------------------------------------------------------------------------------------------
+    // GET SET messages
+    //--------------------------------------------------------------------------------------------------------
+	public function getMessages(): ArrayList
+	{
+		return $this->messages;
+	}
+	//--------------------------------------------------------------------------------------------------------
+	public function addMessage(string $message)
+	{
+		$this->messages[] = $message;
 	}
 	//--------------------------------------------------------------------------------------------------------
     // SET identity

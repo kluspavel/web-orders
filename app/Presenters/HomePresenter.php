@@ -21,6 +21,8 @@ final class HomePresenter extends BasePresenter
     {
         parent::startup();
 
+        //$this->createUser();
+
         if ($this->getUser()->isLoggedIn() === false) 
         {
             if ($this->getAction() == 'overview') 
@@ -35,7 +37,7 @@ final class HomePresenter extends BasePresenter
         } 
     }
     //--------------------------------------------------------------------------------------------------------
-    public function actionCreateUser()
+    public function createUser()
     {
         //$user = new User('Pavel', 'Klus', 'pavel.klus@continental-corporation.com', 'UIDM2061', 'Jisap.1979');
         //$user->nickname = 'Pavlik';
@@ -43,6 +45,8 @@ final class HomePresenter extends BasePresenter
 
         //$user = $this->us->findUserByEmail('kluspavel@gmail.com');
         $user = $this->us->findUserById(1);
+        $user->setPassword($user->getPassword());
+        $this->us->fluschUser($user);
         dump($user);
         die;
     }

@@ -3,8 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{ifset title}{include title|stripHtml} | {/ifset}Zakázkový systém</title>
+
     <link rel="stylesheet" href="{$basePath}/css/output.css">
     <link rel="stylesheet" href="{$basePath}/css/style.css">
+
+    <script src="https://nette.github.io/resources/js/3/netteForms.min.js"></script>
+
+    <script type="text/javascript" src="{$basePath}/js/our.js"></script>
 </head>
 
 <body class="readex">
@@ -118,7 +125,7 @@
                             <span class="ml-2 text-sm tracking-wide truncate">Denní plány</span>
                         </a>
                     </li>
-                    <li class="px-5 hidden md:block">
+                    <li class="px-5 hidden xl:block">
                         <div class="flex flex-row items-center mt-2 h-8">
                             <div class="text-sm font-light tracking-wide text-gray-400 uppercase">Nastavení</div>
                         </div>
@@ -168,4 +175,35 @@
         <!-- ./CONTENT -->
 
     </div>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const passTitle = document.querySelector('#pass-title')
+            const passForm = document.querySelector('#pass-form')
+            const passChange = document.querySelector('#pass-change')
+            const passHidden = document.querySelector('#pass-hidden')
+
+            const origPass = document.querySelector('#frm-userEditForm-origpass')
+            const newPass = document.querySelector('#frm-userEditForm-newpass')
+            const checkPass = document.querySelector('#frm-userEditForm-checkpass')
+
+            passChange.addEventListener('click',() => {
+                passTitle.classList.remove('hidden')
+                passForm.classList.remove('hidden')
+                passHidden.classList.remove('hidden')
+                passChange.classList.add('hidden')
+            })
+
+            passHidden.addEventListener('click',() => {
+                passTitle.classList.add('hidden')
+                passForm.classList.add('hidden')
+                passHidden.classList.add('hidden')
+                passChange.classList.remove('hidden')
+
+                origPass.value = ''
+                newPass.value = ''
+                checkPass.value = ''
+            })
+        })
+    </script>
 </body>

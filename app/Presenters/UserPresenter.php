@@ -11,6 +11,7 @@ final class UserPresenter extends BasePresenter
 {
     //--------------------------------------------------------------------------------------------------------
     public UserService $us;
+    public User $oneUser;
     //--------------------------------------------------------------------------------------------------------
     public function __construct(UserService $us)
     {
@@ -39,8 +40,8 @@ final class UserPresenter extends BasePresenter
     {
         $this->setLayout('orders');
 
-        $user = $this->us->findUserById($id);
-        $this->template->profile = $user;
+        $this->oneUser = $this->us->findUserById($id);
+        $this->template->profile = $this->oneUser;
 
         //$userCount = $this->us->getUserCount();
         //$userOnlineCount = $this->us->getOnlineUserCount();
@@ -59,40 +60,36 @@ final class UserPresenter extends BasePresenter
     {
         $this->setLayout('orders');
 
-        $user = $this->us->findUserById($id);
+        $this->oneUser = $this->us->findUserById($id);
 
         //dump($userek);
         //dump(array($userek));
         //die;
 
-
-        //$this['userEditForm']->setDefaults(['nick' => 'Palisko']);
-        $this->template->profile = $user;
-
-        //$this->getComponent('userEditForm')->setDefaults($user->toArray());
-
-        $row = ['username' => $user->getUserName(), 'nickname' => $user->getNick()];
-        $this['userEditForm']->setDefaults([$row]);
-        //$this->getComponent('userEditForm')->setDefaults();
-
-        
+        $this->template->profile = $this->oneUser;
     }
     //-------------------------------------------------------------------------------------------------------
     protected function createComponentUserEditForm(): Form
     {
         $form = new Form();
-        $form->addHidden('id');
-        $form->addText('username', 'UID')->setRequired();
-        $form->addText('nickname', 'Nick');
-        $form->addText('firstname', 'Jméno');
-        $form->addText('lastname', 'Příjmení');
-        $form->addText('position', 'Pracovní zařazení');
-        $form->addEmail('email', 'Email');
-        $form->addText('telephone', 'Telefon');
-        $form->addText('mobileone', 'Mobil');
-        $form->addText('mobiletwo', 'Mobil 2');
-        $form->addTextArea('note', 'Poznámka')->setHtmlAttribute('rows', 4);
+        $form->addHidden('id')->setDefaultValue($this->oneUser->getId());
+        $form->addText('username', 'UID')->setRequired()->setDefaultValue($this->oneUser->getUserName());
+        $form->addText('nickname', 'Nick')->setDefaultValue($this->oneUser->getNick());
+        $form->addText('firstname', 'Jméno')->setDefaultValue($this->oneUser->getFirstname());
+        $form->addText('lastname', 'Příjmení')->setDefaultValue($this->oneUser->getLastname());
+        $form->addText('position', 'Pracovní zařazení')->setDefaultValue($this->oneUser->getWorkPosition());
+
+        $form->addPassword('origpass', 'Původní heslo');
+        $form->addPassword('newpass', 'Nové heslo');
+        $form->addPassword('checkpass', 'Znovu heslo');
+
+        $form->addEmail('email', 'Email')->setDefaultValue($this->oneUser->getEmail());
+        $form->addText('telephone', 'Telefon')->setDefaultValue($this->oneUser->getTelephone());
+        $form->addText('mobileone', 'Mobil')->setDefaultValue($this->oneUser->getMobileOne());
+        $form->addText('mobiletwo', 'Mobil 2')->setDefaultValue($this->oneUser->getMobileTwo());
+        $form->addTextArea('note', 'Poznámka')->setHtmlAttribute('rows', 4)->setDefaultValue($this->oneUser->getNote());
         //$form->addPassword('password', 'Vaše heslo');
+        $form->addUpload('avatar', 'Avatar');
         $form->addSubmit('send', 'Uložit');
         $form->onSuccess[] = [$this, 'userEditFormSuccess'];
         return $form;
@@ -101,10 +98,22 @@ final class UserPresenter extends BasePresenter
     public function userEditFormSuccess(Form $form)
     {
         $values = $form->getValues();
-        $this->us->editUser($values);
 
-        $this->flashMessage('Uživatel byl uložen.', 'danger');
+            dump($values);
+            die;
 
-        $this->redirect('Home:overview');
+        $message = $this->us->editUser($values);
+
+        if ($message !== '') 
+        {
+            $this->flashMessage($message);
+            $this->redirect('User:edit', $values->id);
+        }
+        else 
+        {
+            $this->us->editUser($values);
+            $this->flashMessage('Uživatel byl uložen.', 'danger');
+            $this->redirect('Home:overview');
+        }
     }
 }

@@ -1,25 +1,26 @@
 <?php declare(strict_types = 1);
 
-namespace App\Model\Repository;
+namespace App\Model\Service;
 
+use Doctrine\ORM\Decorator\EntityManagerDecorator;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityRepository;
 use App\Model\Entity\User;
+use Doctrine\Persistence\ObjectRepository;
 
-class UserRepository extends Repository
+class EntityService
 {
 	//--------------------------------------------------------------------------------------------------------
-	public function findOneById(int $id): ?User
+	public function __construct(private EntityManagerDecorator $emd) {}
+	//--------------------------------------------------------------------------------------------------------
+	public function getRepository($className)
 	{
-		return $this->findOneBy(['id' => $id]);
+		return $this->emd->getRepository($className);
 	}
 	//--------------------------------------------------------------------------------------------------------
-	public function findOneByEmail(string $email): ?User
+	public function getUserRepository()
 	{
-		return $this->findOneBy(['email' => $email]);
-	}
-	//--------------------------------------------------------------------------------------------------------
-	public function findOneByUsername(string $username): ?User
-	{
-		return $this->findOneBy(['username' => $username]);
+		return $this->emd->getRepository(User::class);
 	}
 	//--------------------------------------------------------------------------------------------------------
 }

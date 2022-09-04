@@ -3,63 +3,145 @@
 namespace App\Model\Service;
 
 use App\Model\Entity\User;
+use App\Model\Service\EntityService;
 use Nette\Utils\Validators;
 use Nettrine\ORM\EntityManagerDecorator;
+use Nette\Security\Passwords;
+use Nette\Utils\ArrayList;
 
-class UserService
+class UserService extends EntityService
 {
-	public function __construct(private EntityManagerDecorator $em) {}
-
+	//--------------------------------------------------------------------------------------------------------
+	public function __construct(private EntityManagerDecorator $em, private Passwords $passwords) 
+	{
+		parent::__construct($em);
+	}
+	//--------------------------------------------------------------------------------------------------------
 	public function findUserById(int $id): ?User
 	{
-		//$user = $this->em->getUserRepository()->findOneBy(['id' => $id]);
-		//$user = $this->em->getRepository(User::class)->findOneBy(['id' => $id]);
-		$user = $this->em->getRepository(User::class)->findOneById($id);
+		$user = $this->getUserRepository()->findOneById($id);
 		return $user;
 	}
-
+	//--------------------------------------------------------------------------------------------------------
 	public function findUserByEmail(string $email): ?User
 	{
-		//$user = $this->em->getRepository(User::class)->findOneBy(['email' => $email]);
 		$user = $this->em->getRepository(User::class)->findOneByEmail($email);
 		return $user;
 	}
-
-
+	//--------------------------------------------------------------------------------------------------------
 	public function findUserByUserName(string $username): ?User
 	{
-		//$user = $this->em->getRepository(User::class)->findOneBy(['username' => $username]);
 		$user = $this->em->getRepository(User::class)->findOneByUsername($username);
 		return $user;
 	}
-
-	public function editUser(object $values)
+	//--------------------------------------------------------------------------------------------------------
+	public function editUser(object $values): string
 	{
-		$id = intval($values->id);
-
-		$user = $this->findUserById($id);
+		$user = $this->findUserById(intval($values->id));
 
 		if ($user === null) 
 		{
-			$user = new User();
+			return 'Uživatel nenalezen v databázi!';
+		}
+		else 
+		{
+			$saveuser = false;
+			$savepass = false;
+
+			if ($values->origpass === '' && $values->newpass === '' && $values->checkpass === '') 
+			{
+				$saveuser = true;
+			}
+			else 
+			{
+				if (!$this->passwords->verify($values->origpass, $user->getPassword())) 
+				{
+					return 'Zadané heslo se neshoduje s původním heslem!';
+				}
+				else if ($values->newpass !== $values->checkpass) 
+				{
+					return 'Zadané nové hesla se neshodují!';
+				}
+				else if (strlen($values->newpass) < '5') 
+				{
+					return 'Nově zadané heslo nesmí mít méně než 5 znaků!';
+				}
+				else 
+				{
+					$saveuser = true;
+					$savepass = true;
+				}
+			}
+
+			if ($saveuser === true)
+			{
+				$user->setUserName($values->username);
+				$user->setNick($values->nickname);
+				$user->setEmail($values->email);
+				$user->setFirstname($values->firstname);
+				$user->setLastname($values->lastname);
+				$user->setWorkPosition($values->position);
+				$user->setTelephone($values->telephone);
+				$user->setMobileOne($values->mobileone);
+				$user->setMobileTwo($values->mobiletwo);
+				$user->setNote($values->note);
+
+				if ($savepass === true) 
+				{
+					$user->setPassword($values->newpass);
+				}
+
+				//dump($user);
+				//die;
+
+				$this->persitAndFlusch($user);
+			}
 		}
 
-		$user->setUserName($values->username);
-		$user->setNick($values->nickname);
-		$user->setEmail($values->email);
-		$user->setFirstname($values->firstname);
-		$user->setLastname($values->lastname);
-		$user->setWorkPosition($values->position);
-		$user->setTelephone($values->telephone);
-		$user->setMobileOne($values->mobileone);
-		$user->setMobileTwo($values->mobiletwo);
-		$user->setNote($values->note);
-
-		//dump($user);
-		//die;
-
-		$this->fluschUser($user);
+		return '';
 	}
+
+	public function checkEditProfileUser(object $values): ArrayList
+	{
+		$messages = new ArrayList();
+		
+		$user = $this->findUserById(intval($values->id));
+		
+		if ($values->origpass !== '' || $values->newpass !== '' || $values->checkpass !== '') 
+		{
+			if (!$this->passwords->verify($values->origpass, $user->getPassword())) 
+			{
+				$messages[] = 'Zadané heslo se neshoduje s původním heslem!';
+			}
+			else if ($values->newpass !== $values->checkpass) 
+			{
+				$messages[] = 'Zadané nové hesla se neshodují!';
+			}
+			else if (strlen($values->newpass) < '5') 
+			{
+				$messages[] = 'Nově zadané heslo nesmí mít méně než 5 znaků!';
+			}
+		}
+
+		return $messages;
+	}
+
+	public function getUserFromEditProfile(object $values): User
+	{
+		$user = $this->findUserById(intval($values->id));
+
+
+
+
+		return $user;
+	}
+
+	public function getMessages()
+	{
+		# code...
+	}
+
+
 
 
 
@@ -120,6 +202,12 @@ class UserService
 	}
 	//----------------------------------------------------------------------------------------------------------------
 	public function fluschUser($user): void
+	{
+		$this->em->persist($user);
+		$this->em->flush();
+	}
+	//----------------------------------------------------------------------------------------------------------------
+	public function persitAndFlusch($user): void
 	{
 		$this->em->persist($user);
 		$this->em->flush();

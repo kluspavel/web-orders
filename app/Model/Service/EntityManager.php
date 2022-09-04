@@ -8,15 +8,15 @@ use Nettrine\ORM\EntityManagerDecorator;
 
 class EntityManager extends EntityManagerDecorator
 {
-
+    //--------------------------------------------------------------------------------------------------------
 	public function getUserRepository(): UserRepository
 	{
 		return $this->getRepository(User::class);
 	}
-
+    //--------------------------------------------------------------------------------------------------------
 	public function getRepository($entityName): ObjectRepository
 	{
 		return parent::getRepository($entityName);
 	}
-
+    //--------------------------------------------------------------------------------------------------------
 }
