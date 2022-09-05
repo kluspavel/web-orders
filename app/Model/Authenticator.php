@@ -3,6 +3,7 @@
 use App\Model\Service\UserService;
 use Nette\Security\IIdentity;
 use App\Model\Entity\User;
+use Nette\Utils\Strings;
 
 class Authenticator implements \Nette\Security\Authenticator
 {
@@ -12,7 +13,7 @@ class Authenticator implements \Nette\Security\Authenticator
 	public function authenticate(string $username, string $password, ?bool $auto = false): IIdentity
 	{
 		// 1. podívej se do databáze, existuje záznam pro $username? Pokud ne, vyhoď výjimku.
-		$user = $this->userService->findUserByUserName($username);
+		$user = $this->userService->findUserByUserName(Strings::upper($username));
 
 		// 2. zkontroluj zda existuje záznam o uživateli v databázi
 		if ($user === null)

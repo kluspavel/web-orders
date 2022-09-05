@@ -12,7 +12,7 @@ use Nette\Security\IIdentity;
 use Doctrine\ORM\Mapping as ORM;
 use Nette\Security\SimpleIdentity;
 use Nette\Utils\ArrayList;
-use Nette\Utils\Arrays;
+use Nette\Utils\Strings;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'users')]
@@ -108,7 +108,7 @@ class User extends Entity
 		$this->firstname = $firstname;
 		$this->lastname = $lastname;
 		$this->email = $email;
-		$this->username = $username;
+		$this->username = String::upper($username);
 		$this->password = $password !== '' ? (new Passwords)->hash($password) : '---empty-password---';
 
 		$this->role = self::ROLE_USER;
@@ -124,7 +124,7 @@ class User extends Entity
     //--------------------------------------------------------------------------------------------------------
     public function getUserName(): string
     {
-        return $this->username;
+        return Strings::upper($this->username);
     }
     //--------------------------------------------------------------------------------------------------------
     public function setUserName(string $username): void

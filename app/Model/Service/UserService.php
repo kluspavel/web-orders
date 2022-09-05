@@ -89,36 +89,6 @@ class UserService extends EntityService
 		return '';
 	}
 	//--------------------------------------------------------------------------------------------------------
-	public function saveUserFromEditForm(User $user, object $values, bool $savepass)
-	{
-		$user->setUserName($values->username);
-		$user->setNick($values->nickname);
-		$user->setEmail($values->email);
-		$user->setFirstname($values->firstname);
-		$user->setLastname($values->lastname);
-		$user->setWorkPosition($values->position);
-		$user->setTelephone($values->telephone);
-		$user->setMobileOne($values->mobileone);
-		$user->setMobileTwo($values->mobiletwo);
-		$user->setNote($values->note);
-		$user->setAvatar($this->getUserAvatar($values, $user));
-
-		if ($savepass === true) 
-		{
-			$user->setPassword($values->newpass);
-		}
-
-		//dump($user);
-		//die;
-
-		$this->persitAndFlusch($user);
-	}
-	//--------------------------------------------------------------------------------------------------------
-
-
-
-
-	
 	function getUserAvatar($values, $user): string
 	{
 		$file = $values->avatar;
@@ -155,6 +125,38 @@ class UserService extends EntityService
 		return $fullfile;
 	}
 
+	//--------------------------------------------------------------------------------------------------------
+	public function saveUserFromEditForm(User $user, object $values, bool $savepass)
+	{
+		$user->setUserName($values->username);
+		$user->setNick($values->nickname);
+		$user->setEmail($values->email);
+		$user->setFirstname($values->firstname);
+		$user->setLastname($values->lastname);
+		$user->setWorkPosition($values->position);
+		$user->setTelephone($values->telephone);
+		$user->setMobileOne($values->mobileone);
+		$user->setMobileTwo($values->mobiletwo);
+		$user->setNote($values->note);
+		$user->setAvatar($this->getUserAvatar($values, $user));
+
+		if ($savepass === true) 
+		{
+			$user->setPassword($values->newpass);
+		}
+
+		//dump($user);
+		//die;
+
+		$this->persitAndFlusch($user);
+	}
+	//--------------------------------------------------------------------------------------------------------
+
+
+
+
+	
+	
 
 
 
