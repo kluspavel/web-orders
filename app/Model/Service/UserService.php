@@ -4,10 +4,14 @@ namespace App\Model\Service;
 
 use App\Model\Entity\User;
 use App\Model\Service\EntityService;
+use Nette\Application\UI\Presenter;
 use Nette\Utils\Validators;
 use Nettrine\ORM\EntityManagerDecorator;
 use Nette\Security\Passwords;
 use Nette\Utils\ArrayList;
+use Nette\Utils\FileSystem;
+use Nette\Utils\Image;
+use Nette\Utils\Strings;
 
 class UserService extends EntityService
 {
@@ -35,115 +39,121 @@ class UserService extends EntityService
 		return $user;
 	}
 	//--------------------------------------------------------------------------------------------------------
-	public function editUser(object $values): string
+	public function updateUserFromEditForm(Presenter $presenter, object $values)
 	{
+		$message = '';
 		$user = $this->findUserById(intval($values->id));
 
-		if ($user === null) 
+		if ($user !== null) 
 		{
-			return 'Uživatel nenalezen v databázi!';
+			$savepass = $this->wantToChangePassworld($values);
+
+			if ($savepass === true) 
+			{
+				$message = $this->verifyPasswordEntry($values, $user->getPassword());
+			}
+
+			if ($message === '') 
+			{
+				$this->saveUserFromEditForm($user, $values, $savepass);
+				$presenter->redirect('User:profile', $user->getId());
+			}
+			else
+			{
+				$presenter->flashMessage($message, 'info');
+				$presenter->redirect('User:edit', $user->getId());
+			}
 		}
-		else 
+	}
+	//--------------------------------------------------------------------------------------------------------
+	public function wantToChangePassworld(object $values): bool
+	{
+		return !($values->origpass === '' && $values->newpass === '' && $values->checkpass === '');
+	}
+	//--------------------------------------------------------------------------------------------------------
+	public function verifyPasswordEntry(object $values, string $password): string
+	{
+		if (!$this->passwords->verify($values->origpass, $password))
 		{
-			$saveuser = false;
-			$savepass = false;
-
-			if ($values->origpass === '' && $values->newpass === '' && $values->checkpass === '') 
-			{
-				$saveuser = true;
-			}
-			else 
-			{
-				if (!$this->passwords->verify($values->origpass, $user->getPassword())) 
-				{
-					return 'Zadané heslo se neshoduje s původním heslem!';
-				}
-				else if ($values->newpass !== $values->checkpass) 
-				{
-					return 'Zadané nové hesla se neshodují!';
-				}
-				else if (strlen($values->newpass) < '5') 
-				{
-					return 'Nově zadané heslo nesmí mít méně než 5 znaků!';
-				}
-				else 
-				{
-					$saveuser = true;
-					$savepass = true;
-				}
-			}
-
-			if ($saveuser === true)
-			{
-				$user->setUserName($values->username);
-				$user->setNick($values->nickname);
-				$user->setEmail($values->email);
-				$user->setFirstname($values->firstname);
-				$user->setLastname($values->lastname);
-				$user->setWorkPosition($values->position);
-				$user->setTelephone($values->telephone);
-				$user->setMobileOne($values->mobileone);
-				$user->setMobileTwo($values->mobiletwo);
-				$user->setNote($values->note);
-
-				if ($savepass === true) 
-				{
-					$user->setPassword($values->newpass);
-				}
-
-				//dump($user);
-				//die;
-
-				$this->persitAndFlusch($user);
-			}
+			return 'Zadané heslo se neshoduje s původním heslem!';
+		}
+		else if (strlen($values->newpass) < '5') 
+		{
+			return 'Nově zadané heslo nesmí mít méně než 5 znaků!';
+		}
+		else if ($values->newpass !== $values->checkpass) 
+		{
+			return 'Nové heslo se neshoduje s ověřovacím heslem!';
 		}
 
 		return '';
 	}
-
-	public function checkEditProfileUser(object $values): ArrayList
+	//--------------------------------------------------------------------------------------------------------
+	public function saveUserFromEditForm(User $user, object $values, bool $savepass)
 	{
-		$messages = new ArrayList();
-		
-		$user = $this->findUserById(intval($values->id));
-		
-		if ($values->origpass !== '' || $values->newpass !== '' || $values->checkpass !== '') 
+		$user->setUserName($values->username);
+		$user->setNick($values->nickname);
+		$user->setEmail($values->email);
+		$user->setFirstname($values->firstname);
+		$user->setLastname($values->lastname);
+		$user->setWorkPosition($values->position);
+		$user->setTelephone($values->telephone);
+		$user->setMobileOne($values->mobileone);
+		$user->setMobileTwo($values->mobiletwo);
+		$user->setNote($values->note);
+		$user->setAvatar($this->getUserAvatar($values, $user));
+
+		if ($savepass === true) 
 		{
-			if (!$this->passwords->verify($values->origpass, $user->getPassword())) 
-			{
-				$messages[] = 'Zadané heslo se neshoduje s původním heslem!';
-			}
-			else if ($values->newpass !== $values->checkpass) 
-			{
-				$messages[] = 'Zadané nové hesla se neshodují!';
-			}
-			else if (strlen($values->newpass) < '5') 
-			{
-				$messages[] = 'Nově zadané heslo nesmí mít méně než 5 znaků!';
-			}
+			$user->setPassword($values->newpass);
 		}
 
-		return $messages;
-	}
+		dump($user);
+		die;
 
-	public function getUserFromEditProfile(object $values): User
+		$this->persitAndFlusch($user);
+	}
+	//--------------------------------------------------------------------------------------------------------
+
+
+
+
+	
+	function getUserAvatar($values, $user): string
 	{
-		$user = $this->findUserById(intval($values->id));
+		$file = $values->avatar;
+		$filepath = 'img/avatars/';
+		$filename = 'default-avatar.png';
+		$fullfile = $filepath . $filename;
 
+		if ($file->hasFile() && $file->isImage()) 
+		{
+			$filename = Strings::webalize($values->username) . "-avatar." . $file->getImageFileExtension();
+			$image = $file->toImage();
 
+			if ($image->getHeight() > 400) { $image->resize(null, 400); }
+            if ($image->getWidth() > 400) { $image->resize(400, null); }
 
+			if ($image->getHeight() > $image->getWidth())
+            {
+                $image->crop('0%', '50%', $image->getWidth(), $image->getWidth());
+            }
+            else
+            {
+                $image->crop('50%', '0%', $image->getHeight(), $image->getHeight());
+            }
 
-		return $user;
+			$fullfile = $filepath . $filename;
+			$image->save($fullfile);
+			FileSystem::delete("img/temp/" . $filename);
+		}
+		else 
+		{
+			$fullfile = $user->getAvatar();
+		}
+
+		return $fullfile;
 	}
-
-	public function getMessages()
-	{
-		# code...
-	}
-
-
-
-
 
 
 

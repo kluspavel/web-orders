@@ -81,7 +81,7 @@ final class UserPresenter extends BasePresenter
 
         $form->addPassword('origpass', 'Původní heslo');
         $form->addPassword('newpass', 'Nové heslo');
-        $form->addPassword('checkpass', 'Znovu heslo');
+        $form->addPassword('checkpass', 'Ověřovací heslo');
 
         $form->addEmail('email', 'Email')->setDefaultValue($this->oneUser->getEmail());
         $form->addText('telephone', 'Telefon')->setDefaultValue($this->oneUser->getTelephone());
@@ -99,9 +99,12 @@ final class UserPresenter extends BasePresenter
     {
         $values = $form->getValues();
 
-            dump($values);
-            die;
+        //dump($values);
+        //die;
 
+        $this->us->updateUserFromEditForm($this, $values);
+
+        /*
         $message = $this->us->editUser($values);
 
         if ($message !== '') 
@@ -115,5 +118,6 @@ final class UserPresenter extends BasePresenter
             $this->flashMessage('Uživatel byl uložen.', 'danger');
             $this->redirect('Home:overview');
         }
+        */
     }
 }
