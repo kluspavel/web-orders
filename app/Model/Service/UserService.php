@@ -108,8 +108,8 @@ class UserService extends EntityService
 			$user->setPassword($values->newpass);
 		}
 
-		dump($user);
-		die;
+		//dump($user);
+		//die;
 
 		$this->persitAndFlusch($user);
 	}
