@@ -41,6 +41,8 @@ final class AuthPresenter extends BasePresenter
     //--------------------------------------------------------------------------------------------------------
     public function actionSignIn()
     {
+        $this->setLayout('orders');
+
         if ($this->getUser()->isLoggedIn() === true) 
         {
             $this->redirect('Home:overview');
@@ -60,7 +62,6 @@ final class AuthPresenter extends BasePresenter
             }
         }
 
-        $this->setLayout('orders');
     }
     //--------------------------------------------------------------------------------------------------------
     public function actionSignOut()
@@ -73,6 +74,7 @@ final class AuthPresenter extends BasePresenter
             $user->setOnline(false);
             $this->us->fluschUser($user);
             $this->getUser()->logout(true);
+            $this->redirect('Home:overview');
         }
     }
     //--------------------------------------------------------------------------------------------------------

@@ -108,7 +108,7 @@ class User extends Entity
 		$this->firstname = $firstname;
 		$this->lastname = $lastname;
 		$this->email = $email;
-		$this->username = String::upper($username);
+		$this->username = Strings::upper($username);
 		$this->password = $password !== '' ? (new Passwords)->hash($password) : '---empty-password---';
 
 		$this->role = self::ROLE_USER;
@@ -456,7 +456,7 @@ class User extends Entity
 			'firstname' => $this->firstname,
 			'lastname' => $this->lastname,
 			'state' => $this->state,
-			'gravatar' => $this->getGravatar(),
+			'avatar' => $this->getAvatar(),
 		]);
 	}
 }

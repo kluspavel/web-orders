@@ -39,16 +39,17 @@ final class HomePresenter extends BasePresenter
     //--------------------------------------------------------------------------------------------------------
     public function createUser()
     {
-        //$user = new User('Pavel', 'Klus', 'pavel.klus@continental-corporation.com', 'UIDM2061', 'Jisap.1979');
-        //$user->nickname = 'Pavlik';
-        //$this->us->fluschUser($user);
+        $user = new User();
+        $user->injectData('Milan', 'Detonator', 'milan.detoantor@continental-corporation.com', 'UIDM2075', 'Jisap.1979');
+        $user->setNick('Milouš');
+        $this->us->fluschUser($user);
 
         //$user = $this->us->findUserByEmail('kluspavel@gmail.com');
-        $user = $this->us->findUserById(1);
-        $user->setPassword($user->getPassword());
-        $this->us->fluschUser($user);
-        dump($user);
-        die;
+        //$user = $this->us->findUserById(1);
+        //$user->setPassword($user->getPassword());
+        //$this->us->fluschUser($user);
+        //dump($user);
+        //die;
     }
     //--------------------------------------------------------------------------------------------------------
     public function actionOverview()
