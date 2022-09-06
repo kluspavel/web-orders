@@ -21,6 +21,12 @@ class UserService extends EntityService
 		parent::__construct($em);
 	}
 	//--------------------------------------------------------------------------------------------------------
+	public function findAllUsers()
+	{
+		$user = $this->getUserRepository()->findAll();
+		return $user;
+	}
+	//--------------------------------------------------------------------------------------------------------
 	public function findUserById(int $id): ?User
 	{
 		$user = $this->getUserRepository()->findOneById($id);

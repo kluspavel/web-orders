@@ -196,6 +196,36 @@ class User extends Entity
     {
         return $this->state;
     }
+	//--------------------------------------------------------------------------------------------------------
+	public function getStateText(): string
+    {
+		$statetext = 'Registred';
+		if ($this->state === self::STATE_ACTIVATED) 
+		{
+			$statetext = 'Activated';
+		}
+		elseif ($this->state === self::STATE_BLOCKED) 
+		{
+			$statetext = 'Bocked';
+		}
+
+        return $statetext;
+    }
+	//--------------------------------------------------------------------------------------------------------
+	public function getStateColor(): string
+	{
+        $statecolor = 'bg-yellow-500';
+		if ($this->state === self::STATE_ACTIVATED) 
+		{
+			$statecolor = 'bg-blue-500';
+		}
+		elseif ($this->state === self::STATE_BLOCKED) 
+		{
+			$statecolor = 'bg-gray-800';
+		}
+
+        return $statecolor;
+    }
     //--------------------------------------------------------------------------------------------------------
     public function setState(int $state): void
     {
@@ -355,6 +385,26 @@ class User extends Entity
 		$this->online = $online;
 	}
 	//--------------------------------------------------------------------------------------------------------
+	public function getOnlineText(): string
+	{
+		$onlinetext = "Offline";
+		if ($this->online === true) 
+		{
+			$onlinetext = "Online";
+		}
+		return $onlinetext;
+	}
+	//--------------------------------------------------------------------------------------------------------
+	public function getOnlineColor(): string
+	{
+		$onlinecolor = "bg-red-500";
+		if ($this->online === true) 
+		{
+			$onlinecolor = "bg-green-500";
+		}
+		return $onlinecolor;
+	}
+	//--------------------------------------------------------------------------------------------------------
 	public function isOnline(): bool
 	{
 		return $this->online === $this->getOnline();
@@ -368,8 +418,15 @@ class User extends Entity
 	}
 	//--------------------------------------------------------------------------------------------------------
 	public function getAvatar(): string
-	{
-		return $this->avatar;
+	{	
+		$avatar = $this->avatar;
+	
+		if (is_file($avatar)) 
+		{
+			return $this->avatar;
+		}
+
+		return 'img/avatars/default-avatar.jpg';
 	}
 	//--------------------------------------------------------------------------------------------------------
 	public function setAvatar(string $avatar)

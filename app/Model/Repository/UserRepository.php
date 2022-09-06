@@ -7,6 +7,11 @@ use App\Model\Entity\User;
 class UserRepository extends Repository
 {
 	//--------------------------------------------------------------------------------------------------------
+	public function findAll()
+	{
+		return $this->findAll();
+	}
+	//--------------------------------------------------------------------------------------------------------
 	public function findOneById(int $id): ?User
 	{
 		return $this->findOneBy(['id' => $id]);

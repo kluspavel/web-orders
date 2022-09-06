@@ -120,4 +120,15 @@ final class UserPresenter extends BasePresenter
         }
         */
     }
+
+
+
+
+    public function renderAll()
+    {
+        $this->setLayout('orders');
+        $users = $this->us->findAllUsers();
+
+        $this->template->users = $users;
+    }
 }

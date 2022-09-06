@@ -1,0 +1,58 @@
+{block content}
+
+<main class="w-full p-4">
+    <div id="all-table" class="shadow-lg">
+        <div id="filtr-panel" class="w-full p-3 bg-gray-800 rounded-t-md flex items-center">
+            <input type="text" name="uid" id="uid" placeholder="Hledej" class="p-1 bg-gray-200 text-gray-700 rounded w-28 mr-2">
+            <select name="position" id="position" class="p-1 bg-gray-200 text-gray-700 rounded border cursor-pointer border-spacing-1 w-full md:w-auto">
+                <option selected>Vybet typ uživatele</option>
+                <option value="Z">Zadavatel</option>
+                <option value="S">Schvalovatel</option>
+                <option value="P">Plánovač</option>
+                <option value="A">Administrátor</option>
+            </select>
+        </div>
+        <table class="w-full text-sm text-left bg-slate-600 rounded-b-md overflow-hidden">
+            <thead class="bg-gray-800 text-gray-500">
+                <tr class="uppercase">
+                    <th class="px-3 py-2">Uživatel</th>
+                    <th class="px-3 py-2 hidden xl:table-cell">Role</th>
+                    <th class="px-3 py-2 hidden lg:table-cell">Stav</th>
+                    <th class="px-3 py-2">Akce</th>
+                </tr>
+            </thead>
+            <tbody>
+            {foreach $users as $profile}
+                <tr class="border-b border-gray-500 bg-slate-600 hover:bg-gray-500">
+                    <td class="flex items-center p-3">
+                        <img class="w-10 h-10 rounded-full" src="../../{$profile->getAvatar()}" alt="avatar">
+                        <div class="pl-3">
+                            <a n:href="User:profile $profile->getId()" class="text-base font-semibold text-orange-400 hover:underline">{$profile->getUsername()} - {$profile->getFullname()}</a>
+                            <div class="font-normal text-gray-400">{$profile->getEmail()}</div>
+                        </div>  
+                    </td>
+                    <td class="p-3 hidden xl:table-cell">
+                        <div class="text-gray-300">{$profile->getRole()}</div>
+                    </td>
+                    <td class="p-3 hidden lg:table-cell">
+                        <div class="flex items-center">
+                            <div class="h-2.5 w-2.5 rounded-full {$profile->getOnlineColor()} mr-2"></div>
+                            <div class="text-gray-300">{$profile->getOnlineText()}</div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="h-2.5 w-2.5 rounded-full {$profile->getStateColor()} mr-2"></div>
+                            <div class="text-gray-300">{$profile->getStateText()}</div>
+                        </div>
+                    </td>
+                    <td class="p-3">
+                        <div class="md:flex items-center">
+                            <a n:href="User:edit $profile->getId()" class="font-medium text-blue-400 hover:underline mr-2">Upravit</a>
+                            <a n:href="User:profile $profile->getId()" class="font-medium text-orange-400 hover:underline">Profil</a>
+                        </div>
+                    </td>
+                </tr>
+                {/foreach}
+            </tbody>
+        </table>
+    </div>
+</main>
