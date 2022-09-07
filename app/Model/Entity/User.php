@@ -2,8 +2,9 @@
 
 namespace App\Model\Entity;
 
-use App\Model\Entity\Attributes\TraitCreatedAt;
 use App\Model\Entity\Attributes\TraitId;
+use App\Model\Entity\Attributes\TraitCreatedAt;
+use App\Model\Entity\Attributes\TraitLoggedAt;
 use App\Model\Entity\Attributes\TraitUpdatedAt;
 use DateTime as GlobalDateTime;
 use Nette\Security\Passwords;
@@ -63,9 +64,6 @@ class User extends Entity
     //--------------------------------------------------------------------------------------------------------
     #[ORM\Column(type: 'boolean')]
     private bool $online = false;
-    //--------------------------------------------------------------------------------------------------------
-    #[ORM\Column(type: 'datetime', nullable: true)]
-	private $lastLoggedAt;
 	//--------------------------------------------------------------------------------------------------------
     #[ORM\Column(type: 'string', length: 32, nullable: false)]
     private ?string $telephone;
@@ -89,10 +87,19 @@ class User extends Entity
     //--------------------------------------------------------------------------------------------------------
     use TraitCreatedAt;
 	use TraitUpdatedAt;
+	use TraitLoggedAt;
     //--------------------------------------------------------------------------------------------------------
     // CONSTRUCT
     //--------------------------------------------------------------------------------------------------------
-	public function __construct()
+	public function __construct(?bool $newUser = false)
+	{
+		if ($newUser === true) 
+		{
+			$this->setNewData();
+		}
+	}
+	//--------------------------------------------------------------------------------------------------------
+	public function setNewData(): void
 	{
 		$this->role = self::ROLE_USER;
 		$this->state = self::STATE_FRESH;
@@ -101,6 +108,9 @@ class User extends Entity
         $this->rights = '00000000000000000001';
 		$this->createdAt = new \DateTimeImmutable('now');
 		$this->updatedAt = new \DateTimeImmutable('now');
+		$this->loggedAt = new \DateTimeImmutable('now');
+
+
 	}
 	//--------------------------------------------------------------------------------------------------------
 	public function injectData(string $firstname, string $lastname, string $email, string $username, string $password)
@@ -110,14 +120,6 @@ class User extends Entity
 		$this->email = $email;
 		$this->username = Strings::upper($username);
 		$this->password = $password !== '' ? (new Passwords)->hash($password) : '---empty-password---';
-
-		$this->role = self::ROLE_USER;
-		$this->state = self::STATE_FRESH;
-		$this->types = 'none';
-
-        $this->rights = '00000000000000000001';
-		$this->createdAt = new \DateTimeImmutable('now');
-		$this->updatedAt = new \DateTimeImmutable('now');
 	}
     //--------------------------------------------------------------------------------------------------------
     // GET SET username
@@ -250,16 +252,28 @@ class User extends Entity
 		$this->state = self::STATE_BLOCKED;
 	}
 	//--------------------------------------------------------------------------------------------------------
+    // GET SET types
+    //--------------------------------------------------------------------------------------------------------
+    public function getTypes(): string
+    {
+        return $this->types;
+    }
+    //--------------------------------------------------------------------------------------------------------
+    public function setTypes(string $types): void
+    {
+        $this->types = $types;
+    }
+	//--------------------------------------------------------------------------------------------------------
     // GET SET logged at
     //--------------------------------------------------------------------------------------------------------
-	public function getLastLoggedAt(): GlobalDateTime
+	public function getLoggedAt(): GlobalDateTime
 	{
-		return $this->lastLoggedAt;
+		return $this->loggedAt;
 	}
 	//--------------------------------------------------------------------------------------------------------
 	public function setLoggedAt(DateTime $loggedAt): void
 	{
-		$this->lastLoggedAt = $loggedAt;
+		$this->loggedAt = $loggedAt;
 	}
 	//--------------------------------------------------------------------------------------------------------
 	public function changeLoggedAt(): void

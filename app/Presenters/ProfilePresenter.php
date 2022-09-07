@@ -7,7 +7,7 @@ use App\Model\Service\UserService;
 use Nette\Application\UI\Form;
 use Nette\Security\AuthenticationException;
 
-final class UserPresenter extends BasePresenter
+final class ProfilePresenter extends BasePresenter
 {
     //--------------------------------------------------------------------------------------------------------
     public UserService $us;
@@ -42,30 +42,12 @@ final class UserPresenter extends BasePresenter
 
         $this->oneUser = $this->us->findUserById($id);
         $this->template->profile = $this->oneUser;
-
-        //$userCount = $this->us->getUserCount();
-        //$userOnlineCount = $this->us->getOnlineUserCount();
-        //$this->template->userCount = $userCount;
-        //$this->template->userOnlineCount = $userOnlineCount;
-
-        //$this->template->sentenceCount = $this->us->getUserCountText($userCount) . ' v databázi';
-        //$this->template->sentenceOnline = $this->us->getUserCountText($userOnlineCount) . ' online';
-
-        //dump($userCount);
-        //dump($user);
-        //die;
     }
     //--------------------------------------------------------------------------------------------------------
     public function actionEdit(int $id = null)
     {
         $this->setLayout('orders');
-
         $this->oneUser = $this->us->findUserById($id);
-
-        //dump($userek);
-        //dump(array($userek));
-        //die;
-
         $this->template->profile = $this->oneUser;
     }
     //-------------------------------------------------------------------------------------------------------
@@ -98,37 +80,6 @@ final class UserPresenter extends BasePresenter
     public function userEditFormSuccess(Form $form)
     {
         $values = $form->getValues();
-
-        //dump($values);
-        //die;
-
         $this->us->updateUserFromEditForm($this, $values);
-
-        /*
-        $message = $this->us->editUser($values);
-
-        if ($message !== '') 
-        {
-            $this->flashMessage($message);
-            $this->redirect('User:edit', $values->id);
-        }
-        else 
-        {
-            $this->us->editUser($values);
-            $this->flashMessage('Uživatel byl uložen.', 'danger');
-            $this->redirect('Home:overview');
-        }
-        */
-    }
-
-
-
-
-    public function renderAll()
-    {
-        $this->setLayout('orders');
-        $users = $this->us->findAllUsers();
-
-        $this->template->users = $users;
     }
 }

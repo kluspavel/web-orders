@@ -6,19 +6,19 @@ namespace App\Model\Entity\Attributes;
 use Nette\Utils\DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
-trait TraitUpdatedAt
+trait TraitLoggedAt
 {
 	#[ORM\Column(type: 'datetime', nullable: false)]
-	protected $updatedAt;
+	protected $loggedAt;
 
-	public function getUpdatedAt(): ?DateTime
+	public function getLoggedAt(): ?DateTime
 	{
-		return $this->updatedAt;
+		return $this->loggedAt;
 	}
 
 	#[ORM\PreUpdate]
-	public function setUpdatedAt(): void
+	public function setLoggedAt(): void
 	{
-		$this->updatedAt = new DateTime();
+		$this->loggedAt = new DateTime();
 	}
 }

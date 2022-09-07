@@ -27,7 +27,7 @@
                     <td class="flex items-center p-3">
                         <img class="w-10 h-10 rounded-full" src="../../{$profile->getAvatar()}" alt="avatar">
                         <div class="pl-3">
-                            <a n:href="User:profile $profile->getId()" class="text-base font-semibold text-orange-400 hover:underline">{$profile->getUsername()} - {$profile->getFullname()}</a>
+                            <a n:href="User:show $profile->getId()" class="text-base font-semibold text-orange-400 hover:underline">{$profile->getUsername()} - {$profile->getFullname()}</a>
                             <div class="font-normal text-gray-400">{$profile->getEmail()}</div>
                         </div>  
                     </td>
