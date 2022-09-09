@@ -1,0 +1,24 @@
+{define navbuttontitle $text}
+    <div class="flex flex-row items-center mt-2 h-8">
+        <div class="text-sm font-light tracking-wide text-gray-400 uppercase">{$text}</div>
+    </div>
+{/define}
+
+
+
+
+
+{define navbutton $link, $icon, $text}
+    <a n:href=$link class="relative flex flex-row items-center h-12 pr-6 bg-gray-900 hover:bg-blue-800 border-l-4 border-gray-900 hover:border-blue-500">
+        <img class="w-10 rounded-full border-gray-600 bg-gray-600 border-4 ml-2" src ="https://img.icons8.com/plasticine/344/{$icon}.png" alt="login"/>
+        <span class="ml-2 text-sm tracking-wide truncate">{$text}</span>
+    </a>
+{/define}
+
+{define navbuttoncount $link, $icon, $text, $count}
+    <a n:href=$link class="relative flex flex-row items-center h-12 pr-6 bg-gray-900 hover:bg-blue-800 border-l-4 border-gray-900 hover:border-blue-500">
+        <img class="w-10 rounded-full border-gray-600 bg-gray-600 border-4 ml-2" src ="https://img.icons8.com/plasticine/344/{$icon}.png" alt="login"/>
+        <span class="ml-2 text-sm tracking-wide truncate">{$text}</span>
+        <span class="hidden xl:block px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-blue-500 bg-indigo-50 rounded-full">{$count}</span>
+    </a>
+{/define}

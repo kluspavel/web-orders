@@ -34,7 +34,7 @@
             </div>
         </section>
         
-        <section class="w-full p-2 md:ml-4 mt-2 md:mt-0 bg-gray-600 rounded-md shadow-gray-800 shadow-md border-b-4 border-gray-900">
+        <section class="w-full xl:w-1/2 p-2 md:ml-4 mt-2 md:mt-0 bg-gray-600 rounded-md shadow-gray-800 shadow-md border-b-4 border-gray-900">
             {form userEditForm}
             <ul class="flex flex-col">
                 <li class="ml-2">
@@ -45,31 +45,31 @@
                         <div class="relative w-full mb-3">
                             {input id, value => $profile->getId()}
                             {label username, class => "block uppercase text-gray-400 text-xs font-bold mb-1"}
-                            {input username, class => "border-0 px-3 py-3 text-orange-300 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150", placeholder => "Zadejte UID"}
+                            {input username, class => "border-0 px-3 py-2 text-orange-300 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150", placeholder => "Zadejte UID"}
                         </div>
                     </div>
                         <div class="w-full lg:w-6/12 px-4">
                         <div class="relative w-full mb-3">
                             {label nickname, class => "block uppercase text-gray-400 text-xs font-bold mb-1"}
-                            {input nickname, class => "border-0 px-3 py-3 text-gray-100 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"}
+                            {input nickname, class => "border-0 px-3 py-2 text-gray-100 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"}
                         </div>
                     </div>
                     <div class="w-full lg:w-6/12 px-4">
                         <div class="relative w-full mb-3">
                             {label firstname, class => "block uppercase text-gray-400 text-xs font-bold mb-1"}
-                            {input firstname, class => "border-0 px-3 py-3 text-gray-100 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150", placeholder => "Zadejte JMÉNO"}
+                            {input firstname, class => "border-0 px-3 py-2 text-gray-100 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150", placeholder => "Zadejte JMÉNO"}
                         </div>
                     </div>
                     <div class="w-full lg:w-6/12 px-4">
                         <div class="relative w-full mb-3">
                             {label lastname, class => "block uppercase text-gray-400 text-xs font-bold mb-1"}
-                            {input lastname, class => "border-0 px-3 py-3 text-gray-100 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150", placeholder => "Zadejte PŘÍJMENÍ"}
+                            {input lastname, class => "border-0 px-3 py-2 text-gray-100 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150", placeholder => "Zadejte PŘÍJMENÍ"}
                         </div>
                     </div>
                     <div class="w-full lg:w-12/12 px-4">
                         <div class="relative w-full mb-3">
                             {label position, class => "block uppercase text-gray-400 text-xs font-bold mb-1"}
-                            {input position, class => "border-0 px-3 py-3 text-gray-100 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150", placeholder => "Zadejte PRACOVNÍ ZAŘAZENÍ"}
+                            {input position, class => "border-0 px-3 py-2 text-gray-100 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150", placeholder => "Zadejte PRACOVNÍ ZAŘAZENÍ"}
                         </div>
                     </div>
                 </li>
@@ -80,19 +80,19 @@
                     <div class="w-full lg:w-4/12 px-4">
                         <div class="relative w-full mb-3">
                             {label origpass, class => "block uppercase text-gray-400 text-xs font-bold mb-1"}
-                            {input origpass, class => "border-0 px-3 py-3 text-gray-100 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"}
+                            {input origpass, class => "border-0 px-3 py-2 text-gray-100 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"}
                         </div>
                     </div>
                     <div class="w-full lg:w-4/12 px-4">
                         <div class="relative w-full mb-3">
                             {label newpass, class => "block uppercase text-gray-400 text-xs font-bold mb-1"}
-                            {input newpass, class => "border-0 px-3 py-3 text-gray-100 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"}
+                            {input newpass, class => "border-0 px-3 py-2 text-gray-100 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"}
                         </div>
                     </div>
                     <div class="w-full lg:w-4/12 px-4">
                         <div class="relative w-full mb-3">
                             {label checkpass, class => "block uppercase text-gray-400 text-xs font-bold mb-1"}
-                            {input checkpass, class => "border-0 px-3 py-3 text-gray-100 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"}
+                            {input checkpass, class => "border-0 px-3 py-2 text-gray-100 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"}
                         </div>
                     </div>
                 </li>
@@ -103,7 +103,7 @@
                     <div class="w-full lg:w-12/12 px-4">
                         <div class="relative w-full mb-3">
                             {label email, class => "block uppercase text-gray-400 text-xs font-bold mb-1"}
-                            {input email, class => "border-0 px-3 py-3 text-gray-100 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150", placeholder => "Zadejte EMAIL"}
+                            {input email, class => "border-0 px-3 py-2 text-gray-100 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150", placeholder => "Zadejte EMAIL"}
                         </div>
                     </div>
                 </li>
@@ -111,19 +111,19 @@
                     <div class="w-full lg:w-4/12 px-4">
                         <div class="relative w-full mb-3">
                             {label telephone, class => "block uppercase text-gray-400 text-xs font-bold mb-1"}
-                            {input telephone, class => "border-0 px-3 py-3 text-gray-100 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150", placeholder => "Zadejte TELEFON"}
+                            {input telephone, class => "border-0 px-3 py-2 text-gray-100 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150", placeholder => "Zadejte TELEFON"}
                         </div>
                     </div>
                     <div class="w-full lg:w-4/12 px-4">
                         <div class="relative w-full mb-3">
                             {label mobileone, class => "block uppercase text-gray-400 text-xs font-bold mb-1"}
-                            {input mobileone, class => "border-0 px-3 py-3 text-gray-100 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"}
+                            {input mobileone, class => "border-0 px-3 py-2 text-gray-100 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"}
                         </div>
                     </div>
                     <div class="w-full lg:w-4/12 px-4">
                         <div class="relative w-full mb-3">
                             {label mobiletwo, class => "block uppercase text-gray-400 text-xs font-bold mb-1"}
-                            {input mobiletwo, class => "border-0 px-3 py-3 text-gray-100 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"}
+                            {input mobiletwo, class => "border-0 px-3 py-2 text-gray-100 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"}
                         </div>
                     </div>
                 </li>
@@ -135,7 +135,7 @@
                         <div class="relative w-full mb-3">
                             {label note, class => "block uppercase text-gray-400 text-xs font-bold mb-1"}
                             {input note, class => "border-0 px-3 py-3 text-gray-100 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"}
-                            {input avatar, class => "hidden border-0 px-3 py-3 text-gray-100 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"}
+                            {input avatar, class => "hidden border-0 px-3 py-2 text-gray-100 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"}
                         </div>
                     </div>
                 </li>

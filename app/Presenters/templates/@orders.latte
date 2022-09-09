@@ -1,3 +1,5 @@
+{import 'comps/controls.latte'}
+
 <!doctype html>
 <html>
 <head>
@@ -78,60 +80,33 @@
             <div class="overflow-y-auto overflow-x-hidden flex flex-col justify-between flex-grow">
                 <ul class="flex flex-col py-4 space-y-1">
                     <li class="px-5 hidden xl:block">
-                        <div class="flex flex-row items-center h-8">
-                            <div class="text-sm font-light tracking-wide text-gray-400 uppercase">Hlavní</div>
-                        </div>
+                        {include navbuttontitle "Hlavní"}
                     </li>
                     <li>
-                        <a n:href="Home:overview" class="relative flex flex-row items-center h-12 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6">
-                            <img class="w-10 rounded-full border-gray-600 bg-gray-600 border-4 ml-2" src ="https://img.icons8.com/plasticine/344/home-page.png" alt="login"/>
-                            <span class="ml-2 text-sm tracking-wide truncate">Přehledy</span>
-                        </a>
+                        {include navbutton "Home:overview", "home-page", "Přehledy"}
                     </li>
                     {if $user->isLoggedIn()}
                     <li>
-                        <a href="#" class="relative flex flex-row items-center h-12 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6">
-                            <img class="w-10 rounded-full border-gray-600 bg-gray-600 border-4 ml-2" fill="none" src ="https://img.icons8.com/plasticine/344/terms-and-conditions.png" alt="login"/>
-                            <span class="ml-2 text-sm tracking-wide truncate">Poptávky</span>
-                            <span class="hidden xl:block px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-blue-500 bg-indigo-50 rounded-full">0</span>
-                        </a>
+                        {include navbuttoncount "Home:overview", "terms-and-conditions", "Poptávky", "0"}
                     </li>
                     <li>
-                        <a href="#" class="relative flex flex-row items-center h-12 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6">
-                            <img class="w-10 rounded-full border-gray-600 bg-gray-600 border-4 ml-2" fill="none" src ="https://img.icons8.com/plasticine/344/books.png" alt="login"/>
-                            <span class="ml-2 text-sm tracking-wide truncate">Zakázky</span>
-                            <span class="hidden xl:block px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-blue-500 bg-indigo-50 rounded-full">0</span>
-                        </a>
+                        {include navbuttoncount "Home:overview", "books", "Zakázky", "0"}
                     </li>
                     <li>
-                        <a href="#" class="relative flex flex-row items-center h-12 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6">
-                            <img class="w-10 rounded-full border-gray-600 bg-gray-600 border-4 ml-2" fill="none" src ="https://img.icons8.com/plasticine/344/transaction-list.png" alt="login"/>
-                            <span class="ml-2 text-sm tracking-wide truncate">Požadavky</span>
-                        </a>
+                        {include navbutton "Home:overview", "transaction-list", "Požadavky"}
                     </li>
                     <li>
-                        <a href="#" class="relative flex flex-row items-center h-12 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6">
-                            <img class="w-10 rounded-full border-gray-600 bg-gray-600 border-4 ml-2" fill="none" src ="https://img.icons8.com/plasticine/344/timeline-week.png" alt="login"/>
-                            <span class="ml-2 text-sm tracking-wide truncate">Denní plány</span>
-                        </a>
+                        {include navbutton "Home:overview", "timeline-week", "Denní plány"}
                     </li>
                     <li class="px-5 hidden xl:block">
-                        <div class="flex flex-row items-center mt-2 h-8">
-                            <div class="text-sm font-light tracking-wide text-gray-400 uppercase">Nastavení</div>
-                        </div>
+                        {include navbuttontitle "Nastavení"}
                     </li>
                     <li>
-                        <a n:href="User:all" class="relative flex flex-row items-center h-12 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6">
-                            <img class="w-10 rounded-full border-gray-600 bg-gray-600 border-4 ml-2" fill="none" src ="https://img.icons8.com/plasticine/344/apple-contacts.png" alt="All Users"/>
-                            <span class="ml-2 text-sm tracking-wide truncate">Uživatelé</span>
-                            <span class="hidden xl:block px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-red-500 bg-red-50 rounded-full">{$usercount}</span>
-                        </a>
+                        {include navbuttoncount "User:all", "apple-contacts", "Uživatelé", $usercount}
+                        
                     </li>
                     <li>
-                        <a href="#" class="relative flex flex-row items-center h-12 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6">
-                            <img class="w-10 rounded-full border-gray-600 bg-gray-600 border-4 ml-2" fill="none" src ="https://img.icons8.com/plasticine/344/settings.png" alt="login"/>
-                            <span class="ml-2 text-sm tracking-wide truncate">Nastavení</span>
-                        </a>
+                        {include navbutton "Home:overview", "settings", "Nastavení"}
                     </li>
                     {/if}
                 </ul>
