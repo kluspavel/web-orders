@@ -18,7 +18,7 @@
 </head>
 
 <body class="readex">
-    <div class="min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-gray-700 text-white">
+    <div class="min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-orange-300 text-gray-800">
 
         <!-- HEADER -->
         <div class="fixed w-full flex items-center justify-between h-14 text-orange-400 font-bold z-10 bg-gray-800">
@@ -34,27 +34,27 @@
                     
                 </div>
             </div>
-            <div class="flex justify-between items-center h-14 bg-gray-800  header-right">
+            <div class="flex justify-between items-center h-14 bg-gray-800 header-right">
                 <ul class="flex items-center">
                     {if $user->isLoggedIn()}
                         <li>
-                            <a n:href="Profile:show $user->getId()" class="flex items-center hover:text-blue-100 mr-2"  title="Zobrazit profil">
+                            <a n:href="Profile:show $user->getId()" class="flex items-center mr-2 bg-gray-500 hover:bg-orange-500 rounded-md p-1" title="Zobrazit profil">
                                 <span class="inline-flex">                        
-                                    <img class="w-8 h-8 rounded-full border-4 border-gray-500 bg-gray-500" fill="none" src ="https://img.icons8.com/plasticine/344/contract-job.png" alt="profile"/>
+                                    <img class="w-8 h-8" fill="none" src ="https://img.icons8.com/plasticine/344/contract-job.png" alt="profile"/>
                                 </span>
                             </a>
                         </li>
                         <li>
-                            <a href="user-messages.html" class="flex items-center hover:text-blue-100 mr-2"  title="Zobrazit zprávy">
+                            <a href="user-messages.html" class="flex items-center mr-2 bg-gray-500 hover:bg-orange-500 rounded-md p-1"  title="Zobrazit zprávy">
                                 <span class="inline-flex">                        
-                                    <img class="w-8 h-8 rounded-full border-4 border-gray-500 bg-gray-500" fill="none" src ="https://img.icons8.com/plasticine/344/communication.png" alt="profile"/>
+                                    <img class="w-8 h-8" fill="none" src ="https://img.icons8.com/plasticine/344/communication.png" alt="profile"/>
                                 </span>
                             </a>
                         </li>
                         <li>
-                            <a href="user-message.html" class="flex items-center hover:text-blue-100"  title="Zaslat dotaz na správce">
+                            <a href="user-message.html" class="flex items-center bg-gray-500 hover:bg-orange-500 rounded-md p-1"  title="Zaslat dotaz na správce">
                                 <span class="inline-flex">                        
-                                    <img class="w-8 h-8 rounded-full border-4 border-gray-500 bg-gray-500" fill="none" src ="https://img.icons8.com/plasticine/344/chat-message.png" alt="profile"/>
+                                    <img class="w-8 h-8" fill="none" src ="https://img.icons8.com/plasticine/344/chat-message.png" alt="profile"/>
                                 </span>
                             </a>
                         </li>
@@ -63,11 +63,11 @@
                         <div class="block w-px h-6 mx-3 bg-gray-400 dark:bg-gray-700"></div>
                     </li>
                     <li>
-                        <a n:href="{$loginlink}" class="flex items-center mr-4 hover:text-blue-100">
+                        <a n:href="{$loginlink}" class="flex items-center mr-2 bg-gray-500 hover:bg-orange-500 rounded-md p-1 pr-3">
                             <span class="inline-flex mr-2">
-                                <img class="w-8 h-8 rounded-full border border-gray-500 bg-gray-500" fill="none" src ="../../{$loginavatar}" alt="avatar"/>
+                                <img class="w-8 h-8 rounded" fill="none" src ="../../{$loginavatar}" alt="avatar"/>
                             </span>
-                            {$logintext}
+                            <span class="text-gray-900">{$logintext}</span>
                         </a>
                     </li>
                 </ul>

@@ -266,7 +266,7 @@ class User extends Entity
 	//--------------------------------------------------------------------------------------------------------
     // GET SET logged at
     //--------------------------------------------------------------------------------------------------------
-	public function getLoggedAt(): GlobalDateTime
+	/*public function getLoggedAt(): GlobalDateTime
 	{
 		return $this->loggedAt;
 	}
@@ -280,7 +280,7 @@ class User extends Entity
 	{
 		//$this->lastLoggedAt = new DateTime();
 		$this->setLoggedAt(new DateTime());
-	}
+	}*/
 	//--------------------------------------------------------------------------------------------------------
     // GET SET firsname & lastname
     //--------------------------------------------------------------------------------------------------------

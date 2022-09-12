@@ -62,12 +62,12 @@ class UserService extends EntityService
 			if ($message === '') 
 			{
 				$this->saveUserFromEditForm($user, $values, $savepass);
-				$presenter->redirect('User:profile', $user->getId());
+				$presenter->redirect('Profile:show', $user->getId());
 			}
 			else
 			{
 				$presenter->flashMessage($message, 'info');
-				$presenter->redirect('User:edit', $user->getId());
+				$presenter->redirect('Profile:edit', $user->getId());
 			}
 		}
 	}

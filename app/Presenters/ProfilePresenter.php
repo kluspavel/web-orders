@@ -59,7 +59,7 @@ final class ProfilePresenter extends BasePresenter
         $form->addText('nickname', 'Nick')->setDefaultValue($this->oneUser->getNick());
         $form->addText('firstname', 'Jméno')->setDefaultValue($this->oneUser->getFirstname());
         $form->addText('lastname', 'Příjmení')->setDefaultValue($this->oneUser->getLastname());
-        $form->addText('position', 'Pracovní zařazení')->setDefaultValue($this->oneUser->getWorkPosition());
+        $form->addText('position', 'Pozice')->setDefaultValue($this->oneUser->getWorkPosition());
 
         $form->addPassword('origpass', 'Původní heslo');
         $form->addPassword('newpass', 'Nové heslo');
@@ -67,7 +67,7 @@ final class ProfilePresenter extends BasePresenter
 
         $form->addEmail('email', 'Email')->setDefaultValue($this->oneUser->getEmail());
         $form->addText('telephone', 'Telefon')->setDefaultValue($this->oneUser->getTelephone());
-        $form->addText('mobileone', 'Mobil')->setDefaultValue($this->oneUser->getMobileOne());
+        $form->addText('mobileone', 'Mobil 1')->setDefaultValue($this->oneUser->getMobileOne());
         $form->addText('mobiletwo', 'Mobil 2')->setDefaultValue($this->oneUser->getMobileTwo());
         $form->addTextArea('note', 'Poznámka')->setHtmlAttribute('rows', 4)->setDefaultValue($this->oneUser->getNote());
         //$form->addPassword('password', 'Vaše heslo');

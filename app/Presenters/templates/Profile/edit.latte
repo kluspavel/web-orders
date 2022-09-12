@@ -154,4 +154,164 @@
     </div>
 </main>
 
+
+
+<main class="w-full p-2 xl:p-4 text-gray-800">
+    <h1 class="text-2xl mb-2">Profil uživatele: {$profile->getUsername()}</h1>
+
+    <div class="jet p-4 bg-gray-100 mb-4 rounded-md">
+
+        {form userEditForm}
+
+        <div class="p-2 bg-gray-200 rounded-md border border-gray-300">
+            <div class="flex">
+                <div class="w-40 h-40 flex items-center justify-center flex-none">
+                    <img id="image" name="image" onclick="openFileBrowser()" class="w-36 h-36 rounded-md object-cover border border-gray-700 cursor-pointer" src="../../{$profile->getAvatar()}" alt="User" />
+                </div>
+                <div class="flex flex-col justify-between w-full">
+                    <div class="py-2 flex items-end justify-end">
+                        <a href="#" class="flex items-center mr-2 bg-gray-200 hover:bg-blue-500 rounded-md border border-gray-300 p-1 pr-3" title="Change pass">
+                            <span class="inline-flex mr-1">                        
+                                <img class="w-8 h-8" fill="none" src ="https://img.icons8.com/plasticine/344/password1.png" alt="login"/>
+                            </span>
+                            <span class="text-gray-800">CHANGE PASSWORD</span>
+                        </a>
+                        <a href="#" class="flex items-center mr-2 bg-gray-200 hover:bg-red-500 rounded-md border border-gray-300 p-1 pr-3" title="Delete">
+                            <span class="inline-flex mr-1">                        
+                                <img class="w-8 h-8" fill="none" src ="https://img.icons8.com/plasticine/344/delete.png" alt="login"/>
+                            </span>
+                            <span class="text-gray-800">DELETE</span>
+                        </a>
+                        <button type="submit" n:name=send class="flex items-center mr-2 bg-gray-200 hover:bg-orange-500 rounded-md border border-gray-300 p-1 pr-3" title="Save">
+                            <span class="inline-flex mr-1">                        
+                                <img class="w-8 h-8" fill="none" src ="https://img.icons8.com/plasticine/344/save.png" alt="login"/>
+                            </span>
+                            <span class="text-gray-800">SAVE</span>
+                        </button>
+                    </div>
+                    <div class="flex items-end justify-between py-1 px-2">
+                        <div>
+                            <div class="jet text-lg text-orange-600 font-bold ">{$profile->getFullname()}</div>
+                            <div class="jet text-sm text-gray-500">{$profile->getWorkPosition()}</div>
+                        </div>
+                        <div class="hidden xl:flex">
+                            <div class="flex flex-col text-xs p-2 border border-gray-300 rounded bg-gray-100 mr-2">
+                                <span class="text-gray-500">Vytvořeno:</span>
+                                <span>{$profile->getCreatedAt()->format('d.m.Y H:i:s')}</span>
+                            </div>
+                            <div class="flex flex-col text-xs p-2 border border-gray-300 rounded bg-gray-100 mr-2">
+                                <span class="text-gray-500">Upraveno:</span>
+                                <span>{$profile->getUpdatedAt()->format('d.m.Y H:i:s')}</span>
+                            </div>
+                            <div class="flex flex-col text-xs p-2 border border-gray-300 rounded bg-gray-100">
+                                <span class="text-gray-500">Naposledy:</span>
+                                <span>{$profile->getLoggedAt()->format('d.m.Y H:i:s')}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {input id, value => $profile->getId()}
+
+        <div class="flex border border-gray-300 rounded-md mt-4 overflow-hidden">
+            <div class="flex items-center justify-end w-44 h-10 px-2 bg-gray-300 flex-none">
+                {label username, class => "text-gray-500 uppercase"}
+            </div>
+            <div class="flex items-center justify-start w-full h-10 bg-gray-200">
+                {input username, class => "jet p-2 w-full font-bold text-blue-800 whitespace-nowrap focus:outline-none bg-gray-200 hover:bg-gray-100 focus:bg-gray-50", placeholder => "Zadejte UID"}
+            </div>
+        </div>
+
+        <div class="flex border border-gray-300 rounded-md mt-1 overflow-hidden">
+            <div class="flex items-center justify-end w-44 h-10 px-2 bg-gray-300 flex-none">
+                {label firstname, class => "text-gray-500 uppercase"}
+            </div>
+            <div class="flex items-center justify-start w-full h-10 bg-gray-200">
+                {input firstname, class => "jet p-2 w-full text-green-800 whitespace-nowrap focus:outline-none bg-gray-200 hover:bg-gray-100 focus:bg-gray-50", placeholder => "Zadejte jméno"}
+            </div>
+        </div>
+
+        <div class="flex border border-gray-300 rounded-md mt-1 overflow-hidden">
+            <div class="flex items-center justify-end w-44 h-10 px-2 bg-gray-300 flex-none">
+                {label lastname, class => "text-gray-500 uppercase"}
+            </div>
+            <div class="flex items-center justify-start w-full h-10 bg-gray-200">
+                {input lastname, class => "jet p-2 w-full text-green-800 whitespace-nowrap focus:outline-none bg-gray-200 hover:bg-gray-100 focus:bg-gray-50", placeholder => "Zadejte příjmení"}
+            </div>
+        </div>
+
+        <div class="flex border border-gray-300 rounded-md mt-1 overflow-hidden">
+            <div class="flex items-center justify-end w-44 h-10 px-2 bg-gray-300 flex-none">
+                {label nickname, class => "text-gray-500 uppercase"}
+            </div>
+            <div class="flex items-center justify-start w-full h-10 bg-gray-200">
+                {input nickname, class => "jet p-2 w-full text-green-800 whitespace-nowrap focus:outline-none bg-gray-200 hover:bg-gray-100 focus:bg-gray-50", placeholder => "Zadejte nick"}
+            </div>
+        </div>
+
+        <div class="flex border border-gray-300 rounded-md mt-1 overflow-hidden">
+            <div class="flex items-center justify-end w-44 h-10 px-2 bg-gray-300 flex-none">
+                {label position, class => "text-gray-500 uppercase"}
+            </div>
+            <div class="flex items-center justify-start w-full h-10 bg-gray-200">
+                {input position, class => "jet p-2 w-full text-green-800 whitespace-nowrap focus:outline-none bg-gray-200 hover:bg-gray-100 focus:bg-gray-50", placeholder => "Zadejte pracovní pozici"}
+            </div>
+        </div>
+
+        <div class="flex border border-gray-300 rounded-md mt-4 overflow-hidden">
+            <div class="flex items-center justify-end w-44 h-10 px-2 bg-gray-300 flex-none">
+                {label email, class => "text-gray-500 uppercase"}
+            </div>
+            <div class="flex items-center justify-start w-full h-10 bg-gray-200">
+                {input email, class => "jet p-2 w-full text-green-800 whitespace-nowrap focus:outline-none bg-gray-200 hover:bg-gray-100 focus:bg-gray-50", placeholder => "Zadejte pracovní pozici"}
+            </div>
+        </div>
+
+        <div class="flex border border-gray-300 rounded-md mt-1 overflow-hidden">
+            <div class="flex items-center justify-end w-44 h-10 px-2 bg-gray-300 flex-none">
+                {label telephone, class => "text-gray-500 uppercase"}
+            </div>
+            <div class="flex items-center justify-start w-full h-10 bg-gray-200">
+                {input telephone, class => "jet p-2 w-full text-green-800 whitespace-nowrap focus:outline-none bg-gray-200 hover:bg-gray-100 focus:bg-gray-50", placeholder => "Zadejte telofonní linku"}
+            </div>
+        </div>
+
+        <div class="flex border border-gray-300 rounded-md mt-1 overflow-hidden">
+            <div class="flex items-center justify-end w-44 h-10 px-2 bg-gray-300 flex-none">
+                <label for="mobil1" class="text-gray-500">MOBIL 1:</label>
+                {label mobileone, class => "text-gray-500 uppercase"}
+            </div>
+            <div class="flex items-center justify-start w-full h-10 bg-gray-200">
+                {input mobileone, class => "jet p-2 w-full text-green-800 whitespace-nowrap focus:outline-none bg-gray-200 hover:bg-gray-100 focus:bg-gray-50", placeholder => "Zadejte Mobil 1"}
+            </div>
+        </div>
+
+        <div class="flex border border-gray-300 rounded-md mt-1 overflow-hidden">
+            <div class="flex items-center justify-end w-44 h-10 px-2 bg-gray-300 flex-none">
+                <label for="mobil1" class="text-gray-500">MOBIL 2:</label>
+                {label mobiletwo, class => "text-gray-500 uppercase"}
+            </div>
+            <div class="flex items-center justify-start w-full h-10 bg-gray-200">
+                {input mobiletwo, class => "jet p-2 w-full text-green-800 whitespace-nowrap focus:outline-none bg-gray-200 hover:bg-gray-100 focus:bg-gray-50", placeholder => "Zadejte Mobil 2"}
+            </div>
+        </div>
+
+        <div class="flex border border-gray-300 rounded-md mt-4 overflow-hidden">
+            <div class="flex items-center justify-end w-44 h-28 px-2 bg-gray-300 flex-none">
+                {label note, class => "text-gray-500 uppercase"}
+            </div>
+            <div class="flex items-center justify-start w-full h-28 bg-gray-200">
+                {input note, class => "jet p-2 w-full text-green-800 whitespace-nowrap focus:outline-none bg-gray-200 hover:bg-gray-100 focus:bg-gray-50"}
+                {input avatar class=> "hidden"}
+            </div>
+        </div>
+
+        {/form}
+
+    </div>
+
+</main>
+
 <!-- /User profile -->
