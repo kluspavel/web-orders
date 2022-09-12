@@ -4,7 +4,8 @@
 function closeErrorMessage()
 {
     var errMsg = document.getElementById("errorMessage");
-    errMsg.style.display = none;
+    errMsg.classList.add('hidden');
+    //alert("I am an alert box!");
 }
 //-----------------------------------------------------------------------------------
 // Načtení obrázku ze složky
@@ -48,6 +49,41 @@ function openFileBrowser()
             //customTxt.innerHTML = "Není zvolena žádná fotka.";
         }
     });
+}
+
+
+
+
+
+
+
+
+
+//-----------------------------------------------------------------------------------
+// Zobrazení a skrytí políček pro zadání hesla
+//-----------------------------------------------------------------------------------
+function showPasswordInput()
+{
+    const password = document.querySelector('#password');
+
+    const origPass = document.querySelector('#frm-userEditForm-origpass');
+    const newPass = document.querySelector('#frm-userEditForm-newpass');
+    const checkPass = document.querySelector('#frm-userEditForm-checkpass');
+
+    if (password.classList.contains('hidden')) 
+    {
+        //alert("Remove hidden");
+        password.classList.remove('hidden');
+    } 
+    else 
+    {
+        //alert("Hidden");
+        password.classList.add('hidden');
+
+        origPass.value = '';
+        newPass.value = '';
+        checkPass.value = '';
+    }
 }
 
 

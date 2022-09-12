@@ -2,160 +2,6 @@
 
 <!-- User profile -->
 
-<main class="w-full p-2 xl:p-4">
-    <div class="w-full flex flex-col md:flex-row">
-        <section class="w-full md:w-60 p-2 bg-gray-600 rounded-md shadow-gray-800 shadow-md border-b-4 border-gray-900 flex-none h-fit">
-            <div class="flex items-center justify-between">
-                {if $profile->isOnline()}
-                <div class="h-4 w-4 rounded-full border-2 border-gray-200 bg-green-400" title="User is online"></div> 
-                {else}
-                <div class="h-4 w-4 rounded-full border-2 border-gray-200 bg-red-400" title="User is offline"></div> 
-                {/if}
-                <h6 class="text-xs">{$profile->getUsername()}</h6>
-                {if $profile->isActivated()}
-                <div class="h-4 w-4 rounded-full border-2 border-gray-200 bg-blue-400" title="User is activated"></div>
-                {else}
-                <div class="h-4 w-4 rounded-full border-2 border-gray-200 bg-blue-400" title="User is locked"></div>
-                {/if}
-            </div>
-            <div class="flex items-center justify-center mt-4">
-                <img id="image" name="image" onclick="openFileBrowser()" class="cursor-pointer w-36 h-36 rounded-full object-cover shadow-lg border-8 border-gray-500" src="../../{$profile->getAvatar()}" alt="User" />
-            </div>
-            <div class="flex flex-col items-center justify-center mt-4">
-                <h3 class="text-md text-orange-400 font-bold">{$profile->getFullname()}</h3>
-                <a href="mailto:" class="text-xs">{$profile->getRole()}</a>
-            </div>
-            <div class="">
-
-            </div>
-            <div class="flex items-center justify-center mt-4">
-                <!--<a href="user-edit.html" class="uppercase py-1 px-2 text-blue-400 rounded text-xs underline">změnit avatar</a>-->
-                <button type="button" onclick="openFileBrowser()" class="uppercase py-1 px-2 text-blue-400 rounded text-xs hover:underline">změnit avatar</button>
-            </div>
-        </section>
-        
-        <section class="w-full xl:w-1/2 p-2 md:ml-4 mt-2 md:mt-0 bg-gray-600 rounded-md shadow-gray-800 shadow-md border-b-4 border-gray-900">
-            {form userEditForm}
-            <ul class="flex flex-col">
-                <li class="ml-2">
-                    <h6 class="text-sm text-gray-900 border-y-2 border-gray-700 mb-2">UŽIVATEL</h6>
-                </li>
-                <li class="flex flex-wrap">
-                    <div class="w-full lg:w-6/12 px-4">
-                        <div class="relative w-full mb-3">
-                            {input id, value => $profile->getId()}
-                            {label username, class => "block uppercase text-gray-400 text-xs font-bold mb-1"}
-                            {input username, class => "border-0 px-3 py-2 text-orange-300 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150", placeholder => "Zadejte UID"}
-                        </div>
-                    </div>
-                        <div class="w-full lg:w-6/12 px-4">
-                        <div class="relative w-full mb-3">
-                            {label nickname, class => "block uppercase text-gray-400 text-xs font-bold mb-1"}
-                            {input nickname, class => "border-0 px-3 py-2 text-gray-100 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"}
-                        </div>
-                    </div>
-                    <div class="w-full lg:w-6/12 px-4">
-                        <div class="relative w-full mb-3">
-                            {label firstname, class => "block uppercase text-gray-400 text-xs font-bold mb-1"}
-                            {input firstname, class => "border-0 px-3 py-2 text-gray-100 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150", placeholder => "Zadejte JMÉNO"}
-                        </div>
-                    </div>
-                    <div class="w-full lg:w-6/12 px-4">
-                        <div class="relative w-full mb-3">
-                            {label lastname, class => "block uppercase text-gray-400 text-xs font-bold mb-1"}
-                            {input lastname, class => "border-0 px-3 py-2 text-gray-100 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150", placeholder => "Zadejte PŘÍJMENÍ"}
-                        </div>
-                    </div>
-                    <div class="w-full lg:w-12/12 px-4">
-                        <div class="relative w-full mb-3">
-                            {label position, class => "block uppercase text-gray-400 text-xs font-bold mb-1"}
-                            {input position, class => "border-0 px-3 py-2 text-gray-100 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150", placeholder => "Zadejte PRACOVNÍ ZAŘAZENÍ"}
-                        </div>
-                    </div>
-                </li>
-                <li class="ml-2 hidden" id="pass-title">
-                    <h6 class="text-sm text-gray-900 border-y-2 border-gray-700 mb-2">HESLO</h6>
-                </li>
-                <li class="flex flex-wrap hidden" id="pass-form">
-                    <div class="w-full lg:w-4/12 px-4">
-                        <div class="relative w-full mb-3">
-                            {label origpass, class => "block uppercase text-gray-400 text-xs font-bold mb-1"}
-                            {input origpass, class => "border-0 px-3 py-2 text-gray-100 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"}
-                        </div>
-                    </div>
-                    <div class="w-full lg:w-4/12 px-4">
-                        <div class="relative w-full mb-3">
-                            {label newpass, class => "block uppercase text-gray-400 text-xs font-bold mb-1"}
-                            {input newpass, class => "border-0 px-3 py-2 text-gray-100 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"}
-                        </div>
-                    </div>
-                    <div class="w-full lg:w-4/12 px-4">
-                        <div class="relative w-full mb-3">
-                            {label checkpass, class => "block uppercase text-gray-400 text-xs font-bold mb-1"}
-                            {input checkpass, class => "border-0 px-3 py-2 text-gray-100 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"}
-                        </div>
-                    </div>
-                </li>
-                <li class="ml-2">
-                    <h6 class="text-sm text-gray-900 border-y-2 border-gray-700 mb-2">KONTAKT</h6>
-                </li>
-                <li>
-                    <div class="w-full lg:w-12/12 px-4">
-                        <div class="relative w-full mb-3">
-                            {label email, class => "block uppercase text-gray-400 text-xs font-bold mb-1"}
-                            {input email, class => "border-0 px-3 py-2 text-gray-100 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150", placeholder => "Zadejte EMAIL"}
-                        </div>
-                    </div>
-                </li>
-                <li class="flex flex-wrap">
-                    <div class="w-full lg:w-4/12 px-4">
-                        <div class="relative w-full mb-3">
-                            {label telephone, class => "block uppercase text-gray-400 text-xs font-bold mb-1"}
-                            {input telephone, class => "border-0 px-3 py-2 text-gray-100 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150", placeholder => "Zadejte TELEFON"}
-                        </div>
-                    </div>
-                    <div class="w-full lg:w-4/12 px-4">
-                        <div class="relative w-full mb-3">
-                            {label mobileone, class => "block uppercase text-gray-400 text-xs font-bold mb-1"}
-                            {input mobileone, class => "border-0 px-3 py-2 text-gray-100 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"}
-                        </div>
-                    </div>
-                    <div class="w-full lg:w-4/12 px-4">
-                        <div class="relative w-full mb-3">
-                            {label mobiletwo, class => "block uppercase text-gray-400 text-xs font-bold mb-1"}
-                            {input mobiletwo, class => "border-0 px-3 py-2 text-gray-100 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"}
-                        </div>
-                    </div>
-                </li>
-                <li class="ml-2">
-                    <h6 class="text-sm text-gray-900 border-y-2 border-gray-700 mb-2">INFO</h6>
-                </li>
-                <li>
-                    <div class="w-full lg:w-12/12 px-4">
-                        <div class="relative w-full mb-3">
-                            {label note, class => "block uppercase text-gray-400 text-xs font-bold mb-1"}
-                            {input note, class => "border-0 px-3 py-3 text-gray-100 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"}
-                            {input avatar, class => "hidden border-0 px-3 py-2 text-gray-100 bg-gray-500 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"}
-                        </div>
-                    </div>
-                </li>
-                <li class="ml-2">
-                    <h6 class="text-sm text-gray-900 border-y-2 border-gray-700 mb-4">SPRÁVA</h6>
-                </li>
-                <li class="flex items-center justify-end mr-4 mb-3">
-                    <button type="button" id="pass-hidden" class="px-4 py-1 rounded bg-green-700 shadow-md mr-2 hidden">Bez změny hesla</button>
-                    <button type="button" id="pass-change" class="px-4 py-1 rounded bg-green-700 shadow-md mr-2">Změna hesla</button>
-                    {input send, class => "px-4 py-1 rounded bg-green-700 hover:bg-green-800 shadow-md cursor-pointer"}
-                </li>
-            </ul>
-            {/form}
-        </section>
-        
-    </div>
-</main>
-
-
-
 <main class="w-full p-2 xl:p-4 text-gray-800">
     <h1 class="text-2xl mb-2">Profil uživatele: {$profile->getUsername()}</h1>
 
@@ -170,23 +16,23 @@
                 </div>
                 <div class="flex flex-col justify-between w-full">
                     <div class="py-2 flex items-end justify-end">
-                        <a href="#" class="flex items-center mr-2 bg-gray-200 hover:bg-blue-500 rounded-md border border-gray-300 p-1 pr-3" title="Change pass">
-                            <span class="inline-flex mr-1">                        
-                                <img class="w-8 h-8" fill="none" src ="https://img.icons8.com/plasticine/344/password1.png" alt="login"/>
+                        <button type="button" onclick="javascript:showPasswordInput()" class="flex items-center mr-2 bg-gray-200 hover:bg-blue-500 rounded-md border border-gray-300 p-1 md:pr-3" title="Change pass">
+                            <span class="inline-flex md:mr-1">                        
+                                <img class="w-8 h-8" fill="none" src ="https://img.icons8.com/plasticine/344/password1.png" alt="change pass"/>
                             </span>
-                            <span class="text-gray-800">CHANGE PASSWORD</span>
-                        </a>
-                        <a href="#" class="flex items-center mr-2 bg-gray-200 hover:bg-red-500 rounded-md border border-gray-300 p-1 pr-3" title="Delete">
-                            <span class="inline-flex mr-1">                        
+                            <span class="text-gray-800 hidden md:block">CHANGE PASSWORD</span>
+                        </button>
+                        <a href="#" class="flex items-center mr-2 bg-gray-200 hover:bg-red-500 rounded-md border border-gray-300 p-1 md:pr-3" title="Delete">
+                            <span class="inline-flex md:mr-1">                        
                                 <img class="w-8 h-8" fill="none" src ="https://img.icons8.com/plasticine/344/delete.png" alt="login"/>
                             </span>
-                            <span class="text-gray-800">DELETE</span>
+                            <span class="text-gray-800 hidden md:block">DELETE</span>
                         </a>
-                        <button type="submit" n:name=send class="flex items-center mr-2 bg-gray-200 hover:bg-orange-500 rounded-md border border-gray-300 p-1 pr-3" title="Save">
-                            <span class="inline-flex mr-1">                        
-                                <img class="w-8 h-8" fill="none" src ="https://img.icons8.com/plasticine/344/save.png" alt="login"/>
+                        <button type="submit" n:name=send class="flex items-center mr-2 bg-gray-200 hover:bg-orange-500 rounded-md border border-gray-300 p-1 md:pr-3" title="Save">
+                            <span class="inline-flex md:mr-1">                        
+                                <img class="w-8 h-8" fill="none" src ="https://img.icons8.com/plasticine/344/save.png" alt="save"/>
                             </span>
-                            <span class="text-gray-800">SAVE</span>
+                            <span class="text-gray-800 hidden md:block">SAVE</span>
                         </button>
                     </div>
                     <div class="flex items-end justify-between py-1 px-2">
@@ -259,6 +105,39 @@
                 {input position, class => "jet p-2 w-full text-green-800 whitespace-nowrap focus:outline-none bg-gray-200 hover:bg-gray-100 focus:bg-gray-50", placeholder => "Zadejte pracovní pozici"}
             </div>
         </div>
+
+        <!-- PASSWORD -->
+
+        <div id="password" class="hidden">
+            <div class="flex border border-gray-300 rounded-md mt-4 overflow-hidden">
+                <div class="flex items-center justify-end w-44 h-10 px-2 bg-gray-300 flex-none">
+                    {label origpass, class => "text-gray-500 uppercase"}
+                </div>
+                <div class="flex items-center justify-start w-full h-10 bg-gray-200">
+                    {input origpass, class => "jet p-2 w-full text-green-800 whitespace-nowrap focus:outline-none bg-gray-200 hover:bg-gray-100 focus:bg-gray-50"}
+                </div>
+            </div>
+
+            <div class="flex border border-gray-300 rounded-md mt-1 overflow-hidden">
+                <div class="flex items-center justify-end w-44 h-10 px-2 bg-gray-300 flex-none">
+                    {label newpass, class => "text-gray-500 uppercase"}
+                </div>
+                <div class="flex items-center justify-start w-full h-10 bg-gray-200">
+                    {input newpass, class => "jet p-2 w-full text-green-800 whitespace-nowrap focus:outline-none bg-gray-200 hover:bg-gray-100 focus:bg-gray-50"}
+                </div>
+            </div>
+
+            <div class="flex border border-gray-300 rounded-md mt-1 overflow-hidden">
+                <div class="flex items-center justify-end w-44 h-10 px-2 bg-gray-300 flex-none">
+                    {label checkpass, class => "text-gray-500 uppercase"}
+                </div>
+                <div class="flex items-center justify-start w-full h-10 bg-gray-200">
+                    {input checkpass, class => "jet p-2 w-full text-green-800 whitespace-nowrap focus:outline-none bg-gray-200 hover:bg-gray-100 focus:bg-gray-50"}
+                </div>
+            </div>
+        </div>
+
+        <!-- /PASSWORD -->
 
         <div class="flex border border-gray-300 rounded-md mt-4 overflow-hidden">
             <div class="flex items-center justify-end w-44 h-10 px-2 bg-gray-300 flex-none">

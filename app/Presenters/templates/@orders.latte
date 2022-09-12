@@ -120,7 +120,7 @@
 
         <!-- FLASH MESSAGE -->
         {if $flashes}
-            <div id="flash-modal" class="w-full px-4 pt-4">
+            <div id="errorMessage" class="w-full px-4 pt-4">
                 <div class="bg-red-300 rounded-md p-4 shadow-md">
                     <div class="text-gray-800">
                         {foreach $flashes as $flash}
@@ -128,7 +128,7 @@
                         {/foreach}
                     </div>
                     <div class="flex item-center justify-end">
-                        <button type="button" id="close-modal" class="inline-block px-6 py-2.5 bg-purple-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-purple-700 hover:shadow-lg focus:bg-purple-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-purple-800 active:shadow-lg transition duration-150 ease-in-out">Close</button>
+                        <button type="button" onclick="javascript:closeErrorMessage()" class="inline-block px-6 py-2.5 bg-purple-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-purple-700 hover:shadow-lg focus:bg-purple-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-purple-800 active:shadow-lg transition duration-150 ease-in-out">Close</button>
                     </div>
                 </div>
             </div>
@@ -137,46 +137,7 @@
     
         {include content}
 
-        </div>
         <!-- ./CONTENT -->
 
     </div>
-
-    <script>
-        window.addEventListener('DOMContentLoaded', () => {
-            const passTitle = document.querySelector('#pass-title')
-            const passForm = document.querySelector('#pass-form')
-            const passChange = document.querySelector('#pass-change')
-            const passHidden = document.querySelector('#pass-hidden')
-
-            const origPass = document.querySelector('#frm-userEditForm-origpass')
-            const newPass = document.querySelector('#frm-userEditForm-newpass')
-            const checkPass = document.querySelector('#frm-userEditForm-checkpass')
-
-            passChange.addEventListener('click',() => {
-                passTitle.classList.remove('hidden')
-                passForm.classList.remove('hidden')
-                passHidden.classList.remove('hidden')
-                passChange.classList.add('hidden')
-            })
-
-            passHidden.addEventListener('click',() => {
-                passTitle.classList.add('hidden')
-                passForm.classList.add('hidden')
-                passHidden.classList.add('hidden')
-                passChange.classList.remove('hidden')
-
-                origPass.value = ''
-                newPass.value = ''
-                checkPass.value = ''
-            })
-
-            const flashModal = document.querySelector('#flash-modal')
-            const closeModal = document.querySelector('#close-modal')
-
-            closeModal.addEventListener('click',() => {
-                flashModal.classList.add('hidden')
-            })
-        })
-    </script>
 </body>

@@ -11,7 +11,7 @@ final class ProfilePresenter extends BasePresenter
 {
     //--------------------------------------------------------------------------------------------------------
     public UserService $us;
-    public User $oneUser;
+    public $oneUser;
     //--------------------------------------------------------------------------------------------------------
     public function __construct(UserService $us)
     {
@@ -33,7 +33,7 @@ final class ProfilePresenter extends BasePresenter
                 $this->flashMessage('Tato sekce není přístupná bez přihlášení!');
                 $this->redirect('Auth:signIn');
             }
-        } 
+        }
     }
     //--------------------------------------------------------------------------------------------------------
     public function renderShow(int $id = null)
@@ -41,6 +41,9 @@ final class ProfilePresenter extends BasePresenter
         $this->setLayout('orders');
 
         $this->oneUser = $this->us->findUserById($id);
+
+        $this->checkUser($this->oneUser, 'Profile:show');
+
         $this->template->profile = $this->oneUser;
     }
     //--------------------------------------------------------------------------------------------------------
@@ -48,7 +51,26 @@ final class ProfilePresenter extends BasePresenter
     {
         $this->setLayout('orders');
         $this->oneUser = $this->us->findUserById($id);
+
+        $this->checkUser($this->oneUser, 'Profile:edit');
+
         $this->template->profile = $this->oneUser;
+    }
+    //--------------------------------------------------------------------------------------------------------
+    public function checkUser($oneUser, string $redir): void
+    {
+        if ($this->oneUser === null) 
+        {
+            $this->flashMessage('Nelze přistupovat k neexistujícímu uživateli!', 'alert');
+            $this->oneUser = $this->us->findUserById($this->user->getId());
+            $this->redirect($redir, $this->user->getId());
+        }
+        else if ($this->oneUser->getId() !== $this->user->getId()) 
+        {
+            $this->flashMessage('Nelze přistupovat k jinému uživateli než právě přihlášenému!', 'alert');
+            $this->oneUser = $this->us->findUserById($this->user->getId());
+            $this->redirect($redir, $this->user->getId());
+        }
     }
     //-------------------------------------------------------------------------------------------------------
     protected function createComponentUserEditForm(): Form
