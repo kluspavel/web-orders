@@ -264,24 +264,6 @@ class User extends Entity
         $this->types = $types;
     }
 	//--------------------------------------------------------------------------------------------------------
-    // GET SET logged at
-    //--------------------------------------------------------------------------------------------------------
-	/*public function getLoggedAt(): GlobalDateTime
-	{
-		return $this->loggedAt;
-	}
-	//--------------------------------------------------------------------------------------------------------
-	public function setLoggedAt(DateTime $loggedAt): void
-	{
-		$this->loggedAt = $loggedAt;
-	}
-	//--------------------------------------------------------------------------------------------------------
-	public function changeLoggedAt(): void
-	{
-		//$this->lastLoggedAt = new DateTime();
-		$this->setLoggedAt(new DateTime());
-	}*/
-	//--------------------------------------------------------------------------------------------------------
     // GET SET firsname & lastname
     //--------------------------------------------------------------------------------------------------------
 	public function getFirstname(): string
@@ -379,7 +361,7 @@ class User extends Entity
     //--------------------------------------------------------------------------------------------------------
 	public function getWorkPosition(): string
 	{
-		return $this->workPosition;
+		return ($this->workPosition === '') ? 'Bez pracovního zařazení' : $this->workPosition;
 	}
 	//--------------------------------------------------------------------------------------------------------
 	public function setWorkPosition(string $workPosition): void
