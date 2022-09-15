@@ -74,9 +74,9 @@
                 </select>
                 <select name="ststus" id="ststus" class="bg-white w-32 p-2 border rounded border-gray-300 focus:shadow-md focus:outline-none ml-2 cursor-pointer">
                     <option selected>Stav</option>
-                    <option value="reg">Registered</option>
-                    <option value="act">Active</option>
-                    <option value="blc">Blocked</option>
+                    <option value="1">New one</option>
+                    <option value="2">Active</option>
+                    <option value="3">Blocked</option>
                 </select>
                 <select name="role" id="role" class="bg-white w-32 p-2 border rounded border-gray-300 focus:shadow-md focus:outline-none ml-2 cursor-pointer">
                     <option selected>Role</option>
@@ -120,7 +120,7 @@
                         <td class="pl-2 py-2 border-b border-gray-300">
                             <div class="flex items-center">
                                 <div class="flex-shrink-0 w-16 h-16">
-                                    <img class="w-16 h-16 rounded-md object-cover border border-gray-700" src="https://api.lorem.space/image/face?w=150&h=150" alt="avatar"/>
+                                    <img class="w-16 h-16 rounded-md object-cover border border-gray-700" src="../../{$profile->getAvatar()}" alt="avatar"/>
                                 </div>
                                 <div class="flex flex-col items-start justify-around w-full h-16 px-2">
                                     <span class="text-md font-bold text-orange-800">{$profile->getUsername()}</span>
@@ -152,23 +152,23 @@
                         <td class="border-b border-gray-300 2xl:table-cell hidden">
                             <div class="flex flex-col items-center justify-around h-16 px-2">
                                 <div class="px-1 rounded-md bg-gray-300">
-                                    <div class="text-xs" title="Vytvořen">12.05.2022 15:54:20</div>
+                                    <div class="text-xs" title="Vytvořen">{$profile->getCreatedAt()->format('d.m.Y H:i:s')}</div>
                                 </div>
                                 <div class="px-1 rounded-md bg-gray-300">
-                                    <div class="text-xs" title="Upraven">12.05.2022 15:54:20</div>
+                                    <div class="text-xs" title="Upraven">{$profile->getUpdatedAt()->format('d.m.Y H:i:s')}</div>
                                 </div>
                                 <div class="px-1 rounded-md bg-gray-300">
-                                    <div class="text-xs" title="Naposledy">12.05.2022 15:54:20</div>
+                                    <div class="text-xs" title="Naposledy">{$profile->getLoggedAt()->format('d.m.Y H:i:s')}</div>
                                 </div>
                             </div>
                         </td>
                         <td class="border-b border-gray-300">
                             <div class="flex items-center justify-end">
-                                <a n:href="User:show $profile->getId()" class="flex items-center h-16 border border-gray-300 rounded-md bg-orange-200 hover:bg-orange-500 mr-2 overflow-hidden">
+                                <a n:href="User:show $profile->getId()" class="flex items-center h-16 border border-gray-300 rounded-md bg-gray-200 hover:bg-orange-500 mr-2 overflow-hidden">
                                     <img class="w-8 h-8 mx-1" fill="none" src ="https://img.icons8.com/plasticine/344/guest-male.png" alt="show"/>
                                     <p class="lg:flex hidden pr-2 text-sm">SHOW</p>
                                 </a>
-                                <a n:href="User:edit $profile->getId()" class="flex items-center h-16 border border-gray-300 rounded-md bg-green-200 hover:bg-green-500 mr-2 overflow-hidden">
+                                <a n:href="User:edit $profile->getId()" class="flex items-center h-16 border border-gray-300 rounded-md bg-gray-200 hover:bg-green-500 mr-2 overflow-hidden">
                                     <img class="w-8 h-8 mx-1" fill="none" src ="https://img.icons8.com/plasticine/344/pencil.png" alt="edit"/>
                                     <p class="lg:flex hidden pr-2 text-sm">EDIT</p>
                                 </a>

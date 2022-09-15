@@ -201,14 +201,14 @@ class User extends Entity
 	//--------------------------------------------------------------------------------------------------------
 	public function getStateText(): string
     {
-		$statetext = 'Registred';
+		$statetext = 'new one';
 		if ($this->state === self::STATE_ACTIVATED) 
 		{
-			$statetext = 'Activated';
+			$statetext = 'active';
 		}
 		elseif ($this->state === self::STATE_BLOCKED) 
 		{
-			$statetext = 'Bocked';
+			$statetext = 'blocked';
 		}
 
         return $statetext;
