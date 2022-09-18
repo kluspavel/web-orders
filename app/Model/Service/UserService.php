@@ -179,22 +179,22 @@ class UserService extends EntityService
 	//----------------------------------------------------------------------------------------------------------------
 	public function getUserCount(): int
 	{
-		$userOnlineCount = $this->getOnlineUserCount();
-		$userOfflineCount = $this->getOfflineUserCount();
-		$userCount = $userOnlineCount + $userOfflineCount;
+		$userInActiveCount = $this->getInActiveUserCount();
+		$userActiveCount = $this->getActiveUserCount();
+		$userCount = $userInActiveCount + $userActiveCount;
 		return $userCount;
 	}
 	//----------------------------------------------------------------------------------------------------------------
-	public function getOnlineUserCount(): int
+	public function getInActiveUserCount(): int
 	{
-		$userCount = $this->em->getRepository(User::class)->count(array('online' => '1'));
+		$userCount = $this->em->getRepository(User::class)->count(array('state' => '1'));
 
 		return $userCount;
 	}
 	//----------------------------------------------------------------------------------------------------------------
-	public function getOfflineUserCount(): int
+	public function getActiveUserCount(): int
 	{
-		$userCount = $this->em->getRepository(User::class)->count(array('online' => '0'));
+		$userCount = $this->em->getRepository(User::class)->count(array('state' => '2'));
 
 		return $userCount;
 	}

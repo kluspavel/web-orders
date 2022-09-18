@@ -1,164 +1,316 @@
 {block content}
 
-<!-- User profile -->
+<!-- User show -->
 
+<main class="w-full p-2 xl:p-4 text-gray-800">
+    <h1 class="text-2xl mb-2">Profil uživatele: {$profile->getUsername()}</h1>
 
-    <main class="w-full p-2 xl:p-4 text-gray-800">
-        <h1 class="text-2xl mb-2">Profil uživatele: {$profile->getUsername()}</h1>
+    <div class="jet p-4 bg-gray-100 mb-4 rounded-md">
 
-        <div class="jet p-4 bg-gray-100 mb-4 rounded-md">
-
-            <div class="p-2 bg-gray-200 rounded-md border border-gray-300">
-                <div class="flex">
-                    <div class="w-40 h-40 flex items-center justify-center flex-none">
-                        <img class="w-36 h-36 rounded-md object-cover border border-gray-700" src="../../{$profile->getAvatar()}" alt="User" />
-                    </div>
-                    <div class="flex flex-col justify-between w-full">
-                        <div class="py-2 flex items-start justify-between">
+        <div class="p-2 bg-gray-200 rounded-md border border-gray-300">
+            <div class="flex">
+                <div class="w-40 h-40 flex items-center justify-center flex-none">
+                    <img class="w-36 h-36 rounded-md object-cover border border-gray-700" src="../../{$profile->getAvatar()}" alt="User" />
+                </div>
+                <div class="flex flex-col justify-between w-full">
+                    <div class="py-2 flex items-start justify-between">
                         <div class="flex">
-                            {if $profile->isOnline()}
-                                <div class="h-4 w-4 rounded-full border-2 border-gray-100 bg-green-400 mx-1" title="User is online"></div> 
-                            {else}
-                                <div class="h-4 w-4 rounded-full border-2 border-gray-100 bg-red-400 mx-1" title="User is offline"></div> 
-                            {/if}
                             {if $profile->isActivated()}
                                 <div class="h-4 w-4 rounded-full border-2 border-gray-100 bg-blue-400" title="User is activated"></div>
                             {else}
                                 <div class="h-4 w-4 rounded-full border-2 border-gray-100 bg-blue-400" title="User is locked"></div>
                             {/if}
                         </div>
+                        <div class="flex items-end justify-end">
                             <a n:href="Profile:edit $profile->getId()" class="flex items-center mr-2 bg-gray-200 hover:bg-orange-500 rounded-md border border-gray-300 p-1 pr-3" title="Přihlášení">
                                 <span class="inline-flex mr-1">                        
-                                    <img class="w-8 h-8" fill="none" src ="https://img.icons8.com/plasticine/344/user.png" alt="login"/>
+                                    <img class="w-8 h-8" fill="none" src ="https://img.icons8.com/plasticine/344/user.png" alt="edit"/>
                                 </span>
                                 <span class="text-gray-800">EDIT</span>
                             </a>
                         </div>
-                        <div class="flex items-end justify-between py-1 px-2">
-                            <div>
-                                <div class="jet text-lg text-orange-600 font-bold ">{$profile->getFullname()}</div>
-                                <div class="jet text-sm text-gray-500">{$profile->getWorkPosition()}</div>
+                    </div>
+                    <div class="flex items-end justify-between py-1 px-2">
+                        <div>
+                            <div class="jet text-lg text-orange-600 font-bold ">{$profile->getFullname()}</div>
+                            <div class="jet text-sm text-gray-500">{$profile->getWorkPosition()}</div>
+                        </div>
+                        <div class="hidden xl:flex">
+                            <div class="flex flex-col text-xs p-2 border border-gray-300 rounded bg-gray-100 mr-2">
+                                <span class="text-gray-500">Vytvořeno:</span>
+                                <span>{$profile->getCreatedAt()->format('d.m.Y H:i:s')}</span>
                             </div>
-                            <div class="hidden xl:flex">
-                                <div class="flex flex-col text-xs p-2 border border-gray-300 rounded bg-gray-100 mr-2">
-                                    <span class="text-gray-500">Vytvořeno:</span>
-                                    <span>{$profile->getCreatedAt()->format('d.m.Y H:i:s')}</span>
-                                </div>
-                                <div class="flex flex-col text-xs p-2 border border-gray-300 rounded bg-gray-100 mr-2">
-                                    <span class="text-gray-500">Upraveno:</span>
-                                    <span>{$profile->getUpdatedAt()->format('d.m.Y H:i:s')}</span>
-                                </div>
-                                <div class="flex flex-col text-xs p-2 border border-gray-300 rounded bg-gray-100">
-                                    <span class="text-gray-500">Naposledy:</span>
-                                    <span>{$profile->getLoggedAt()->format('d.m.Y H:i:s')}</span>
-                                </div>
+                            <div class="flex flex-col text-xs p-2 border border-gray-300 rounded bg-gray-100 mr-2">
+                                <span class="text-gray-500">Upraveno:</span>
+                                <span>{$profile->getUpdatedAt()->format('d.m.Y H:i:s')}</span>
+                            </div>
+                            <div class="flex flex-col text-xs p-2 border border-gray-300 rounded bg-gray-100">
+                                <span class="text-gray-500">Naposledy:</span>
+                                <span>{$profile->getLoggedAt()->format('d.m.Y H:i:s')}</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div class="flex border border-gray-300 rounded-md mt-4 overflow-hidden">
-                <div class="flex items-center justify-end w-44 h-10 px-2 bg-gray-300 flex-none">
-                    <span class="text-gray-500">UID:</span>
-                </div>
-                <div class="flex items-center justify-start w-full h-10 px-2 bg-gray-200">
-                    <span class="jet font-bold text-blue-800 whitespace-nowrap">{$profile->getUsername()}</span>
-                </div>
-            </div>
-
-            <div class="flex border border-gray-300 rounded-md mt-1 overflow-hidden">
-                <div class="flex items-center justify-end w-44 h-10 px-2 bg-gray-300 flex-none">
-                    <span class="text-gray-500">JMÉNO:</span>
-                </div>
-                <div class="flex items-center justify-start w-full h-10 px-2 bg-gray-200">
-                    <span class="jet text-green-800 whitespace-nowrap">{$profile->getFullname()}</span>
-                </div>
-            </div>
-
-            <div class="flex border border-gray-300 rounded-md mt-1 overflow-hidden">
-                <div class="flex items-center justify-end w-44 h-10 px-2 bg-gray-300 flex-none">
-                    <span class="text-gray-500">POZICE:</span>
-                </div>
-                <div class="flex items-center justify-start w-full h-10 px-2 bg-gray-200">
-                    <span class="jet text-gray-800 whitespace-nowrap">{$profile->getWorkPosition()}</span>
-                </div>
-            </div>
-
-            <div class="flex border border-gray-300 rounded-md mt-4 overflow-hidden">
-                <div class="flex items-center justify-end w-44 h-10 px-2 bg-gray-300 flex-none">
-                    <span class="text-gray-500">E-MAIL:</span>
-                </div>
-                <div class="flex items-center justify-start w-full h-10 px-2 bg-gray-200">
-                    <span class="jet text-gray-800 whitespace-nowrap">{$profile->getEmail()}</span>
-                </div>
-            </div>
-
-            <div class="flex border border-gray-300 rounded-md mt-1 overflow-hidden">
-                <div class="flex items-center justify-end w-44 h-10 px-2 bg-gray-300 flex-none">
-                    <span class="text-gray-500">LINKA:</span>
-                </div>
-                <div class="flex items-center justify-start w-full h-10 px-2 bg-gray-200">
-                    <span class="jet text-gray-800 whitespace-nowrap">{$profile->getTelephone()}</span>
-                </div>
-            </div>
-
-            <div class="flex border border-gray-300 rounded-md mt-1 overflow-hidden">
-                <div class="flex items-center justify-end w-44 h-10 px-2 bg-gray-300 flex-none">
-                    <span class="text-gray-500">MOBIL 1:</span>
-                </div>
-                <div class="flex items-center justify-start w-full h-10 px-2 bg-gray-200">
-                    <span class="jet text-gray-800 whitespace-nowrap">{$profile->getMobileOne()}</span>
-                </div>
-            </div>
-
-            <div class="flex border border-gray-300 rounded-md mt-1 overflow-hidden">
-                <div class="flex items-center justify-end w-44 h-10 px-2 bg-gray-300 flex-none">
-                    <span class="text-gray-500">MOBIL 2:</span>
-                </div>
-                <div class="flex items-center justify-start w-full h-10 px-2 bg-gray-200">
-                    <span class="jet text-gray-800 whitespace-nowrap">{$profile->getMobileTwo()}</span>
-                </div>
-            </div>
-
-            <div class="flex border border-gray-300 rounded-md mt-4 overflow-hidden">
-                <div class="flex items-center justify-end w-44 h-10 px-2 bg-gray-300 flex-none">
-                    <span class="text-gray-500">ROLE:</span>
-                </div>
-                <div class="flex items-center justify-start w-full h-10 px-2 bg-gray-200">
-                    <span class="jet text-gray-800 whitespace-nowrap">{$profile->getRole()}</span>
-                </div>
-            </div>
-
-            <div class="flex border border-gray-300 rounded-md mt-1 overflow-hidden">
-                <div class="flex items-center justify-end w-44 h-10 px-2 bg-gray-300 flex-none">
-                    <span class="text-gray-500">PRÁVA:</span>
-                </div>
-                <div class="flex items-center justify-start w-full h-10 px-2 bg-gray-200">
-                    <span class="jet text-gray-800 whitespace-nowrap">{$profile->getRights()}</span>
-                </div>
-            </div>
-
-            <div class="flex border border-gray-300 rounded-md mt-1 overflow-hidden">
-                <div class="flex items-center justify-end w-44 h-10 px-2 bg-gray-300 flex-none">
-                    <span class="text-gray-500">SCHVALOVATEL:</span>
-                </div>
-                <div class="flex items-center justify-start w-full h-10 px-2 bg-gray-200">
-                    <span class="jet text-gray-800 whitespace-nowrap">Ano</span>
-                </div>
-            </div>
-
-            <div class="flex border border-gray-300 rounded-md mt-4 overflow-hidden">
-                <div class="flex items-center justify-end w-44 h-24 px-2 bg-gray-300 flex-none">
-                    <span class="text-gray-500">POZNÁMKA:</span>
-                </div>
-                <div class="flex items-center justify-start w-full h-24 px-2 bg-gray-200">
-                    <span class="jet text-gray-800">{$profile->getNote()}</span>
-                </div>
-            </div>
-
         </div>
 
-    </main>
+        <div class="flex border border-gray-300 rounded-md mt-4 overflow-hidden">
+            <div class="flex items-center justify-end w-44 h-10 px-2 bg-gray-300 flex-none">
+                <span class="text-gray-500">UID:</span>
+            </div>
+            <div class="flex items-center justify-start w-full h-10 px-2 bg-gray-200">
+                <span class="jet font-bold text-blue-800 whitespace-nowrap">{$profile->getUsername()}</span>
+            </div>
+        </div>
 
-<!-- /User profile -->
+        <div class="flex border border-gray-300 rounded-md mt-1 overflow-hidden">
+            <div class="flex items-center justify-end w-44 h-10 px-2 bg-gray-300 flex-none">
+                <span class="text-gray-500">JMÉNO:</span>
+            </div>
+            <div class="flex items-center justify-start w-full h-10 px-2 bg-gray-200">
+                <span class="jet text-green-800 whitespace-nowrap">{$profile->getFullname()}</span>
+            </div>
+        </div>
+
+        <div class="flex border border-gray-300 rounded-md mt-1 overflow-hidden">
+            <div class="flex items-center justify-end w-44 h-10 px-2 bg-gray-300 flex-none">
+                <span class="text-gray-500">POZICE:</span>
+            </div>
+            <div class="flex items-center justify-start w-full h-10 px-2 bg-gray-200">
+                <span class="jet text-gray-800 whitespace-nowrap">{$profile->getWorkPosition()}</span>
+            </div>
+        </div>
+
+        <div class="flex border border-gray-300 rounded-md mt-4 overflow-hidden">
+            <div class="flex items-center justify-end w-44 h-10 px-2 bg-gray-300 flex-none">
+                <span class="text-gray-500">E-MAIL:</span>
+            </div>
+            <div class="flex items-center justify-start w-full h-10 px-2 bg-gray-200">
+                <span class="jet text-gray-800 whitespace-nowrap">{$profile->getEmail()}</span>
+            </div>
+        </div>
+
+        <div class="flex border border-gray-300 rounded-md mt-1 overflow-hidden">
+            <div class="flex items-center justify-end w-44 h-10 px-2 bg-gray-300 flex-none">
+                <span class="text-gray-500">LINKA:</span>
+            </div>
+            <div class="flex items-center justify-start w-full h-10 px-2 bg-gray-200">
+                <span class="jet text-gray-800 whitespace-nowrap">{$profile->getTelephone()}</span>
+            </div>
+        </div>
+
+        <div class="flex border border-gray-300 rounded-md mt-1 overflow-hidden">
+            <div class="flex items-center justify-end w-44 h-10 px-2 bg-gray-300 flex-none">
+                <span class="text-gray-500">MOBIL 1:</span>
+            </div>
+            <div class="flex items-center justify-start w-full h-10 px-2 bg-gray-200">
+                <span class="jet text-gray-800 whitespace-nowrap">{$profile->getMobileOne()}</span>
+            </div>
+        </div>
+
+        <div class="flex border border-gray-300 rounded-md mt-1 overflow-hidden">
+            <div class="flex items-center justify-end w-44 h-10 px-2 bg-gray-300 flex-none">
+                <span class="text-gray-500">MOBIL 2:</span>
+            </div>
+            <div class="flex items-center justify-start w-full h-10 px-2 bg-gray-200">
+                <span class="jet text-gray-800 whitespace-nowrap">{$profile->getMobileTwo()}</span>
+            </div>
+        </div>
+
+        <div class="flex border border-gray-300 rounded-md mt-4 overflow-hidden">
+            <div class="flex items-center justify-end w-44 h-10 px-2 bg-gray-300 flex-none">
+                <span class="text-gray-500">ROLE:</span>
+            </div>
+            <div class="flex items-center justify-start w-full h-10 px-2 bg-gray-200">
+                <span class="jet text-gray-800 whitespace-nowrap">{$profile->getRole()}</span>
+            </div>
+        </div>
+
+        <div class="flex border border-gray-300 rounded-md mt-1 overflow-hidden">
+            <div class="flex items-center justify-end w-44 h-10 px-2 bg-gray-300 flex-none">
+                <span class="text-gray-500">PRÁVA:</span>
+            </div>
+            <div class="flex items-center justify-start w-full h-10 px-2 bg-gray-200">
+                <span class="jet text-gray-800 whitespace-nowrap">{bindec($profile->getRights())}</span>
+            </div>
+        </div>
+
+        <div class="flex border border-gray-300 rounded-md mt-1 overflow-hidden">
+            <div class="flex items-center justify-end w-44 h-10 px-2 bg-gray-300 flex-none">
+                <span class="text-gray-500">SCHVALOVATEL:</span>
+            </div>
+            <div class="flex items-center justify-start w-full h-10 px-2 bg-gray-200">
+                <span class="jet text-gray-800 whitespace-nowrap">Ano</span>
+            </div>
+        </div>
+
+        <div class="flex border border-gray-300 rounded-md mt-4 overflow-hidden">
+            <div class="flex items-center justify-end w-44 h-24 px-2 bg-gray-300 flex-none">
+                <span class="text-gray-500">POZNÁMKA:</span>
+            </div>
+            <div class="flex items-center justify-start w-full h-24 px-2 bg-gray-200">
+                <span class="jet text-gray-800">{$profile->getNote()}</span>
+            </div>
+        </div>
+
+    </div>
+
+</main>
+
+
+
+<main class="w-full p-2 xl:p-4 text-gray-800">
+    <h1 class="text-2xl mb-2">Můj profil: {$profile->getUsername()}</h1>
+
+    <div class="jet p-4 bg-gray-100 mb-4 rounded-md">
+    
+        <div class="p-2 bg-gray-200 rounded-md border border-gray-300">
+            <div class="flex">
+                <div class="w-40 h-40 flex items-center justify-center flex-none">
+                    <img class="w-36 h-36 rounded-md object-cover border border-gray-700" src="../../{$profile->getAvatar()}" alt="User" />
+                </div>
+                <div class="flex flex-col justify-between w-full">
+                    <div class="py-2 flex items-start justify-between">
+                        <div class="flex">
+                            {if $profile->isActivated()}
+                                <div class="h-4 w-4 rounded-full border-2 border-gray-100 bg-blue-400" title="User is activated"></div>
+                            {else}
+                                <div class="h-4 w-4 rounded-full border-2 border-gray-100 bg-blue-400" title="User is locked"></div>
+                            {/if}
+                        </div>
+                        <div class="flex items-end justify-end">
+                            <a n:href="Profile:edit $profile->getId()" class="flex items-center mr-2 bg-gray-200 hover:bg-orange-500 rounded-md border border-gray-300 p-1 pr-3" title="Přihlášení">
+                                <span class="inline-flex mr-1">                        
+                                    <img class="w-8 h-8" fill="none" src ="https://img.icons8.com/plasticine/344/user.png" alt="edit"/>
+                                </span>
+                                <span class="text-gray-800">EDIT</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="flex items-end justify-between py-1 px-2">
+                        <div>
+                            <div class="jet text-lg text-orange-600 font-bold ">{$profile->getFullname()}</div>
+                            <div class="jet text-sm text-gray-500">{$profile->getWorkPosition()}</div>
+                        </div>
+                        <div class="hidden xl:flex">
+                            <div class="flex flex-col text-xs p-2 border border-gray-300 rounded bg-gray-100 mr-2">
+                                <span class="text-gray-500">Vytvořeno:</span>
+                                <span>{$profile->getCreatedAt()->format('d.m.Y H:i:s')}</span>
+                            </div>
+                            <div class="flex flex-col text-xs p-2 border border-gray-300 rounded bg-gray-100 mr-2">
+                                <span class="text-gray-500">Upraveno:</span>
+                                <span>{$profile->getUpdatedAt()->format('d.m.Y H:i:s')}</span>
+                            </div>
+                            <div class="flex flex-col text-xs p-2 border border-gray-300 rounded bg-gray-100">
+                                <span class="text-gray-500">Naposledy:</span>
+                                <span>{$profile->getLoggedAt()->format('d.m.Y H:i:s')}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="w-full xl:flex">
+
+            <ul class="w-full xl:w-1/2 mr-4">
+                <li class="flex items-center justify-start border rounded-md border-gray-300 hover:border-orange-400 bg-gray-200 h-10 mt-2 overflow-hidden">
+                    <label for="uid" class="text-right w-44 px-2 flex-none">UID</label>
+                    <input type="text" id="uid" name="uid" value="{$profile->getUsername()}" class="w-full h-10 bg-gray-100 focus:outline-none font-bold text-orange-500 uppercase px-2" readonly>
+                </li>
+
+                <li class="flex items-center justify-start border rounded-md border-gray-300 hover:border-orange-400 bg-gray-200 h-10 mt-1 overflow-hidden">
+                    <label for="firstname" class="text-right w-44 px-2 flex-none">JMÉNO</label>
+                    <input type="text" id="firstname" name="firstname" value="{$profile->getFirstname()}" class="w-full h-10 bg-gray-100 focus:outline-none font-bold text-blue-500 px-2" readonly>
+                </li>
+
+                <li class="flex items-center justify-start border rounded-md border-gray-300 hover:border-orange-400 bg-gray-200 h-10 mt-1 overflow-hidden">
+                    <label for="lastname" class="text-right w-44 px-2 flex-none">PŔÍJMENÍ</label>
+                    <input type="text" id="lastname" name="lastname" value="{$profile->getLastname()}" class="w-full h-10 bg-gray-100 focus:outline-none font-bold text-blue-500 px-2" readonly>
+                </li>
+
+                <li class="flex items-center justify-start border rounded-md border-gray-300 hover:border-orange-400 bg-gray-200 h-10 mt-1 overflow-hidden">
+                    <label for="nick" class="text-right w-44 px-2 flex-none">NICK</label>
+                    <input type="text" id="nick" name="nick" value="{$profile->getNick()}" class="w-full h-10 bg-gray-100 focus:outline-none font-bold text-emerald-500 px-2" readonly>
+                </li>
+
+                <li class="flex items-center justify-start border rounded-md border-gray-300 hover:border-orange-400 bg-gray-200 h-10 mt-1 overflow-hidden">
+                    <label for="position" class="text-right w-44 px-2 flex-none">POZICE</label>
+                    <input type="text" id="position" name="position" value="{$profile->getWorkPosition()}" class="w-full h-10 bg-gray-100 focus:outline-none px-2" readonly>
+                </li>
+
+                <li class="flex items-center justify-start border rounded-md border-gray-300 hover:border-orange-400 bg-gray-200 h-10 mt-2 overflow-hidden">
+                    <label for="email" class="text-right w-44 px-2 flex-none">E-MAIL</label>
+                    <input type="text" id="email" name="email" value="{$profile->getEmail()}" class="w-full h-10 bg-gray-100 focus:outline-none px-2" readonly>
+                </li>
+
+                <li class="flex items-center justify-start border rounded-md border-gray-300 hover:border-orange-400 bg-gray-200 h-10 mt-1 overflow-hidden">
+                    <label for="telephone" class="text-right w-44 px-2 flex-none">LINKA</label>
+                    <input type="text" id="telephone" name="telephone" value="{$profile->getTelephone()}" class="w-full h-10 bg-gray-100 focus:outline-none px-2" readonly>
+                </li>
+
+                <li class="flex items-center justify-start border rounded-md border-gray-300 hover:border-orange-400 bg-gray-200 h-10 mt-1 overflow-hidden">
+                    <label for="mobileone" class="text-right w-44 px-2 flex-none">MOBIL 1</label>
+                    <input type="text" id="mobileone" name="mobileone" value="{$profile->getMobileOne()}" class="w-full h-10 bg-gray-100 focus:outline-none px-2" readonly>
+                </li>
+
+                <li class="flex items-center justify-start border rounded-md border-gray-300 hover:border-orange-400 bg-gray-200 h-10 mt-1 overflow-hidden">
+                    <label for="mobiletwo" class="text-right w-44 px-2 flex-none">MOBIL 2</label>
+                    <input type="text" id="mobiletwo" name="mobiletwo" value="{$profile->getMobileTwo()}" class="w-full h-10 bg-gray-100 focus:outline-none px-2" readonly>
+                </li>
+
+                <li class="flex items-center justify-start border rounded-md border-gray-300 hover:border-orange-400 bg-gray-200 h-10 mt-2 overflow-hidden">
+                    <label for="email" class="text-right w-44 px-2 flex-none">ROLE</label>
+                    <input type="text" id="email" name="email" value="{$profile->getRole()}" class="w-full h-10 bg-gray-100 focus:outline-none px-2" readonly>
+                </li>
+
+                <li class="flex items-center justify-start border rounded-md border-gray-300 hover:border-orange-400 bg-gray-200 h-10 mt-1 overflow-hidden">
+                    <label for="type" class="text-right w-44 px-2 flex-none">LEAN SHOP</label>
+                    <input type="text" id="type" name="type" value="{$profile->getType()}" class="w-full h-10 bg-gray-100 focus:outline-none px-2" readonly>
+                </li>
+
+                <li class="flex flex-col items-center justify-start border rounded-md border-gray-300 hover:border-orange-400 mt-2 overflow-hidden">
+                    <label for="note" class="w-full text-center bg-gray-200 p-1">POZNÁMKA</label>
+                    <textarea name="note" id="note" rows="4" class="jet p-2 w-full text-gray-800 whitespace-nowrap focus:outline-none bg-gray-100" readonly>{$profile->getNote()}</textarea>
+                </li>
+            </ul>
+
+            <div class="w-full xl:w-1/2">
+
+                <li class="flex items-center justify-start border rounded-md border-gray-300 hover:border-orange-400 bg-gray-200 h-10 mt-2 overflow-hidden">
+                    <label for="rights" class="text-right w-44 px-2 flex-none">OPRÁVNĚNÍ</label>
+                    <input type="text" id="rights" name="rights" value="{$profile->getRights()}" class="w-full h-10 bg-gray-100 focus:outline-none px-2" readonly>
+                </li>
+
+                <li class="flex items-center justify-start border rounded-md border-gray-300 hover:border-orange-400 bg-gray-200 h-10 mt-1 overflow-hidden">
+                    <label for="approver" class="text-right w-44 px-2 flex-none">SCHVALOVATEL</label>
+                    <input type="text" id="approver" name="approver" value="ANO" class="w-full h-10 bg-gray-100 focus:outline-none px-2" readonly>
+                </li>
+
+                <div class="flex border border-gray-300 hover:border-orange-400 rounded-md mt-1 overflow-hidden">
+                    <div class="flex items-center justify-end w-44 bg-gray-200 pr-2 flex-none">
+                        <div class="text-gray-800">OPRÁVNĚNÍ</div>
+                    </div>
+                    <ul class="flex flex-col items-start justify-start w-full bg-gray-100 px-2">
+                        <li class="flex items-center py-1">
+                            PRÁVO - Schvalovat náklady
+                        </li>
+                        <li class="flex items-center py-1">
+                            PRÁVO - Řídit a zpracovávat zakázky
+                        </li>
+                        <li class="flex items-center py-1">
+                            PRÁVO - Zakládat a spravovat uživatele
+                        </li>
+                        <li class="flex items-center py-1">
+                            PRÁVO - Pro vstup do nastavení aplikace
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<!-- /User show -->

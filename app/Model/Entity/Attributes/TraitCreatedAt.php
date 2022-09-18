@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 trait TraitCreatedAt
 {
 	//--------------------------------------------------------------------------------------------------------
-	#[ORM\Column(type: 'datetime', nullable: false)]
+	#[ORM\Column(type: 'datetime', nullable: true)]
 	protected $createdAt;
 	//--------------------------------------------------------------------------------------------------------
 	public function getCreatedAt(): GlobalDateTime

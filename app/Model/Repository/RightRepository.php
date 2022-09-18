@@ -1,32 +1,30 @@
 <?php declare(strict_types = 1);
 
-namespace App\Model\Entity\Attributes;
+namespace App\Model\Repository;
 
-//use App\Model\Utils\DateTime;
-use Nette\Utils\DateTime;
-use DateTime as GlobalDateTime;
-use Doctrine\ORM\Mapping as ORM;
+use App\Model\Entity\Right;
 
-trait TraitLoggedAt
+class RightRepository extends Repository
 {
 	//--------------------------------------------------------------------------------------------------------
-	#[ORM\Column(type: 'datetime', nullable: true)]
-	protected $loggedAt;
-	//--------------------------------------------------------------------------------------------------------
-	public function getLoggedAt(): ?GlobalDateTime
+	public function findAll()
 	{
-		return $this->loggedAt;
+		return $this->findAll();
 	}
 	//--------------------------------------------------------------------------------------------------------
-	#[ORM\PreUpdate]
-	public function setLoggedAt(): void
+	public function findOneById(int $id): ?Right
 	{
-		$this->loggedAt = new DateTime();
+		return $this->findOneBy(['id' => $id]);
 	}
 	//--------------------------------------------------------------------------------------------------------
-	public function changeLoggedAt(): void
+	public function findOneByType(string $right): ?Right
 	{
-		$this->setLoggedAt(new DateTime());
+		return $this->findOneBy(['right' => $right]);
+	}
+	//--------------------------------------------------------------------------------------------------------
+	public function findOneByName(string $name): ?Right
+	{
+		return $this->findOneBy(['name' => $name]);
 	}
 	//--------------------------------------------------------------------------------------------------------
 }

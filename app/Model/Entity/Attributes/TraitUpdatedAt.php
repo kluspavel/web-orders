@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 trait TraitUpdatedAt
 {
 	//--------------------------------------------------------------------------------------------------------
-	#[ORM\Column(type: 'datetime', nullable: false)]
+	#[ORM\Column(type: 'datetime', nullable: true)]
 	protected $updatedAt;
 	//--------------------------------------------------------------------------------------------------------
 	public function getUpdatedAt(): ?GlobalDateTime

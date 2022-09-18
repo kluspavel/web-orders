@@ -38,7 +38,7 @@ class User extends Entity
     #[ORM\Column(type: 'string', length: 60)]
 	private $password;
     //--------------------------------------------------------------------------------------------------------
-    #[ORM\Column(type: 'string', length: 128, nullable: false, unique: true)]
+    #[ORM\Column(type: 'string', length: 128, unique: true)]
 	private $email;
     //--------------------------------------------------------------------------------------------------------
     #[ORM\Column(type: 'string', length: 32)]
@@ -50,7 +50,7 @@ class User extends Entity
     #[ORM\Column(type: 'string', length: 32)]
     private string $types;
     //--------------------------------------------------------------------------------------------------------
-    #[ORM\Column(type: 'integer', length: 10, nullable: false)]
+    #[ORM\Column(type: 'integer', length: 10)]
 	private $state;
     //--------------------------------------------------------------------------------------------------------
     #[ORM\Column(type: 'string', length: 32, nullable: true)]
@@ -61,26 +61,23 @@ class User extends Entity
     //--------------------------------------------------------------------------------------------------------
 	#[ORM\Column(type: 'string', length: 32, unique: true, nullable: true)]
     private ?string $nickname;
-    //--------------------------------------------------------------------------------------------------------
-    #[ORM\Column(type: 'boolean')]
-    private bool $online = false;
 	//--------------------------------------------------------------------------------------------------------
-    #[ORM\Column(type: 'string', length: 32, nullable: false)]
+    #[ORM\Column(type: 'string', length: 32, nullable: true)]
     private ?string $telephone;
 	//--------------------------------------------------------------------------------------------------------
-    #[ORM\Column(type: 'string', length: 32, nullable: false)]
+    #[ORM\Column(type: 'string', length: 32, nullable: true)]
     private ?string $mobileOne;
 	//--------------------------------------------------------------------------------------------------------
-    #[ORM\Column(type: 'string', length: 32, nullable: false)]
+    #[ORM\Column(type: 'string', length: 32, nullable: true)]
     private ?string $mobileTwo;
 	//--------------------------------------------------------------------------------------------------------
-    #[ORM\Column(type: 'string', length: 256, nullable: false)]
+    #[ORM\Column(type: 'string', length: 256, nullable: true)]
     private ?string $workPosition;
 	//--------------------------------------------------------------------------------------------------------
-    #[ORM\Column(type: 'text', length: 2000, nullable: false)]
+    #[ORM\Column(type: 'text', length: 2000, nullable: true)]
     private ?string $note;
 	//--------------------------------------------------------------------------------------------------------
-    #[ORM\Column(type: 'string', length: 256, nullable: false)]
+    #[ORM\Column(type: 'string', length: 256, nullable: true)]
     private ?string $avatar;
 	//--------------------------------------------------------------------------------------------------------
 	private ArrayList $messages;
@@ -254,12 +251,12 @@ class User extends Entity
 	//--------------------------------------------------------------------------------------------------------
     // GET SET types
     //--------------------------------------------------------------------------------------------------------
-    public function getTypes(): string
+    public function getType(): string
     {
         return $this->types;
     }
     //--------------------------------------------------------------------------------------------------------
-    public function setTypes(string $types): void
+    public function setType(string $types): void
     {
         $this->types = $types;
     }
@@ -367,43 +364,6 @@ class User extends Entity
 	public function setWorkPosition(string $workPosition): void
 	{
 		$this->workPosition = $workPosition;
-	}
-	//--------------------------------------------------------------------------------------------------------
-    // GET SET note
-    //--------------------------------------------------------------------------------------------------------
-	public function getOnline(): bool
-	{
-		return $this->online;
-	}
-	//--------------------------------------------------------------------------------------------------------
-	public function setOnline(bool $online): void
-	{
-		$this->online = $online;
-	}
-	//--------------------------------------------------------------------------------------------------------
-	public function getOnlineText(): string
-	{
-		$onlinetext = "Offline";
-		if ($this->online === true) 
-		{
-			$onlinetext = "Online";
-		}
-		return $onlinetext;
-	}
-	//--------------------------------------------------------------------------------------------------------
-	public function getOnlineColor(): string
-	{
-		$onlinecolor = "bg-red-500";
-		if ($this->online === true) 
-		{
-			$onlinecolor = "bg-green-500";
-		}
-		return $onlinecolor;
-	}
-	//--------------------------------------------------------------------------------------------------------
-	public function isOnline(): bool
-	{
-		return $this->online === $this->getOnline();
 	}
 	//--------------------------------------------------------------------------------------------------------
     // GET SET avater

@@ -131,4 +131,19 @@ final class UserPresenter extends BasePresenter
 
         $this->template->users = $users;
     }
+
+
+    //--------------------------------------------------------------------------------------------------------
+    public function actionDelete(int $id = null)
+    {
+        $this->setLayout('orders');
+        dump($id);
+        //$this->oneUser = $this->us->findUserById($id);
+
+        //dump($userek);
+        //dump(array($userek));
+        //die;
+
+        //$this->template->profile = $this->oneUser;
+    }
 }

@@ -36,10 +36,6 @@
                     </td>
                     <td class="p-3 hidden lg:table-cell">
                         <div class="flex items-center">
-                            <div class="h-2.5 w-2.5 rounded-full {$profile->getOnlineColor()} mr-2"></div>
-                            <div class="text-gray-300">{$profile->getOnlineText()}</div>
-                        </div>
-                        <div class="flex items-center">
                             <div class="h-2.5 w-2.5 rounded-full {$profile->getStateColor()} mr-2"></div>
                             <div class="text-gray-300">{$profile->getStateText()}</div>
                         </div>
@@ -140,9 +136,6 @@
                             <div class="flex flex-col items-center justify-evenly h-16 px-2">
                                 <div class="px-1 rounded-md bg-lime-400">
                                     <div class="text-xs uppercase" title="Role">{$profile->getRole()}</div>
-                                </div>
-                                <div class="px-1 rounded-md bg-gray-400">
-                                    <div class="text-xs uppercase" title="Stav">{$profile->getOnlineText()}</div>
                                 </div>
                                 <div class="px-1 rounded-md bg-green-400">
                                     <div class="text-xs uppercase" title="Status">{$profile->getStateText()}</div>
