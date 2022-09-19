@@ -140,24 +140,24 @@
             </ul>
 
             <div class="w-full xl:w-1/2">
+
+                <p>{input roles:user} | {input roles:admin}</p>
+
+                {foreach $form[roles]->items as $key => $label}
+                    <label n:name="roles:$key"><input n:name="roles:$key"> {$label}</label>
+                {/foreach}
                 
                 <div class="flex border border-gray-300 hover:border-orange-400 rounded-md mt-2 overflow-hidden">
                     <div class="flex items-center justify-end w-44 bg-gray-200 pr-2 flex-none">
                         <div class="text-gray-800">ROLE</div>
                     </div>
                     <ul class="flex flex-col items-start justify-start w-full bg-gray-100 p-2">
+                        {foreach $form[roles]->items as $key => $label}
                         <li class="flex items-center py-1">
-                            <input id="ra1" type="radio" name="role" value="" class="w-5 h-5 focus:ring-0 cursor-pointer">
-                            <label for="ra1" class="ml-2 text-sm text-gray-800 cursor-pointer whitespace-nowrap">ROLE - User</label>
+                            <input n:name="roles:$key" class="w-5 h-5 focus:ring-0 cursor-pointer">
+                            <label n:name="roles:$key" class="ml-2 text-sm text-gray-800 cursor-pointer whitespace-nowrap">{$label}</label>
                         </li>
-                        <li class="flex items-center py-1">
-                            <input id="ra2" type="radio" name="role" value="" class="w-5 h-5 focus:ring-0 cursor-pointer">
-                            <label for="ra2" class="ml-2 text-sm text-gray-800 cursor-pointer whitespace-nowrap">ROLE - Admin</label>
-                        </li>
-                        <li class="flex items-center py-1">
-                            <input id="ra3" type="radio" name="role" value="" class="w-5 h-5 focus:ring-0 cursor-pointer">
-                            <label for="ra3" class="ml-2 text-sm text-gray-800 cursor-pointer whitespace-nowrap">ROLE - Owner</label>
-                        </li>
+                        {/foreach}
                     </ul>
                 </div>
 

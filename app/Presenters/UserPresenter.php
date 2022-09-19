@@ -83,6 +83,13 @@ final class UserPresenter extends BasePresenter
         $form->addPassword('newpass', 'Nové heslo');
         $form->addPassword('checkpass', 'Ověřovací heslo');
 
+        $roles = [
+            'user' => 'ROLE - User',
+            'admin' => 'ROLE - Admin',
+            'owner' => 'ROLE - Owner',
+        ];
+        $form->addRadioList('roles', 'Role:', $roles);
+
         $form->addEmail('email', 'Email')->setDefaultValue($this->oneUser->getEmail());
         $form->addText('telephone', 'Telefon')->setDefaultValue($this->oneUser->getTelephone());
         $form->addText('mobileone', 'Mobil')->setDefaultValue($this->oneUser->getMobileOne());
@@ -103,22 +110,6 @@ final class UserPresenter extends BasePresenter
         //die;
 
         $this->us->updateUserFromEditForm($this, $values);
-
-        /*
-        $message = $this->us->editUser($values);
-
-        if ($message !== '') 
-        {
-            $this->flashMessage($message);
-            $this->redirect('User:edit', $values->id);
-        }
-        else 
-        {
-            $this->us->editUser($values);
-            $this->flashMessage('Uživatel byl uložen.', 'danger');
-            $this->redirect('Home:overview');
-        }
-        */
     }
 
 
